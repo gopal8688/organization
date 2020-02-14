@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as ll, logout as signout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core import serializers
 
 from .models import Customer, Property, CPRelationship, PropertyTokens
@@ -46,8 +46,12 @@ def home(request):
     cust_obj = Customer.objects.get(email=email)
 
     cust_full_name = "%s %s"%(cust_obj.fname, cust_obj.lname)
-    
-    request.session['pid'] = prop_obj[0].id
+
+    if prop_obj is not None:
+        request.session['pid'] = prop_obj[0].id
+    else:
+        return HttpResponse('The user has not properties to show.')
+
     context = {
         'rows': prop_obj,
         'cust_email': cust_obj.email,
