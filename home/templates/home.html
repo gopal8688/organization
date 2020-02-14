@@ -1,0 +1,369 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block section %}
+        <div class="as-grid as-content">
+          <div class="as-grid-justified as-page-header as-mb-20p">
+            <div class="as-page-title-wrap"><h1 class="as-page-title">Dashboard</h1></div>
+            <div class="as-page-tools">
+              <select name="duration" id="duration" class="form-control">
+                <option value="Day">Day</option>
+                <option value="Week">Week</option>
+                <option value="Year">Year</option>
+              </select>
+            </div>
+          </div>
+          <div class="as-grid as-container">
+            <div class="as-dash-stats-tabs">
+              <div class="row">
+                <div class="col-lg-4 col-md-6">
+                  <div class="as-dash-stat-item">
+                    <div class="as-dash-stat-icon">
+                      <i class="as-icon-round-1 as-icon-dash-visitor"></i>
+                    </div>
+                    <div class="as-dash-stat-details">
+                      <h4 class="as-dash-stat-num">154</h4>
+                      <div class="as-dash-stat-title">Monitored visitors</div>
+                      <div class="as-dash-stat-actions"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="as-dash-stat-item">
+                    <div class="as-dash-stat-icon">
+                      <i class="as-icon-round-1 as-icon-dash-auth-users"></i>
+                    </div>
+                    <div class="as-dash-stat-details">
+                      <h4 class="as-dash-stat-num">25</h4>
+                      <div class="as-dash-stat-title">Authenticated Users</div>
+                      <div class="as-dash-stat-actions"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="as-dash-stat-item">
+                    <div class="as-dash-stat-icon">
+                      <i class="as-icon-round-1 as-icon-dash-risk-users"></i>
+                    </div>
+                    <div class="as-dash-stat-details">
+                      <h4 class="as-dash-stat-num">254</h4>
+                      <div class="as-dash-stat-title">High Risk Users</div>
+                      <div class="as-dash-stat-actions"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="as-dash-stat-item">
+                    <div class="as-dash-stat-icon">
+                      <i class="as-icon-round-1 as-icon-dash-not-evs"></i>
+                    </div>
+                    <div class="as-dash-stat-details">
+                      <h4 class="as-dash-stat-num">15,000</h4>
+                      <div class="as-dash-stat-title">Notable Events</div>
+                      <div class="as-dash-stat-actions"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="as-dash-stat-item">
+                    <div class="as-dash-stat-icon">
+                      <i class="as-icon-round-1 as-icon-dash-sus-users"></i>
+                    </div>
+                    <div class="as-dash-stat-details">
+                      <h4 class="as-dash-stat-num">25</h4>
+                      <div class="as-dash-stat-title">Suspicious Users</div>
+                      <div class="as-dash-stat-actions"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="as-dash-stat-item">
+                    <div class="as-dash-stat-icon">
+                      <i class="as-icon-round-1 as-icon-dash-watch-users"></i>
+                    </div>
+                    <div class="as-dash-stat-details">
+                      <h4 class="as-dash-stat-num">254</h4>
+                      <div class="as-dash-stat-title">Users under watchlist</div>
+                      <div class="as-dash-stat-actions">
+                        <ul class="list-unstyled as-dash-watch-btns">
+                          <li><a href="javascript:;" class="as-as">Add User</a></li>
+                          <li><a href="javascript:;" class="as-as">View Users</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-6">
+                <div class="as-portlet-1">
+                  <div class="as-grid-justified as-portlet-header">
+                    <h2 class="as-portlet-title">Top Users with Highest Risk score</h2>
+                    <div class="as-portlet-tools"><a href="javascript:;" class="as-link-filter"><i class="as-icon as-icon-filter"></i></a></div>
+                  </div>
+                  <div class="as-portlet-body as-portlet-body-tbl">
+                    <div class="table-responsive">
+                      <table class="table as-portlet-table-1">
+                        <thead>
+                          <tr>
+                            <th><div class="as-tbl-mrg">Risk</div></th><th></th><th>User Name</th><th>Score</th><th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><i class="as-risk-bubble as-bg-critical"></i> Critical</td>
+                            <td><i class="as-icon as-icon-risk-graph"></i></td>
+                            <td>UBA</td>
+                            <td><div class="as-btn-risk-score as-bg-light-critical as-border-critical as-text-critical">4874</div></td>
+                            <td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>
+                          </tr>
+                          <tr>
+                            <td><i class="as-risk-bubble as-bg-high"></i> High</td>
+                            <td><i class="as-icon as-icon-risk-graph"></i></td>
+                            <td>rogueUser-3</td>
+                            <td><div class="as-btn-risk-score as-bg-light-high as-border-high as-text-high">4874</div></td>
+                            <td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>
+                          </tr>
+                          <tr>
+                            <td><i class="as-risk-bubble as-bg-medium"></i> Medium</td>
+                            <td><i class="as-icon as-icon-risk-graph"></i></td>
+                            <td>Joe</td>
+                            <td><div class="as-btn-risk-score as-bg-light-medium as-border-medium as-text-medium">4874</div></td>
+                            <td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>
+                          </tr>
+                          <tr>
+                            <td><i class="as-risk-bubble as-bg-low"></i> Low</td>
+                            <td><i class="as-icon as-icon-risk-graph"></i></td>
+                            <td>testUser-1</td>
+                            <td><div class="as-btn-risk-score as-bg-light-low as-border-low as-text-low">4874</div></td>
+                            <td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>
+                          </tr>
+                          <tr>
+                            <td><i class="as-risk-bubble as-bg-info"></i> Information</td>
+                            <td><i class="as-icon as-icon-risk-graph"></i></td>
+                            <td>rogueUser-4</td>
+                            <td><div class="as-btn-risk-score as-bg-light-info as-border-info as-text-info">4874</div></td>
+                            <td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>
+                          </tr>
+                          <tr>
+                            <td><i class="as-risk-bubble as-bg-high"></i> High</td>
+                            <td><i class="as-icon as-icon-risk-graph"></i></td>
+                            <td>testUser-2</td>
+                            <td><div class="as-btn-risk-score as-bg-light-high as-border-high as-text-high">4874</div></td>
+                            <td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>
+                          </tr>
+                          <tr>
+                            <td><i class="as-risk-bubble as-bg-high"></i> High</td>
+                            <td><i class="as-icon as-icon-risk-graph"></i></td>
+                            <td>testUser-3</td>
+                            <td><div class="as-btn-risk-score as-bg-light-high as-border-high as-text-high">4874</div></td>
+                            <td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>
+                          </tr>
+                          <tr>
+                            <td><i class="as-risk-bubble as-bg-low"></i> Low</td>
+                            <td><i class="as-icon as-icon-risk-graph"></i></td>
+                            <td>testUser-2</td>
+                            <td><div class="as-btn-risk-score as-bg-light-low as-border-low as-text-low">4874</div></td>
+                            <td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>
+                          </tr>
+                          <tr>
+                            <td colspan="5">
+                              <div class="as-grid-justified as-tfoot-tools">
+                                <div class="as-tfoot-filter">
+                                  <select name="" id="" class="form-control">
+                                    <option value="">Last 7 days</option>
+                                    <option value="">Last 30 days</option>
+                                    <option value="">Last Year</option>
+                                  </select>
+                                </div>
+                                <div class="">
+                                  <a href="javascript:;" class="as-tbl-v-all"><span class="as-as">View All</span> <i class="as-icon-chevron-right"></i></a>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6">
+                <div class="as-portlet-1">
+                  <div class="as-grid-justified as-portlet-header">
+                    <h2 class="as-portlet-title">Security Alerts</h2>
+                    <div class="as-portlet-tools"><a href="javascript:;" class="as-link-filter"><i class="as-icon as-icon-filter"></i></a></div>
+                  </div>
+                  <div class="as-portlet-body as-portlet-body-tbl">
+                    <div class="table-responsive">
+                      <table class="table as-portlet-table-1">
+                        <thead>
+                          <tr>
+                            <th><div class="as-tbl-mrg">Risk</div></th><th>Observation</th><th>User Name</th><th>Score</th><th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><i class="as-risk-bubble as-bg-critical"></i> Critical</td>
+                            <td>Credential Stuffing</td>
+                            <td>UBA</td>
+                            <td><div class="as-btn-risk-score as-bg-light-critical as-border-critical as-text-critical">4874</div></td>
+                            <td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>
+                          </tr>
+                          <tr>
+                            <td><i class="as-risk-bubble as-bg-high"></i> High</td>
+                            <td>Credential Stuffing</td>
+                            <td>rogueUser-3</td>
+                            <td><div class="as-btn-risk-score as-bg-light-high as-border-high as-text-high">4874</div></td>
+                            <td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>
+                          </tr>
+                          <tr>
+                            <td><i class="as-risk-bubble as-bg-medium"></i> Medium</td>
+                            <td>Credential Stuffing</td>
+                            <td>Joe</td>
+                            <td><div class="as-btn-risk-score as-bg-light-medium as-border-medium as-text-medium">4874</div></td>
+                            <td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>
+                          </tr>
+                          <tr>
+                            <td><i class="as-risk-bubble as-bg-low"></i> Low</td>
+                            <td>Credential Stuffing</td>
+                            <td>testUser-1</td>
+                            <td><div class="as-btn-risk-score as-bg-light-low as-border-low as-text-low">4874</div></td>
+                            <td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>
+                          </tr>
+                          <tr>
+                            <td><i class="as-risk-bubble as-bg-info"></i> Information</td>
+                            <td>Credential Stuffing</td>
+                            <td>rogueUser-4</td>
+                            <td><div class="as-btn-risk-score as-bg-light-info as-border-info as-text-info">4874</div></td>
+                            <td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>
+                          </tr>
+                          <tr>
+                            <td><i class="as-risk-bubble as-bg-high"></i> High</td>
+                            <td>Credential Stuffing</td>
+                            <td>testUser-2</td>
+                            <td><div class="as-btn-risk-score as-bg-light-high as-border-high as-text-high">4874</div></td>
+                            <td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>
+                          </tr>
+                          <tr>
+                            <td><i class="as-risk-bubble as-bg-high"></i> High</td>
+                            <td>Credential Stuffing</td>
+                            <td>testUser-3</td>
+                            <td><div class="as-btn-risk-score as-bg-light-high as-border-high as-text-high">4874</div></td>
+                            <td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>
+                          </tr>
+                          <tr>
+                            <td><i class="as-risk-bubble as-bg-low"></i> Low</td>
+                            <td>Credential Stuffing</td>
+                            <td>testUser-2</td>
+                            <td><div class="as-btn-risk-score as-bg-light-low as-border-low as-text-low">4874</div></td>
+                            <td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>
+                          </tr>
+                          <tr>
+                            <td colspan="5">
+                              <div class="as-grid-justified as-tfoot-tools">
+                                <div class="as-tfoot-filter">
+                                  <select name="" id="" class="form-control">
+                                    <option value="">Last 7 days</option>
+                                    <option value="">Last 30 days</option>
+                                    <option value="">Last Year</option>
+                                  </select>
+                                </div>
+                                <div class="">
+                                  <a href="javascript:;" class="as-tbl-v-all"><span class="as-as">View All</span> <i class="as-icon-chevron-right"></i></a>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-6">
+                <div class="as-portlet-1">
+                  <div class="as-grid-justified as-portlet-header">
+                    <h2 class="as-portlet-title">Login Attempts</h2>
+                    <div class="as-portlet-legends">
+                      <ul class="as-portlet-legends list-unstyled as-grid-justified">
+                        <li><i class="as-risk-bubble as-bg-low"></i>Successful Logins</li>
+                        <li><i class="as-risk-bubble as-bg-high"></i></i>Failed Logins</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="as-portlet-body as-portlet-body-chart">
+                    <div class="">
+                      <canvas id="attemptsChart"></canvas>
+                    </div>
+                    <div class="as-grid-justified as-tfoot-tools">
+                      <div class="as-tfoot-filter">
+                        <select name="" id="" class="form-control">
+                          <option value="">Last 7 days</option>
+                          <option value="">Last 30 days</option>
+                          <option value="">Last Year</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6">
+                <div class="as-portlet-1">
+                  <div class="as-grid-justified as-portlet-header">
+                    <h2 class="as-portlet-title">Security Alerts</h2>
+                    <div class="as-portlet-legends">
+                      <ul class="as-portlet-legends list-unstyled as-grid-justified">
+                        <li><i class="as-risk-bubble as-bg-gold"></i>Others</li>
+                        <li><i class="as-risk-bubble as-bg-low"></i>Bruteforce</li>
+                        <li><i class="as-risk-bubble as-bg-high"></i></i>Credential Stuffing</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="as-portlet-body as-portlet-body-chart">
+                    <div class="">
+                      <canvas id="secAlertsChart"></canvas>
+                    </div>
+                    <div class="as-grid-justified as-tfoot-tools">
+                      <div class="as-tfoot-filter">
+                        <select name="" id="" class="form-control">
+                          <option value="">Last 7 days</option>
+                          <option value="">Last 30 days</option>
+                          <option value="">Last Year</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="as-portlet-1">
+                  <div class="as-grid-justified as-portlet-header">
+                    <h2 class="as-portlet-title">Where are your users?</h2>
+                  </div>
+                  <div class="as-portlet-body as-portlet-body-chart">
+                    <div class="">
+                      <canvas id="locationChart"></canvas>
+                    </div>
+                    <div class="as-grid-justified as-tfoot-tools">
+                      <div class="as-tfoot-filter">
+                        <select name="" id="" class="form-control">
+                          <option value="">Last 7 days</option>
+                          <option value="">Last 30 days</option>
+                          <option value="">Last Year</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+{% endblock section %}

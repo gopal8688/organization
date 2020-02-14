@@ -1,0 +1,102 @@
+# Django libraries.
+from django.db import models
+from django_mysql.models import EnumField
+from django.core.validators import RegexValidator, MinLengthValidator
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import User
+
+# Project libraries
+from .managers import CustomUserManager
+
+# Create your models here.
+class Customer(AbstractBaseUser, PermissionsMixin):
+    SEX_CHOICE = [
+        ('M', 'Male'),
+        ('F', 'Female'),
+        ('O', 'Prefer not say')
+    ]
+
+    fname = models.CharField(max_length=150)
+    lname = models.CharField(max_length=150)
+    dob = models.DateField(null=True)
+    sex = models.CharField(max_length=2, choices=SEX_CHOICE)
+    password = models.CharField(max_length=150, validators=[MinLengthValidator(5)])
+    email = models.EmailField(max_length=150, unique=True)
+    phone = models.CharField(max_length=15, unique=True)
+    pfp = models.ImageField()
+    date_joined = models.DateTimeField(null=True, auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    brand_name = models.CharField(max_length=150)
+    brand_url = models.URLField()
+    brand_logo = models.ImageField()
+    org_name = models.CharField(max_length=150)
+    
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    is_superuser = models.BooleanField(default=False)
+
+    REQUIRED_FIELDS = []
+    USERNAME_FIELD = 'email'
+
+    objects = CustomUserManager()
+
+    def __str__(self):
+        return self.email
+
+    class Meta:
+        db_table = 'customers'
+
+class Property(models.Model):
+    P_CHOICE = [
+        ('A', 'APP'),
+        ('W', 'Website'),
+    ]
+
+    pid = models.CharField(max_length=16, unique=True)
+    ptype = models.CharField(max_length=5, choices=P_CHOICE) #APP, Website
+    domain = models.CharField(max_length=200)
+    
+    verified = models.BooleanField(default=True) 
+    is_active = models.BooleanField(default=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    properties = models.ManyToManyField(
+        Customer,
+        through='CPRelationship'
+    )
+
+    class Meta:
+        db_table = 'property'
+
+class CPRelationship(models.Model):
+    ROLE_CHOICE = [
+        ('S', 'Owner'),
+        ('A', 'Admin'),
+        ('O', 'Operator'),
+        ('R', 'Restricted'),
+    ]
+
+    cust = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    prop = models.ForeignKey(Property, on_delete=models.CASCADE)
+    role = models.CharField(max_length=2, choices=ROLE_CHOICE)
+
+    is_active = models.BooleanField(default=True)
+    
+    class Meta:
+        db_table = 'cprelationship'
+
+class PropertyTokens(models.Model):
+    pid = models.CharField(max_length=16)
+    psecret = models.CharField(max_length=150)
+    generated_by = models.IntegerField() # will have customer's id.
+     
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    deleted_at = models.DateTimeField(default=None, blank=True, null=True)
+    
+    class Meta:
+        db_table = 'property_tokens'
+

@@ -1,0 +1,200 @@
+.as-icon {
+  background-repeat: no-repeat;
+  display: inline-block;
+  background-position: center; }
+
+.as-menu-icon {
+  width: 24px;
+  height: 20px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  background-position: center; }
+
+.as-icon-home {
+  background-image: url(../img/icons/as-icon-home.svg); }
+
+.as-icon-user {
+  background-image: url(../img/icons/as-icon-user.svg); }
+
+.as-icon-settings {
+  background-image: url(../img/icons/as-icon-settings.svg); }
+
+.as-icon-env {
+  background-image: url(../img/icons/as-icon-env.svg); }
+
+.as-prop-icon {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: center; }
+
+.as-icon-exchange {
+  background-image: url(../img/icons/as-icon-exchange.svg); }
+
+.as-icon-unread-bubble {
+  background-image: url(../img/icons/as-icon-unread-bubble.svg); }
+
+.as-icon-chevron-down {
+  display: inline-block;
+  background-color: transparent;
+  border: solid #98ACC1;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg); }
+
+.as-icon-chevron-right {
+  display: inline-block;
+  background-color: transparent;
+  border: solid #98ACC1;
+  border-width: 2px 2px 0 0;
+  transform: rotate(45deg); }
+
+.as-icon-round-1 {
+  width: 70px;
+  height: 70px;
+  border: 3px solid #FFFFFF;
+  box-shadow: 0px 10px 15px #BFCAE1;
+  border-radius: 35px;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: center; }
+
+.as-icon-dash-visitor {
+  background-color: #246CF2;
+  background-image: url(../img/icons/as-icon-dash-visitor.svg); }
+
+.as-icon-dash-auth-users {
+  background-color: #246CF2;
+  background-image: url(../img/icons/as-icon-dash-auth-users.svg); }
+
+.as-icon-dash-risk-users {
+  background-color: #EC4F4F;
+  background-image: url(../img/icons/as-icon-dash-risk-users.svg); }
+
+.as-icon-dash-not-evs {
+  background-color: #246CF2;
+  background-image: url(../img/icons/as-icon-dash-not-evs.svg); }
+
+.as-icon-dash-sus-users {
+  background-color: #EC4F4F;
+  background-image: url(../img/icons/as-icon-dash-sus-users.svg); }
+
+.as-icon-dash-watch-users {
+  background-color: #246CF2;
+  background-image: url(../img/icons/as-icon-dash-watch-users.svg); }
+
+.as-icon-dash-user {
+  background-color: #246CF2;
+  background-image: url(../img/icons/as-icon-dash-user.svg); }
+
+.as-icon-dash-contact {
+  background-color: #246CF2;
+  background-image: url(../img/icons/as-icon-dash-contact.svg); }
+
+.as-icon-dash-org {
+  background-color: #246CF2;
+  background-image: url(../img/icons/as-icon-dash-org.svg); }
+
+.as-risk-bubble {
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  display: inline-block; }
+
+.as-icon-risk-graph {
+  width: 77px;
+  height: 23px;
+  background-image: url(../img/icons/as-icon-risk-graph.svg);
+  background-size: cover; }
+
+.as-icon-filter {
+  width: 18px;
+  height: 12px;
+  background-image: url(../img/icons/as-icon-filter.svg); }
+
+.as-white-bubble {
+  width: 28px;
+  height: 28px;
+  border-radius: 100%;
+  display: inline-block;
+  background-color: #FFFFFF;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 1px solid #C6C6C6; }
+
+.as-icon-camera {
+  background-image: url(../img/icons/as-icon-camera.svg); }
+
+.as-icon-edit {
+  width: 14px;
+  height: 13px;
+  background-image: url(../img/icons/as-icon-edit.svg); }
+
+.as-icon-userrole {
+  width: 20px;
+  height: 20px;
+  background-image: url(../img/icons/as-icon-userrole.svg); }
+
+.as-icon-billing {
+  width: 16px;
+  height: 20px;
+  background-image: url(../img/icons/as-icon-billing.svg); }
+
+.as-icon-api {
+  width: 25px;
+  height: 18px;
+  background-image: url(../img/icons/as-icon-api.svg); }
+
+.as-icon-dntrack {
+  width: 20px;
+  height: 20px;
+  background-image: url(../img/icons/as-icon-dntrack.svg); }
+
+.as-icon-webhook {
+  width: 20px;
+  height: 19px;
+  background-image: url(../img/icons/as-icon-webhook.svg); }
+
+.as-icon-calert {
+  width: 20px;
+  height: 19px;
+  background-image: url(../img/icons/as-icon-calert.svg); }
+
+.as-icon-sec-notif {
+  width: 19px;
+  height: 22px;
+  background-image: url(../img/icons/as-icon-sec-notif.svg); }
+
+.as-icon-invite-team {
+  width: 20px;
+  height: 20px;
+  background-image: url(../img/icons/as-icon-invite-team.svg); }
+
+.as-icon-pdf {
+  width: 23px;
+  height: 30px;
+  background-image: url(../img/icons/as-icon-pdf.svg); }
+
+.as-icon-status {
+  width: 20px;
+  height: 20px;
+  color: #FFFFFF;
+  display: inline-block;
+  border-radius: 100%;
+  position: relative;
+  font-size: 14px;
+  text-align: center; }
+  .as-icon-status.as-icon-status-off {
+    background-color: #D65454; }
+  .as-icon-status.as-icon-status-on {
+    background-color: #41E684; }
+
+a.as-icon-status:hover {
+  color: #FFFFFF; }
+
+.as-icon-endpoint {
+  width: 58px;
+  height: 60px;
+  background-image: url(../img/icons/as-icon-endpoint.svg); }
+
+/*# sourceMappingURL=icons.css.map */
