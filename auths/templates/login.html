@@ -1,0 +1,75 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body class="login-bg">
+    <form name = "form" action = "{% url 'login_check' %}" 
+         method = "POST" >{% csrf_token %}
+    <div class="login-wrapper">
+        <div class="login-side login-left">
+          <div class="login-wrap">
+            <figure>
+              <img src="{% static 'img/authdefence.png' %}" alt="" class="img-fluid">
+            </figure>
+            <h1>Sign In</h1>
+            <h4>Welcome Back,</h4>
+            <h5>Please login to your account</h5>
+            {% if nopassword and nopassword.strip %}
+            <p class="text-danger">Wrong username/password</p>
+            {% endif %}
+            <div class="form-group form-group-box">
+              <label for="">Email address</label>
+              <input type="text" class="form-control" placeholder="e.g. abc@authdefence.com" name="email">
+            </div>
+            <div class="form-group form-group-box">
+              <label for="">Password</label>
+              <input type="password" class="form-control" placeholder="******" name="password">
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                      Remember me?
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <a href="javascript:;" class="nav-link">Forgot your password?</a>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-white">Sign In</button><button class="btn btn-blue">Sign Up</button>
+            </div>
+            <div class="terms-line">By signing up, you agree to Authdefence's Terms and Conditions & Privacy Policy</div>
+          </div>
+        </div>
+        <div class="login-side login-right">
+          <div class="login-image">
+            <img src="{% static 'img/login-desktop.png' %}" alt="" class="img-fluid">
+          </div>
+        </div>
+    </div>
+    </form>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
