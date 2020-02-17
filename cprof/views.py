@@ -18,4 +18,4 @@ class ProfileView(View, CMain):
 class ProfileUpdate(View, CMain):
     def post(self, request):
         cobj = Customer.objects.get(email=CMain.SITE_DATA['email'])
-        
+        #request.POST['']
