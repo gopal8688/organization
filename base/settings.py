@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'base.apps.BaseConfig',
     'auths.apps.AuthsConfig',
     'cmain.apps.CmainConfig',
     'dashboard.apps.DashboardConfig',
@@ -66,6 +67,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries':{
+                'custom_tags': 'base.templatetags.custom_tags',
+            }
         },
     },
 ]
