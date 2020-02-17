@@ -7,8 +7,8 @@ from cmain.views import CMain
 
 # Create your views here.
 def login(request):
-    #if request.session.get('email', None) and request.session.get('password', None):
-     #   return redirect(home)
+    if request.session.get('email', None) and request.session.get('password', None):
+        return redirect('home')
     return render(request, 'login.html')
 
 def loginCheck(request):
@@ -35,4 +35,5 @@ def loginCheck(request):
 
 def logout(request):
     signout(request)
-    return HttpResponseRedirect('login')
+    print ('session', request.session.keys())
+    return HttpResponseRedirect('/')

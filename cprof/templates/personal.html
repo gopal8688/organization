@@ -1,0 +1,165 @@
+{% extends "index.html" %}
+{% load static %}
+        
+        {% block section %}
+        <div class="as-grid as-content">
+          <div class="as-grid-justified as-page-header">
+            <div class="as-page-title-wrap"><h1 class="as-page-title">Personal Information</h1></div>
+            <div class="as-page-tools"></div>
+          </div>
+          <div class="as-grid as-container">
+            <div class="as-portlet-1">
+              <div class="as-portlet-body as-portlet-body-tabs">
+                <div class="as-nav-tabs-1">
+                  <nav>
+                    <div class="nav nav-justified" id="personalTab" role="tablist">
+                      <a class="nav-item nav-link active" id="profileTab" data-toggle="tab" href="#navProfile" role="tab" aria-controls="navProfile" aria-selected="true">
+                        <span class="as-nav-tab-nav"><i class="as-icon-round-1 as-icon-dash-user"></i><span class="nav-title">Profile Information</span></span>
+                      </a>
+                      <a class="nav-item nav-link" id="contactTab" data-toggle="tab" href="#navContact" role="tab" aria-controls="navContact" aria-selected="false">
+                        <span class="as-nav-tab-nav"><i class="as-icon-round-1 as-icon-dash-contact"></i><span class="nav-title">Contact Information</span></span>
+                      </a>
+                      <a class="nav-item nav-link" id="orgTab" data-toggle="tab" href="#navOrg" role="tab" aria-controls="navOrg" aria-selected="false">
+                        <span class="as-nav-tab-nav"><i class="as-icon-round-1 as-icon-dash-org"></i><span class="nav-title">Organisation</span></span>
+                      </a>
+                    </div>
+                  </nav>
+                  <div class="tab-content" id="personalTabContent">
+                    <div class="tab-pane fade show active" id="navProfile" role="tabpanel" aria-labelledby="profileTab">
+                      <form action="% url %}">
+                        <div class="row">
+                          <div class="col-md-5">
+                            <div class="form-group">
+                              <div class="as-img-profile-wrap text-center">
+                                <div class="as-img-profile">
+                                  <figure class="as-img-profile-img">
+                                    <img src="{% static 'img/user-avatar.png' %}" alt="" class="img-fluid">
+                                  </figure>
+                                  <a href="javascript:;" class="as-img-change-btn">
+                                    <i class="as-white-bubble as-icon-camera"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="">First Name</label>
+                              <input type="text" class="form-control" value="">
+                            </div>
+                            <div class="form-group">
+                              <label for="">Last Name</label>
+                              <input type="text" class="form-control" value="">
+                            </div>
+                          </div>
+                          <div class="col-md-5">
+                            <div class="form-group as-pers-mrg-fix">
+                              <label for="">Date of Birth (dd/mm/yyyy)</label>
+                              <input type="text" class="form-control" id="datepicker" value="">
+                            </div>
+                            <div class="form-group">
+                              <label for="">Gender</label>
+                              <select name="" id="" class="form-control">
+                                <option value="">Male</option>
+                                <option value="">Female</option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                              <label for="">Password</label>
+                              <input type="password" class="form-control" value="">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-10">
+                            <div class="form-group">
+                              <div class="as-frm-btns">
+                                <button class="btn as-btn-lg btn-primary">Save</button>
+                                <button class="btn as-btn-lg btn-outline-secondary">Cancel</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="tab-pane fade" id="navContact" role="tabpanel" aria-labelledby="contactTab">
+                      <form action="">
+                        <div class="row">
+                          <div class="col-md-5">
+                            <div class="form-group">
+                              <label for="">Email Address</label>
+                              <input type="email" class="form-control" value="">
+                            </div>
+                          </div>
+                          <div class="col-md-5">
+                            <div class="form-group">
+                              <label for="">Mobile Number</label>
+                              <input type="text" class="form-control" value="">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-10">
+                            <div class="form-group">
+                              <div class="as-frm-btns">
+                                <button class="btn as-btn-lg btn-primary">Save</button>
+                                <button class="btn as-btn-lg btn-outline-secondary">Cancel</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="tab-pane fade" id="navOrg" role="tabpanel" aria-labelledby="orgTab">
+                      <form action="">
+                        <div class="row">
+                          <div class="col-md-5">
+                            <div class="form-group">
+                              <label for="">Company Name</label>
+                              <input type="text" class="form-control" value="">
+                              <div class="form-text text-muted font-italic">Your company name, used for billing and communication purposes</div>
+                            </div>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-md-5">
+                            <div class="form-group">
+                              <label for="">Brand URL</label>
+                              <input type="url" class="form-control" value="">
+                            </div>
+                          </div>
+                          <div class="col-md-5">
+                            <div class="form-group">
+                              <label for="">Brand Name</label>
+                              <input type="text" class="form-control" value="">
+                            </div>
+                          </div>
+                          <div class="col-md-5">
+                            <div class="form-group">
+                              <label for="">Brand Logo URL</label>
+                              <input type="url" class="form-control" value="">
+                              <div class="form-text text-muted font-italic">Image will be scaled to correct size</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-10">
+                            <div class="form-group">
+                              <div class="as-frm-btns">
+                                <button class="btn as-btn-lg btn-primary">Save</button>
+                                <button class="btn as-btn-lg btn-outline-secondary">Cancel</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="as-grid as-footer"><div class="as-footer-copyright">2020 &copy; Securelayer7 Technologies Private Limited</div></div>
+      </div>
+    </div>
+    {% endblock %}

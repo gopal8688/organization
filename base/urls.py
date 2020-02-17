@@ -21,6 +21,7 @@ urlpatterns = [
     path('', include('auths.urls')),
     #path('main/', include('cmain.urls')),
     path('dashboard/', include('dashboard.urls')),
+    path('profile/', include('cprof.urls')),
     
     path('admin/', admin.site.urls),
 ]
