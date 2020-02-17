@@ -150,43 +150,12 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     {% endifequal %}
     
-    <script src="{% static 'scripts/main.js' %}"></script>
-    
     <script type="text/javascript">
-
-      $(document).click(function (event) {
-        var clickover = $(event.target);
-        var _opened = $(".as-aside.collapse").hasClass("as-aside collapse show");
-        if (_opened === true && !clickover.hasClass("navbar-toggler")) {
-            $("button.navbar-toggler").click();
-        }
-      });
-      $(document).mouseup(function(e) {
-          var container = $(".as-header");
-          // if the target of the click isn't the container nor a descendant of the container
-          if (!container.is(e.target) && container.has(e.target).length === 0) 
-          {
-            $('#navbarProperty').collapse('hide');
-            $('#navbarSearch').collapse('hide');
-          }
-      });
-      $(document).ready(function() {
-        $("#btnMiniToggler").click(function(event) {
-          /* Act on the event */
-          if ($("body").hasClass('as-aside-min')) {
-            $("body").removeClass('as-aside-min');
-          } else {
-            $("body").addClass('as-aside-min');
-          }
-        });
-        $('#navbarSearch').on('show.bs.collapse', function () {
-          $('#navbarProperty').collapse('hide');
-        });
-        $('#navbarProperty').on('show.bs.collapse', function () {
-          $('#navbarSearch').collapse('hide');
-        });
-      });
+      var BASE_URL = '';
+      var PID = '';
     </script>
+    
+    <script src="{% static 'scripts/main.js' %}"></script>
     {% script_includer page as file_exist %}
     {% if file_exist %}
       <script src="{% static '/scripts/dashboard.js' %}"></script>

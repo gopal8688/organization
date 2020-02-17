@@ -16,3 +16,36 @@ window.chartColors = {
 	purple: 'rgb(153, 102, 255)',
 	grey: 'rgb(201, 203, 207)'
 };
+
+$(document).click(function (event) {
+	var clickover = $(event.target);
+	var _opened = $(".as-aside.collapse").hasClass("as-aside collapse show");
+	if (_opened === true && !clickover.hasClass("navbar-toggler")) {
+		$("button.navbar-toggler").click();
+	}
+});
+$(document).mouseup(function(e) {
+	var container = $(".as-header");
+	// if the target of the click isn't the container nor a descendant of the container
+	if (!container.is(e.target) && container.has(e.target).length === 0) 
+	{
+		$('#navbarProperty').collapse('hide');
+		$('#navbarSearch').collapse('hide');
+	}
+});
+$(document).ready(function() {
+	$("#btnMiniToggler").click(function(event) {
+		/* Act on the event */
+		if ($("body").hasClass('as-aside-min')) {
+		$("body").removeClass('as-aside-min');
+		} else {
+		$("body").addClass('as-aside-min');
+		}
+	});
+	$('#navbarSearch').on('show.bs.collapse', function () {
+		$('#navbarProperty').collapse('hide');
+	});
+	$('#navbarProperty').on('show.bs.collapse', function () {
+		$('#navbarSearch').collapse('hide');
+	});
+});
