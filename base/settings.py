@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'auths.apps.AuthsConfig',
     'cmain.apps.CmainConfig',
     'dashboard.apps.DashboardConfig',
+    'cprof.apps.CprofConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

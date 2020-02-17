@@ -80,9 +80,9 @@
                       {% ifequal row.id show_row.id %}
                         {% with request.session.id as row.id %}
                         {% endwith %}
-                        <li><a href="{% url 'prop_select' row.id %}" class="active"><span class="as-prop-menu-name">Property: {{row.domain}}</span><span class="as-prop-menu-propid">Property ID: {{row.pid}}</span></a></li>
+                        <li><a href="% url 'prop_select' row.id %}" class="active"><span class="as-prop-menu-name">Property: {{row.domain}}</span><span class="as-prop-menu-propid">Property ID: {{row.pid}}</span></a></li>
                         {% else %}
-                        <li><a href="{% url 'prop_select' row.id %}"><span class="as-prop-menu-name">Property: {{row.domain}}</span><span class="as-prop-menu-propid">Property ID: {{row.pid}}</span></a></li>
+                        <li><a href="% url 'prop_select' row.id %}"><span class="as-prop-menu-name">Property: {{row.domain}}</span><span class="as-prop-menu-propid">Property ID: {{row.pid}}</span></a></li>
                       {% endifequal %}
                     {% endfor %}
                   </ul>
@@ -124,7 +124,7 @@
                 <hr>
                 <div class="as-user-set-items">
                   <ul class="list-unstyled as-user-set-menu">
-                    <li class="as-user-set-item"><a href="javascript:;">Personal Information</a></li>
+                    <li class="as-user-set-item"><a href="{% url 'view' %}">Personal Information</a></li>
                     <li class="as-user-set-item"><a href="javascript:;">Manage your authsafe account</a></li>
                   </ul>
                 </div>

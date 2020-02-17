@@ -1,3 +1,6 @@
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
 from django.shortcuts import render
 from django.views import View
 from django.views.generic.base import RedirectView
@@ -8,10 +11,9 @@ from auths.models import Property
 # Create your views here.
 class DashboardView(View, CMain):
     def __init__(self):
-        #print ('ENtered into child object')
-        #print (request)
         CMain.__init__(self)
     
+    @method_decorator(login_required)
     def get(self, request):
         self.getBasicDetails(request)
         self.SITE_DATA['page'] = 'dashboard'
