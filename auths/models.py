@@ -24,6 +24,7 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=150, unique=True)
     phone = models.CharField(max_length=15, unique=True)
     pfp = models.ImageField()
+    timezone = models.CharField(max_length=50, default='India/Kolkata')
     date_joined = models.DateTimeField(null=True, auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -48,16 +49,11 @@ class Customer(AbstractBaseUser, PermissionsMixin):
         db_table = 'customers'
 
 class Property(models.Model):
-    P_CHOICE = [
-        ('A', 'APP'),
-        ('W', 'Website'),
-    ]
 
     pid = models.CharField(max_length=16, unique=True)
-    ptype = models.CharField(max_length=5, choices=P_CHOICE) #APP, Website
-    domain = models.CharField(max_length=200)
-    
-    verified = models.BooleanField(default=True) 
+    pname = models.CharField(max_length=16)
+    country = models.CharField(max_length=16)
+
     is_active = models.BooleanField(default=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -70,6 +66,19 @@ class Property(models.Model):
 
     class Meta:
         db_table = 'property'
+
+class WebPlatform(models.Model):
+    domain = models.CharField(max_length=200)
+    verification = models.CharField(max_length=50)
+    verified = models.BooleanField(default=True) 
+    
+    properties = models.OneToOneField(
+        Property,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+    class Meta:
+        db_table = 'web_platform'
 
 class CPRelationship(models.Model):
     ROLE_CHOICE = [
