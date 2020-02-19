@@ -43,7 +43,8 @@ class CMain(BaseView):
             'request': request,
             'show_row': prop_obj[0],
             'base_url': self.getAbsoluteURL(request),
-            'pid': request.session['pid']
+            'pid': request.session['pid'],
+            'API_KEY': 'eiWee8ep9due4deeshoa8Peichai8Eih',
         }
         
         # Saving into session.

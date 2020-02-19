@@ -22,7 +22,7 @@
                       <i class="as-icon-round-1 as-icon-dash-visitor"></i>
                     </div>
                     <div class="as-dash-stat-details">
-                      <h4 class="as-dash-stat-num">154</h4>
+                      <h4 class="as-dash-stat-num" id="monVisitors">0</h4>
                       <div class="as-dash-stat-title">Monitored visitors</div>
                       <div class="as-dash-stat-actions"></div>
                     </div>
@@ -34,7 +34,7 @@
                       <i class="as-icon-round-1 as-icon-dash-auth-users"></i>
                     </div>
                     <div class="as-dash-stat-details">
-                      <h4 class="as-dash-stat-num">25</h4>
+                      <h4 class="as-dash-stat-num" id="authUsers">0</h4>
                       <div class="as-dash-stat-title">Authenticated Users</div>
                       <div class="as-dash-stat-actions"></div>
                     </div>
@@ -46,7 +46,7 @@
                       <i class="as-icon-round-1 as-icon-dash-risk-users"></i>
                     </div>
                     <div class="as-dash-stat-details">
-                      <h4 class="as-dash-stat-num">254</h4>
+                      <h4 class="as-dash-stat-num" id="hrUsers">0</h4>
                       <div class="as-dash-stat-title">High Risk Users</div>
                       <div class="as-dash-stat-actions"></div>
                     </div>
@@ -58,7 +58,7 @@
                       <i class="as-icon-round-1 as-icon-dash-not-evs"></i>
                     </div>
                     <div class="as-dash-stat-details">
-                      <h4 class="as-dash-stat-num">15,000</h4>
+                      <h4 class="as-dash-stat-num" id="notEvents">0</h4>
                       <div class="as-dash-stat-title">Notable Events</div>
                       <div class="as-dash-stat-actions"></div>
                     </div>
@@ -70,8 +70,8 @@
                       <i class="as-icon-round-1 as-icon-dash-sus-users"></i>
                     </div>
                     <div class="as-dash-stat-details">
-                      <h4 class="as-dash-stat-num">25</h4>
-                      <div class="as-dash-stat-title">Suspicious Users</div>
+                      <h4 class="as-dash-stat-num" id="susDevices">0</h4>
+                      <div class="as-dash-stat-title">Suspicious Devices</div>
                       <div class="as-dash-stat-actions"></div>
                     </div>
                   </div>
@@ -82,7 +82,7 @@
                       <i class="as-icon-round-1 as-icon-dash-watch-users"></i>
                     </div>
                     <div class="as-dash-stat-details">
-                      <h4 class="as-dash-stat-num">254</h4>
+                      <h4 class="as-dash-stat-num" id="watchUsers">0</h4>
                       <div class="as-dash-stat-title">Users under watchlist</div>
                       <div class="as-dash-stat-actions">
                         <ul class="list-unstyled as-dash-watch-btns">
@@ -104,13 +104,13 @@
                   </div>
                   <div class="as-portlet-body as-portlet-body-tbl">
                     <div class="table-responsive">
-                      <table class="table as-portlet-table-1">
+                      <table class="table as-portlet-table-1" id="tblHRU">
                         <thead>
                           <tr>
                             <th><div class="as-tbl-mrg">Risk</div></th><th></th><th>User Name</th><th>Score</th><th></th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody>{% comment "Optional note" %}
                           <tr>
                             <td><i class="as-risk-bubble as-bg-critical"></i> Critical</td>
                             <td><i class="as-icon as-icon-risk-graph"></i></td>
@@ -182,7 +182,7 @@
                                 </div>
                               </div>
                             </td>
-                          </tr>
+                          </tr>{% endcomment %}
                         </tbody>
                       </table>
                     </div>
@@ -197,13 +197,13 @@
                   </div>
                   <div class="as-portlet-body as-portlet-body-tbl">
                     <div class="table-responsive">
-                      <table class="table as-portlet-table-1">
+                      <table class="table as-portlet-table-1" id="tblSA">
                         <thead>
                           <tr>
                             <th><div class="as-tbl-mrg">Risk</div></th><th>Observation</th><th>User Name</th><th>Score</th><th></th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody>{% comment "Optional note" %}
                           <tr>
                             <td><i class="as-risk-bubble as-bg-critical"></i> Critical</td>
                             <td>Credential Stuffing</td>
@@ -275,7 +275,7 @@
                                 </div>
                               </div>
                             </td>
-                          </tr>
+                          </tr>{% endcomment %}
                         </tbody>
                       </table>
                     </div>
@@ -314,12 +314,12 @@
               <div class="col-xl-6">
                 <div class="as-portlet-1">
                   <div class="as-grid-justified as-portlet-header">
-                    <h2 class="as-portlet-title">Security Alerts</h2>
+                    <h2 class="as-portlet-title">User Risk Analytics</h2>
                     <div class="as-portlet-legends">
                       <ul class="as-portlet-legends list-unstyled as-grid-justified">
-                        <li><i class="as-risk-bubble as-bg-gold"></i>Others</li>
-                        <li><i class="as-risk-bubble as-bg-low"></i>Bruteforce</li>
-                        <li><i class="as-risk-bubble as-bg-high"></i></i>Credential Stuffing</li>
+                        <li><i class="as-risk-bubble as-bg-low"></i>Safe Users</li>
+                        <li><i class="as-risk-bubble as-bg-gold"></i>Suspicious Users</li>
+                        <li><i class="as-risk-bubble as-bg-high"></i></i>High Risk Users</li>
                       </ul>
                     </div>
                   </div>
