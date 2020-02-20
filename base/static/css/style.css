@@ -352,7 +352,10 @@ label {
   vertical-align: top; }
 
 .as-lh-30 {
-  line-height: 30px; }
+  line-height: 30px !important; }
+
+.as-lh-46 {
+  line-height: 46px !important; }
 
 .as-mb-5p {
   margin-bottom: 5px !important; }
@@ -1504,6 +1507,18 @@ table.as-portlet-table-1 {
 .as-at .fa {
   color: #ACBCCD;
   font-size: 13px; }
+
+.as-i-header {
+  padding: 22px 0 23px;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 5px #E5E9F2; }
+
+.as-i-main {
+  padding-top: 26px; }
+
+.portlet-2 {
+  padding: 30px 40px;
+  background-color: #FFFFFF; }
 
 .as-footer {
   padding: 20px 24px;

@@ -5,6 +5,7 @@ from django.views import View
 
 from auths.models import Customer, Property, CPRelationship, PropertyTokens
 from base.views import BaseView
+from django.http import HttpResponse
 
 class CMain(BaseView):
 
@@ -24,28 +25,42 @@ class CMain(BaseView):
 
     def getBasicDetails(self, request):
         email = request.session['email'] #.request.session['email']
-
-        prop_obj = Property.objects.filter(properties__email=email)
+        
         cust_obj = Customer.objects.get(email=email)
 
         cust_full_name = "%s %s"%(cust_obj.fname, cust_obj.lname)
         #print ('JSONss', self.SITE_DATA['API_URLS'])
-        if prop_obj is not None:
-            request.session['pid'] = prop_obj[0].id
-        else:
-            request.session['pid'] = 0
-            
+
         context = {
-            'rows': prop_obj,
             'cust_email': cust_obj.email,
             'cust_full_name': cust_full_name,
-            'company': prop_obj[0].domain,
             'request': request,
-            'show_row': prop_obj[0],
             'base_url': self.getAbsoluteURL(request),
-            'pid': request.session['pid'],
             'API_KEY': 'eiWee8ep9due4deeshoa8Peichai8Eih',
         }
+
+        prop_obj = Property.objects.filter(properties__email=email)
+
+        if not prop_obj:
+            # if self.SITE_DATA['page'] is not 'create_property':
+            #     return redirect
+            request.session['pid'] = 12
+            context.update({
+                'pid': request.session['pid'],
+            })
+        else:
+            request.session['pid'] = prop_obj[0].id
+            context.update({
+                'rows': prop_obj,
+                'show_row': prop_obj[0],
+                'company': prop_obj[0].domain,
+                'pid': request.session['pid'],
+            })
+
+        # print(request.session['pid'])
+        # return str(request.session['pid'])
+            
+        
         
         # Saving into session.
         self.SITE_DATA.update(context)

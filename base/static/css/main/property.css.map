@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,YAAa;EACZ,OAAO,EAAE,WAAW;EACpB,UAAU,EAAE,OAAO;EACnB,UAAU,EAAE,mBAAmB;;AAEhC,UAAW;EACV,WAAW,EAAE,IAAI;;AAElB,UAAW;EACV,OAAO,EAAE,SAAS;EAClB,gBAAgB,EAAE,OAAO",
+"sources": ["../../scss/main/property.scss"],
+"names": [],
+"file": "property.css"
+}

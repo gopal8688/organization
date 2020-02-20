@@ -8,7 +8,9 @@ from django.views import View
 from django.views.generic.base import RedirectView
 
 from cmain.views import CMain
-from auths.models import Property       
+from auths.models import Property
+from django.http import HttpResponse
+import os
 
 # Create your views here.
 class DashboardView(View, CMain):
@@ -18,9 +20,12 @@ class DashboardView(View, CMain):
 
     @method_decorator(login_required)
     def get(self, request):
-        self.getBasicDetails(request)
+
+        #return HttpResponse(str(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
         self.SITE_DATA['page'] = 'dashboard'
         self.SITE_DATA['page_title'] = 'Dashboard'
+        self.getBasicDetails(request)
 
         return render(request, 'home.html', self.SITE_DATA)
 

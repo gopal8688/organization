@@ -22,6 +22,7 @@ urlpatterns = [
     #path('main/', include('cmain.urls')),
     path('dashboard/', include('dashboard.urls')),
     path('profile/', include('cprof.urls')),
+    path('property/', include('property.urls')),
     
     path('admin/', admin.site.urls),
 ]
