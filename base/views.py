@@ -24,6 +24,7 @@ class BaseView():
             'sa': 'security_alerts',
             'la': 'login_attempts',
             'saa': 'security_alert_attacks',
+            'rrd': 'region_risk_dist',
         }),
         'ML_SERVER_API': 'http://demo.authsafe.ai:5000/api/',
         'time_zones': json.dumps(getAllTimeZones.__func__())

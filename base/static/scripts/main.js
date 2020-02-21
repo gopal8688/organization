@@ -17,6 +17,15 @@ window.chartColors = {
 	grey: 'rgb(201, 203, 207)'
 };
 
+window.RISK_TYPE = {
+	'R': '<i class="as-risk-bubble as-bg-high"></i> High',
+	'High': '<i class="as-risk-bubble as-bg-high"></i> High',
+	'Y': '<i class="as-risk-bubble as-bg-medium"></i> Medium',
+	'Medium': '<i class="as-risk-bubble as-bg-medium"></i> Medium',
+	'G': '<i class="as-risk-bubble as-bg-low"></i> Low',
+	'Low': '<i class="as-risk-bubble as-bg-low"></i> Low'
+}
+
 $(document).click(function (event) {
 	var clickover = $(event.target);
 	var _opened = $(".as-aside.collapse").hasClass("as-aside collapse show");

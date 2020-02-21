@@ -11,7 +11,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>AuthSafe Administration Panel</title>
   </head>
   <body>
     <section>
@@ -19,7 +19,7 @@
         <div class="as-grid-justified">
           <div class="as-aside-brand">
             <div class="as-aside-logo">
-              <a href="#">
+              <a href="{% url 'home' %}">
                 <img src="{% static 'img/authsafe-logo.svg' %}" alt="Authsafe Logo" class="as-logo-only">
               </a>
             </div>
@@ -36,7 +36,7 @@
       <aside class="as-grid as-aside" id="navbarSideBar">
         <div class="as-aside-brand">
           <div class="as-aside-logo">
-            <a href="#">
+            <a href="{% url 'home' %}">
               <img src="{% static 'img/authsafe.svg' %}" alt="Authsafe Logo" class="as-logo-text">
               <img src="{% static 'img/authsafe-logo.svg' %}" alt="Authsafe Logo" class="as-logo-only">
             </a>
@@ -45,10 +45,10 @@
         <div class="as-aside-menu-wrap">
           <div class="as-aside-menu">
             <ul class="as-aside-menu-nav">
-              <li class="active"><a href="javascript:void"><i class="as-menu-icon as-icon-home"></i><span class="as-menu-text">Home</span></a></li>
-              <li><a href="javascript:void"><i class="as-menu-icon as-icon-user"></i><span class="as-menu-text">Users</span></a></li>
-              <li><a href="javascript:void"><i class="as-menu-icon as-icon-settings"></i><span class="as-menu-text">Settings</span></a></li>
-              <li><a href="javascript:void"><i class="as-menu-icon as-icon-env"></i><span class="as-menu-text">Environment</span></a></li>
+              <li {% ifequal page_menu 'home' %}class="active"{% endifequal %}><a href="{% url 'pr-home' pid %}"><i class="as-menu-icon as-icon-home"></i><span class="as-menu-text">Home</span></a></li>
+              <li {% ifequal page_menu 'users' %}class="active"{% endifequal %}><a href="javascript:void"><i class="as-menu-icon as-icon-user"></i><span class="as-menu-text">Users</span></a></li>
+              <li {% ifequal page_menu 'settings' %}class="active"{% endifequal %}><a href="{% url 'pssettings' pid %}"><i class="as-menu-icon as-icon-settings"></i><span class="as-menu-text">Settings</span></a></li>
+              <li {% ifequal page_menu 'env' %}class="active"{% endifequal %}><a href="javascript:void"><i class="as-menu-icon as-icon-env"></i><span class="as-menu-text">Environment</span></a></li>
             </ul>
           </div>
         </div>
@@ -74,16 +74,17 @@
                     {% endif %}
                   </div>
                 </div>
-                <div class="as-prop-dropdown as-head-dropdown">
+                <div class="as-prop-dropdown as-head-dropdown scroll-style-1">
                   <ul class="as-prop-menu">
                     {% for row in rows %}
-                      {% ifequal row.id show_row.id %}
+                      <li><a href="{% url 'pr-home' row.id %}" {% ifequal row.id show_row.id %}class="active"{% endifequal %} data-pid="{{row.id}}"><span class="as-prop-menu-name">Property: {{row.pname}}</span><span class="as-prop-menu-propid">Property ID: {{row.pid}}</span></a></li>
+                      <!-- {% ifequal row.id show_row.id %}
                         {% with request.session.id as row.id %}
                         {% endwith %}
                         <li><a href="{% url 'pr-home' row.id %}" class="active" data-pid="{{row.id}}"><span class="as-prop-menu-name">Property: {{row.pname}}</span><span class="as-prop-menu-propid">Property ID: {{row.pid}}</span></a></li>
                         {% else %}
                         <li><a href="{% url 'pr-home' row.id %}" data-pid="{{row.id}}"><span class="as-prop-menu-name">Property: {{row.pname}}</span><span class="as-prop-menu-propid">Property ID: {{row.pid}}</span></a></li>
-                      {% endifequal %}
+                      {% endifequal %} -->
                     {% endfor %}
                   </ul>
                 </div>
@@ -103,7 +104,7 @@
               </div>
               <div class="as-noti-dropdown as-head-dropdown">
                 <ul class="as-noti-menu">
-                  <li><a href="javascript:void"><span class="text-danger"><i class="fa fa-ban" aria-hidden="true"></i> User anand@testdemo.in is compromised</span></a></li><li><a href="javascript:void"><span class="text-warning"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Suspicious activity detected</span></a></li><li><a href="javascript:void"><span class="text-success"><i class="fa fa-thumbs-up" aria-hidden="true"></i> User verified and secured</span></a></li><li><a href="javascript:void"><span class="text-warning"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Suspicious activity detected</span></a></li><li><a href="javascript:void"><span class="text-danger"><i class="fa fa-ban" aria-hidden="true"></i> User anand@testdemo.in is compromised</span></a></li><li><a href="javascript:void"><span class="text-warning"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Suspicious activity detected</span></a></li><li><a href="javascript:void"><span class="text-success"><i class="fa fa-thumbs-up" aria-hidden="true"></i> User verified and secured</span></a></li><li><a href="javascript:void"><span class="text-warning"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Suspicious activity detected</span></a></li>
+                  <li><a href="javascript:void"><span class="text-danger"><i class="fa fa-ban" aria-hidden="true"></i></span> User anand@testdemo.in is compromised</a></li><li><a href="javascript:void"><span class="text-warning"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span> Suspicious activity detected</a></li><li><a href="javascript:void"><span class="text-success"><i class="fa fa-thumbs-up" aria-hidden="true"></i></span> User verified and secured</a></li><li><a href="javascript:void"><span class="text-warning"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span> Suspicious activity detected</a></li><li><a href="javascript:void"><span class="text-danger"><i class="fa fa-ban" aria-hidden="true"></i></span> User anand@testdemo.in is compromised</a></li><li><a href="javascript:void"><span class="text-warning"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span> Suspicious activity detected</a></li><li><a href="javascript:void"><span class="text-success"><i class="fa fa-thumbs-up" aria-hidden="true"></i></span> User verified and secured</a></li><li><a href="javascript:void"><span class="text-warning"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span> Suspicious activity detected</a></li>
                 </ul>
               </div>
             </div>

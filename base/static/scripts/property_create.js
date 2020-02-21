@@ -15,7 +15,7 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function (res) {
                     if(res.status == 'success') {
-                        
+                        window.location = res.red_url;
                     } else {
                         alert(res.message);
                     }

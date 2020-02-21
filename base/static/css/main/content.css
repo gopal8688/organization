@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$color-primary".
-        on line 178 of scss/main/content.scss
+        on line 181 of scss/main/content.scss
 
-173: 		}
-174: 		.as-icon-chevron-right {
-175: 			width: 9px;
-176: 			height: 9px;
-177: 			margin-bottom: 2px;
-178: 			border-color: $color-primary;
-179: 		}
-180: 	}
-181: 	&.dataTable {
-182: 		&.no-footer {
-183: 			border-bottom: 0;
+176: 		}
+177: 		.as-icon-chevron-right {
+178: 			width: 9px;
+179: 			height: 9px;
+180: 			margin-bottom: 2px;
+181: 			border-color: $color-primary;
+182: 		}
+183: 	}
+184: 	&.dataTable {
+185: 		&.no-footer {
+186: 			border-bottom: 0;
 
 Backtrace:
-scss/main/content.scss:178
+scss/main/content.scss:181
 /usr/lib/ruby/vendor_ruby/sass/script/tree/variable.rb:49:in `_perform'
 /usr/lib/ruby/vendor_ruby/sass/script/tree/node.rb:58:in `perform'
 /usr/lib/ruby/vendor_ruby/sass/tree/visitors/perform.rb:397:in `visit_prop'
@@ -91,4 +91,4 @@ scss/main/content.scss:178
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$color-primary\".\A         on line 178 of scss/main/content.scss\A \A 173: 		}\A 174: 		.as-icon-chevron-right {\A 175: 			width: 9px;\A 176: 			height: 9px;\A 177: 			margin-bottom: 2px;\A 178: 			border-color: $color-primary;\A 179: 		}\A 180: 	}\A 181: 	&.dataTable {\A 182: 		&.no-footer {\A 183: 			border-bottom: 0;"; }
+  content: "Error: Undefined variable: \"$color-primary\".\A         on line 181 of scss/main/content.scss\A \A 176: 		}\A 177: 		.as-icon-chevron-right {\A 178: 			width: 9px;\A 179: 			height: 9px;\A 180: 			margin-bottom: 2px;\A 181: 			border-color: $color-primary;\A 182: 		}\A 183: 	}\A 184: 	&.dataTable {\A 185: 		&.no-footer {\A 186: 			border-bottom: 0;"; }
