@@ -29,13 +29,11 @@ class DashboardView(View, CMain):
 
 		if(id>0):
 			self.SITE_DATA['page'] = 'dashboard'
+			self.SITE_DATA['page_menu'] = 'home'
 			self.SITE_DATA['page_title'] = 'Dashboard'
 			# return redirect('propertyCreate')
 
 			self.getBasicDetails(request, id)
-
-			if request.session['pid'] is 0:
-				return redirect('propertyCreate')
 
 			return render(request, 'home.html', self.SITE_DATA)
 		else:

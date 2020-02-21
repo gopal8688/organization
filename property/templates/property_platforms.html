@@ -1,29 +1,21 @@
-{% extends "layout_parent.html" %}
+{% extends "index.html" %}
 {% load static %}
 
 {% block section %}
-      <div class="container">
-        <div class="as-grid as-i-main">
-          <div class="portlet-2 mb-4">
-            <h3>Add Property</h3>
-            <hr class="mb-4">
-            <form action="{{form_url}}" class="pt-4" id="frmAddProperty">
-              <div class="form-group row">
-                <div class="col-md-2">
-                  <h4 class="block-title m-0 as-lh-46">Property Name</h4>
-                </div>
-                <div class="col-md-6">
-                  <input type="text" class="form-control" id="inputPropertyName" name="inputPropertyName" placeholder="Enter Property Name">
-                </div>
-              </div>
-              <div class="as-frm-btns">
-                <button class="btn as-btn-lg btn-primary">Create</button>
-              </div>
-            </form>
+  <div class="as-grid as-content">
+    <div class="as-grid-justified as-page-header">
+      <div class="as-page-title-wrap"><h1 class="as-page-title">Property Settings</h1></div>
+      <div class="as-page-tools"></div>
+    </div>
+    <div class="as-grid as-container">
+      <div class="as-right-wrap">
+        <div class="as-portlet-1">
+          <div class="as-grid-justified as-portlet-header">
+            <h2 class="as-portlet-title">Property Platforms</h2>
+            <div class="as-portlet-tools as-grid-justified"><a href="javascript:;" class="as-link-filter"><i class="as-icon as-icon-filter"></i></a><a href="#addUser" data-toggle="modal">+ Add User</a></div>
           </div>
-          <div class="portlet-2 d-none" id="addPropertyPlatforms">
-            <h3>Set Property Platforms</h3>
-            <hr class="mb-4">
+          <div class="as-portlet-body p-4">
+            <label for="">Manage your property platforms. <em>(Currently we support only web)</em></label>
             <form action="" class="pt-4">
               <div class="form-group row">
                 <div class="col-md-2">
@@ -55,4 +47,12 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <aside class="as-aside-right">
+    <ul class="as-aside-right-menu list-unstyled">
+      <li><a href="{% url 'pssettings' pid %}"><i class="as-icon-rside fa fa-gears"></i><span class="as-rmenu-item">Property Settings</span></a></li>
+      <li class="active"><a href="{% url 'psplatforms' pid %}"><i class="as-icon-rside fa fa-bars"></i><span class="as-rmenu-item">Property Platforms</span></a></li>
+    </ul>
+  </aside>
 {% endblock section %}

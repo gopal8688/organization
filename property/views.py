@@ -24,7 +24,7 @@ class PropertyCreateView(View, CMain):
 		return render(request, 'property_create.html', self.SITE_DATA)
 
 	def post(self, request):
-		try:
+		#try:
 			pn = request.POST['pn']
 			p = Property(pid=get_random_string(length=16, allowed_chars='123456789'), pname = pn, country="India")
 			p.save()
@@ -35,7 +35,7 @@ class PropertyCreateView(View, CMain):
 				cp.save()
 				data = {
 					'status': 'success',
-					'pid': p.id,
+					'red_url': reverse('psplatforms', args=[p.id]),
 				}
 			else:
 				data = {
@@ -43,20 +43,38 @@ class PropertyCreateView(View, CMain):
 					'message': 'There was some error.',
 				}
 			return JsonResponse(data)
-		except:
-			return JsonResponse({
-					'status': 'error',
-					'message': 'There was some error. Please refresh and try again.',
-				})
+		# except:
+		# 	return JsonResponse({
+		# 			'status': 'error',
+		# 			'message': 'There was some error. Please refresh and try again.',
+		# 		})
+class PropertySettingsView(View, CMain):
+	""" docstring for PropertySettingsView """
+	def __init__(self, **arg):
+		super(PropertySettingsView, self).__init__()
+		self.arg = arg
+	def get(self, request, id):
+		if(not self.valiDateProperty(request, id)):
+			redirect('home')
+		self.getBasicDetails(request, id)
+		self.SITE_DATA['page'] = 'propertysettings'
+		self.SITE_DATA['page_menu'] = 'settings'
+		self.SITE_DATA['page_title'] = 'Property Settings'
+		self.SITE_DATA['form_url'] = reverse('pssettings', args=[id])
+		return render(request, 'property_settings.html', self.SITE_DATA)
 class PropertyPlatformsView(View, CMain):
 	""" docstring for PropertyPlatformsView """
 	def __init__(self, **arg):
 		super(PropertyPlatformsView, self).__init__()
 		self.arg = arg
 	def get(self, request, id):
+		if(not self.valiDateProperty(request, id)):
+			redirect('home')
+		self.getBasicDetails(request, id)
 		self.SITE_DATA['page'] = 'propertyplatforms'
+		self.SITE_DATA['page_menu'] = 'settings'
 		self.SITE_DATA['page_title'] = 'Property Platforms'
-		self.SITE_DATA['form_url'] = reverse('psplatforms')
+		self.SITE_DATA['form_url'] = reverse('psplatforms', args=[id])
 		return render(request, 'property_platforms.html', self.SITE_DATA)
 class PropertyTrackingCodeView(View, CMain):
 	""" docstring for PropertyTrackingCodeView """
@@ -65,8 +83,9 @@ class PropertyTrackingCodeView(View, CMain):
 		self.arg = arg
 	def get(self, request, id):
 		self.SITE_DATA['page'] = 'propertytrackingcode'
+		self.SITE_DATA['page_menu'] = 'settings'
 		self.SITE_DATA['page_title'] = 'Property Tracking Code'
-		self.SITE_DATA['form_url'] = reverse('pstrackingcode')
+		self.SITE_DATA['form_url'] = reverse('pstrackingcode', args=[id])
 		return render(request, 'property_trackingcode.html', self.SITE_DATA)
 class PropertyAPIKeysView(View, CMain):
 	""" docstring for PropertyAPIKeysView """
@@ -75,6 +94,7 @@ class PropertyAPIKeysView(View, CMain):
 		self.arg = arg
 	def get(self, request, id):
 		self.SITE_DATA['page'] = 'propertyapikeys'
+		self.SITE_DATA['page_menu'] = 'settings'
 		self.SITE_DATA['page_title'] = 'Property API Keys'
-		self.SITE_DATA['form_url'] = reverse('psapikeys')
+		self.SITE_DATA['form_url'] = reverse('psapikeys', args=[id])
 		return render(request, 'property_apikeys.html', self.SITE_DATA)

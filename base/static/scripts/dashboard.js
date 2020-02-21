@@ -7,6 +7,7 @@ $(document).ready(function () {
   fetchSA(datasend);
   fetchLA(datasend);
   fetchSAA(datasend);
+  fetchRRD(datasend);
 });
 var randomScalingFactor = function() {
   return Math.floor((Math.random() * 100000) + 1);
@@ -93,6 +94,23 @@ function fetchSAA(datasend) {
     }
   });
 }
+function fetchRRD(datasend) {  
+  $.ajax({
+    type: "GET",
+    url: ML_SERVER_API+RF_API_URLs.rrd,
+    data: datasend,
+    dataType: "json",
+    success: function (response) {
+      if(response.status == 'success') {
+        var config3 = setConfigRRD(response);
+        var ctx3 = document.getElementById('locationChart').getContext('2d');
+        window.myHorizontalBar = new Chart(ctx3, config3);
+      } else {
+        alert(response.message);
+      }
+    }
+  });
+}
 function setStatsDS(data) {
   $("#monVisitors").text(data.monitored_users);
   $("#authUsers").text(data.authenticated_users);
@@ -110,8 +128,8 @@ function setTableHru(data) {
         '<tr>'+
             '<td><i class="as-risk-bubble as-bg-high"></i> High</td>'+
             '<td><i class="as-icon as-icon-risk-graph"></i></td>'+
-            '<td>'+data[i][0]+'</td>'+
-            '<td><div class="as-btn-risk-score as-bg-light-critical as-border-critical as-text-critical">'+data[i][1]+'</div></td>'+
+            '<td>'+data[i].user+'</td>'+
+            '<td><div class="as-btn-risk-score as-bg-light-critical as-border-critical as-text-critical">'+data[i].score+'</div></td>'+
             '<td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>'+
           '</tr>'
       );
@@ -145,10 +163,10 @@ function setTableSA(data) {
     for (let i = 0; i < data.length; i++) {
       $("#tblSA tbody").append(
         '<tr>'+
-            '<td><i class="as-risk-bubble as-bg-high"></i> High</td>'+
+            '<td>'+RISK_TYPE[data[0].cat]+'</td>'+
             '<td>Credential Stuffing</td>'+
-            '<td>testUser-3</td>'+
-            '<td><div class="as-btn-risk-score as-bg-light-high as-border-high as-text-high">4874</div></td>'+
+            '<td>'+data[0].user+'</td>'+
+            '<td><div class="as-btn-risk-score as-bg-light-high as-border-high as-text-high">'+data[0].score+'</div></td>'+
             '<td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>'+
           '</tr>'
       );
@@ -471,7 +489,71 @@ function setConfigSAA(data) {
   }
 };*/
 
-var config3 = {
+function setConfigRRD(data) {
+  return {
+    type: 'horizontalBar',
+    data: {
+      labels: data.country,
+      datasets: [{
+        label: 'Good Users',
+        backgroundColor: window.chartColors.blue,
+        borderColor: window.chartColors.blue,
+        borderWidth: 1,
+        data: data.good_users
+      }, {
+        label: 'Bad Users',
+        backgroundColor: window.chartColors.high,
+        borderColor: window.chartColors.high,
+        data: data.bad_users
+      }]
+
+    },
+    options: {
+      // Elements options apply to all of the options unless overridden in a dataset
+      // In this case, we are setting the border of each horizontal bar to be 2px wide
+      elements: {
+        rectangle: {
+          borderWidth: 2,
+        }
+      },
+      responsive: true,
+      legend: {
+        position: 'right',
+      },
+      title: {
+        display: false,
+        //text: 'Chart.js Horizontal Bar Chart'
+      },
+      scales: {
+        xAxes: [{
+          display: true,
+          ticks: {
+            min: 0,
+            max: 100,
+
+            // forces step size to be 5 units
+            stepSize: 20,
+            callback: function (value) {
+              return value + '%'; // convert it to percentage
+            },
+          },
+          scaleLabel: {
+            display: true,
+            labelString: 'Percentage'
+          }
+        }],
+        yAxes: [{
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Countries'
+          }
+        }]
+      }
+    }
+  };
+}
+/*var config3 = {
   type: 'horizontalBar',
   data: {
     labels: ['India', 'United States', 'United Arab Emirates', 'United Kingdom', 'Finland'],
@@ -544,14 +626,13 @@ var config3 = {
       }]
     }
   }
-};
+};*/
 
- window.onload = function() {
-  /*var ctx1 = document.getElementById('attemptsChart').getContext('2d');
+/*window.onload = function() {
+  var ctx1 = document.getElementById('attemptsChart').getContext('2d');
   window.myLine = new Chart(ctx1, config1);
   var ctx2 = document.getElementById('secAlertsChart').getContext('2d');
-  window.myLine = new Chart(ctx2, config2);*/
-  var ctx3 = document.getElementById('locationChart').getContext('2d');
+  window.myLine = new Chart(ctx2, config2);
+  /*var ctx3 = document.getElementById('locationChart').getContext('2d');
   window.myHorizontalBar = new Chart(ctx3, config3);
-
-}; 
+};*/
