@@ -7,13 +7,13 @@
           <div class="portlet-2 mb-4">
             <h3>Add Property</h3>
             <hr class="mb-4">
-            <form action="" class="pt-4">
+            <form action="{{form_url}}" class="pt-4" id="frmAddProperty">
               <div class="form-group row">
                 <div class="col-md-2">
                   <h4 class="block-title m-0 as-lh-46">Property Name</h4>
                 </div>
                 <div class="col-md-6">
-                  <input type="text" class="form-control" placeholder="Domain e.g. example.com">
+                  <input type="text" class="form-control" id="inputPropertyName" name="inputPropertyName" placeholder="Domain e.g. example.com">
                 </div>
               </div>
               <div class="as-frm-btns">
@@ -21,7 +21,7 @@
               </div>
             </form>
           </div>
-          <div class="portlet-2">
+          <div class="portlet-2 d-none" id="addPropertyPlatforms">
             <h3>Set Property Platforms</h3>
             <hr class="mb-4">
             <form action="" class="pt-4">

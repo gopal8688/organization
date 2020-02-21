@@ -80,9 +80,9 @@
                       {% ifequal row.id show_row.id %}
                         {% with request.session.id as row.id %}
                         {% endwith %}
-                        <li><a href="% url 'prop_select' row.id %}" class="active" data-pid="{{row.id}}"><span class="as-prop-menu-name">Property: {{row.domain}}</span><span class="as-prop-menu-propid">Property ID: {{row.pid}}</span></a></li>
+                        <li><a href="{% url 'pr-home' row.id %}" class="active" data-pid="{{row.id}}"><span class="as-prop-menu-name">Property: {{row.pname}}</span><span class="as-prop-menu-propid">Property ID: {{row.pid}}</span></a></li>
                         {% else %}
-                        <li><a href="% url 'prop_select' row.id %}" data-pid="{{row.id}}"><span class="as-prop-menu-name">Property: {{row.domain}}</span><span class="as-prop-menu-propid">Property ID: {{row.pid}}</span></a></li>
+                        <li><a href="{% url 'pr-home' row.id %}" data-pid="{{row.id}}"><span class="as-prop-menu-name">Property: {{row.pname}}</span><span class="as-prop-menu-propid">Property ID: {{row.pid}}</span></a></li>
                       {% endifequal %}
                     {% endfor %}
                   </ul>
@@ -165,7 +165,7 @@
     <script src="{% static 'scripts/main.js' %}"></script>
     {% script_includer page as file_exist %}
     {% if file_exist %}
-      <script src="{% static '/scripts/dashboard.js' %}"></script>
+      <script src="{% static '' %}scripts/{{page}}.js"></script>
     {% endif %}
   </body>
 </html>
