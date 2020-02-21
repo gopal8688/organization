@@ -98,7 +98,7 @@ function setStatsDS(data) {
   $("#authUsers").text(data.authenticated_users);
   $("#hrUsers").text(data.high_risk_users);
   $("#notEvents").text(data.notable_events);
-  $("#susDevices").text(data.suspecious_device);
+  $("#susDevices").text(data.suspicious_device);
   $("#watchUsers").text(data.watchlist);
 }
 function setTableHru(data) {
@@ -179,19 +179,19 @@ function setConfigLA(data) {
   return {
     type: 'line',
     data: {
-      labels: data.year_month_day,
+      labels: data.date,
       datasets: [{
         label: 'Successful Logins',
         backgroundColor: window.chartColors.low,
         borderColor: window.chartColors.low,
-        data: data.failure_count,
+        data: data.f_count,
         fill: false,
       }, {
         label: 'Failed Logins',
         fill: false,
         backgroundColor: window.chartColors.high,
         borderColor: window.chartColors.high,
-        data: data.success_count,
+        data: data.s_count,
       }]
     },
     options: {
@@ -224,10 +224,10 @@ function setConfigLA(data) {
           },
           ticks: {
             min: 0,
-            max: 300,
+            max: 150,
   
             // forces step size to be 5 units
-            stepSize: 50
+            stepSize: 30
           }
         }]
       },
@@ -321,25 +321,25 @@ function setConfigSAA(data) {
   return {
     type: 'line',
     data: {
-      labels: data.year_month_day,
+      labels: data.date,
       datasets: [{
         label: 'Safe Users',
         backgroundColor: window.chartColors.low,
         borderColor: window.chartColors.low,
-        data: data.G_count,
+        data: data.g_count,
         fill: false,
       }, {
         label: 'Suspicious Users',
         fill: false,
         backgroundColor: window.chartColors.gold,
         borderColor: window.chartColors.gold,
-        data: data.Y_count,
+        data: data.y_count,
       }, {
         label: 'High Risk Users',
         fill: false,
         backgroundColor: window.chartColors.high,
         borderColor: window.chartColors.high,
-        data: data.R_count,
+        data: data.r_count,
       }]
     },
     options: {
@@ -372,7 +372,7 @@ function setConfigSAA(data) {
           },
           ticks: {
             min: 0,
-            max: 30,
+            max: 25,
 
             // forces step size to be 5 units
             stepSize: 5

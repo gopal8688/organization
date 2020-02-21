@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'cmain.apps.CmainConfig',
     'dashboard.apps.DashboardConfig',
     'cprof.apps.CprofConfig',
+    'property.apps.PropertyConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -129,8 +130,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-
-STATIC_URL = '/static/'
+STATIC_ROOT = "/var/www/customer/base/static/"
+STATIC_URL = '/cstatic/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'base/static')              #os.path.join(BASE_DIR, 'login/static')
 ]

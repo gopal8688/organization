@@ -1,5 +1,6 @@
 import json
 import pytz
+from auths.models import Customer, Property, CPRelationship, PropertyTokens
 
 class BaseView():
     @staticmethod
@@ -27,3 +28,16 @@ class BaseView():
         'ML_SERVER_API': 'http://demo.authsafe.ai:5000/api/',
         'time_zones': json.dumps(getAllTimeZones.__func__())
     }
+
+    def getCustomerObj(self, request):
+        
+        email = request.session['email'] #.request.session['email']        
+        cust_obj = Customer.objects.get(email=email)
+
+        return cust_obj
+
+    def getPropertyObj(self, request):
+        pid = request.session['pid'] #.request.session['email']        
+        prop_obj = Property.objects.get(id=pid)
+
+        return prop_obj
