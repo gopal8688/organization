@@ -1,0 +1,29 @@
+{% extends "layout_parent.html" %}
+{% load static %}
+
+{% block section %}
+  <div class="container">
+    <div class="as-grid as-i-main text-center">
+      <h1 class="as-page-title">AuthSafe SDK</h1>
+      <p class="text-muted">Select a web agent to download its SDK.</p>
+      <div class="clearfix as-bb-dashed">
+        <ul class="list-unstyled list-lang-sdks">
+          <li><a href="{% static 'downloads/authsafe-php-sdk.zip' %}" target="_blank"><i class="as-icon as-icon-php"></i></a></li>
+          <li><a href="{% static 'downloads/authsafe-php-sdk.zip' %}" target="_blank"><i class="as-icon as-icon-python"></i></a></li>
+        </ul>
+      </div>
+      <hr>
+      <div class="as-gs-coming-soon">
+        <h4 class="as-subpage-title">Coming Soon</h4>
+        <ul class="list-unstyled list-lang-sdks">
+          <li class="disabled"><a><i class="as-icon as-icon-ruby"></i></a></li>
+          <li class="disabled"><a><i class="as-icon as-icon-java"></i></a></li>
+          <li class="disabled"><a><i class="as-icon as-icon-dotnet"></i></a></li>
+          <li class="disabled"><a><i class="as-icon as-icon-nodejs"></i></a></li>
+          <li class="disabled"><a><i class="as-icon as-icon-golang"></i></a></li>
+          <li class="disabled"><a><i class="as-icon as-icon-csharp"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock section %}

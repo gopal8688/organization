@@ -249,6 +249,17 @@ table.as-portlet-table-1 {
 		margin-right: 8px;
 	}
 }
+.as-icon-blue-round {
+	color: #FFFFFF;
+	font-size: 1.5rem;
+	position: absolute;
+	width: 45px;
+	height: 45px;
+	background-color: #246CF2;
+	box-shadow: none;
+	border-radius: 100%;
+	line-height: 45px;
+}
 .as-nav-tabs-1 {
 	.as-nav-tab-nav {
 		display: block;
@@ -263,12 +274,25 @@ table.as-portlet-table-1 {
 			box-shadow: none;
 		}
 	}
+	.nav-link.disabled {
+		.as-icon-blue-round {
+			opacity: 0.6;
+			background-color: #6c757d;
+		}
+	}
 	.nav-item {
 		&.active,&:hover {
 			.as-nav-tab-nav {
 				border-color: $color-primary;
 			}
 			.as-icon-round-1 {
+				box-shadow: 0px 10px 15px #BFCAE1;
+			}
+			.as-icon-blue-round {
+				width: 48px;
+				height: 48px;
+				line-height: 45px;
+				border: 3px solid #FFFFFF;
 				box-shadow: 0px 10px 15px #BFCAE1;
 			}
 		}
@@ -470,7 +494,6 @@ table.as-portlet-table-1 {
 			}
 			.as-icon-rside {
 				color: #FFFFFF;
-				font-size: 20px;
 			}
 			.as-icon-userrole {
 				background-image: url(../img/icons/as-icon-userrole-white.svg);
@@ -506,6 +529,10 @@ table.as-portlet-table-1 {
 			padding: 20px 17px;
 			width: 100%;
 			position: relative;
+			.as-icon-rside {
+				color: #aeaeae;
+				font-size: 20px;
+			}
 		}
 	}
 	.as-rmenu-item {
@@ -562,5 +589,79 @@ table.as-portlet-table-1 {
 	.fa {
 		color: #ACBCCD;
 		font-size: 13px;
+	}
+}
+.highlight {
+	position: relative;
+	padding: 1rem;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	background-color: #f8f9fa;
+	-ms-overflow-style: -ms-autohiding-scrollbar;
+	pre {
+		padding: 0;
+		margin-top: 0;
+		margin-bottom: 0;
+		background-color: transparent;
+		border: 0;
+		code {
+			overflow-wrap:break-word;
+			//white-space: normal;
+		}
+	}
+	.c-btn {
+		position: absolute;
+		right: 4px;
+		top: 4px;
+		padding: 2px 4px;
+		font-size: 12px;
+		&:hover {
+			color: #FFFFFF;
+			background-color: $color-primary;
+		}
+	}
+	.bl {
+		color: teal;//#55AEC0;
+	}
+	.str {
+		color: #d14;
+	}
+	.cl {
+		color: #999;
+	}
+	.args {
+		color: #f60;
+	}
+}
+.list-lang-sdks {
+	li {
+		display: inline-block;
+		&:disabled {
+			
+		}
+		a {
+			display: inline-block;
+			width: 130px;
+			height: 130px;
+			background-color: #FFFFFF;
+			text-align: center;
+			float: left;
+			margin-right: 20px;
+			margin-bottom: 20px;
+			position: relative;
+			.as-icon {
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				margin: auto auto;
+			}
+		}
+		&:last-child {
+			a {
+				margin-right: 0;
+			}
+		}
 	}
 }

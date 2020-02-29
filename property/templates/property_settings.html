@@ -1,7 +1,7 @@
-{% extends "index.html" %}
+{% extends "layouts/property_layout.html" %}
 {% load static %}
 
-{% block section %}
+{% block propsection %}
   <div class="as-grid as-content">
     <div class="as-grid-justified as-page-header">
       <div class="as-page-title-wrap"><h1 class="as-page-title">Property Settings</h1></div>
@@ -21,11 +21,11 @@
                   <h4 class="block-title m-0 as-lh-46">Property Name</h4>
                 </div>
                 <div class="col-md-6">
-                  <input type="text" class="form-control" id="inputPropertyName" name="inputPropertyName" placeholder="Enter Property Name">
+                  <input type="text" class="form-control" id="inputPropertyName" name="inputPropertyName" placeholder="Enter Property Name" value="{{pname}}">
                 </div>
               </div>
               <div class="as-frm-btns">
-                <button class="btn as-btn-lg btn-primary">Create</button>
+                <button class="btn as-btn-lg btn-primary">Save</button>
               </div>
             </form>
           </div>
@@ -33,10 +33,4 @@
       </div>
     </div>
   </div>
-  <aside class="as-aside-right">
-    <ul class="as-aside-right-menu list-unstyled">
-      <li class="active"><a href="{% url 'pssettings' pid %}"><i class="as-icon-rside fa fa-gears"></i><span class="as-rmenu-item">Property Settings</span></a></li>
-      <li><a href="{% url 'psplatforms' pid %}"><i class="as-icon-rside fa fa-bars"></i><span class="as-rmenu-item">Property Platforms</span></a></li>
-    </ul>
-  </aside>
-{% endblock section %}
+{% endblock propsection %}

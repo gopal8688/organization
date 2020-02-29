@@ -17,15 +17,29 @@ window.chartColors = {
 	grey: 'rgb(201, 203, 207)'
 };
 
-window.RISK_TYPE = {
-	'R': '<i class="as-risk-bubble as-bg-high"></i> High',
-	'High': '<i class="as-risk-bubble as-bg-high"></i> High',
-	'Y': '<i class="as-risk-bubble as-bg-medium"></i> Medium',
-	'Medium': '<i class="as-risk-bubble as-bg-medium"></i> Medium',
-	'G': '<i class="as-risk-bubble as-bg-low"></i> Low',
-	'Low': '<i class="as-risk-bubble as-bg-low"></i> Low'
-}
+window.MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Aug","Sep","Oct","Nov","Dec"];
 
+window.RISK_TYPE = {
+	'C': 'critical',
+	'R': 'high',
+	'Y': 'medium',
+	'G': 'low'
+}
+window.RISK_TYPE_LABEL = {
+	'C': '<i class="as-risk-bubble as-bg-critical"></i> Critical',
+	'R': '<i class="as-risk-bubble as-bg-high"></i> High',
+	'Y': '<i class="as-risk-bubble as-bg-medium"></i> Medium',
+	'G': '<i class="as-risk-bubble as-bg-low"></i> Low'
+}
+window.capitalize = function(str) {
+	return str.charAt(0).toUpperCase() + str.substr(1).toLowerCase();
+}
+window.roundTwoDigits = function(str) {
+	return ("0" + str).slice(-2);
+}
+window.getLongDate = function(timestamp) {
+	return MONTHS[timestamp.getMonth()]+' '+roundTwoDigits(timestamp.getDate())+', '+timestamp.getFullYear()+' '+roundTwoDigits(timestamp.getHours())+':'+roundTwoDigits(timestamp.getMinutes())+':'+roundTwoDigits(timestamp.getSeconds());
+}
 $(document).click(function (event) {
 	var clickover = $(event.target);
 	var _opened = $(".as-aside.collapse").hasClass("as-aside collapse show");

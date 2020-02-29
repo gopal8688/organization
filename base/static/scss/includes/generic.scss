@@ -35,6 +35,13 @@ a:hover {
 	color: #000000;
 }
 
+.as-subpage-title {
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 36px;
+	color: #000000;
+}
+
 .as-portlet-title {
 	font-weight: 500;
 	font-size: 18px;
@@ -484,4 +491,8 @@ form {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	border-radius: 10px;
 	background-color: #F5F5F5;
+}
+
+.input-group-append .btn, .input-group-prepend .btn {
+	z-index: 1;
 }

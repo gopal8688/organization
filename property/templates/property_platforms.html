@@ -1,7 +1,7 @@
-{% extends "index.html" %}
+{% extends "layouts/property_layout.html" %}
 {% load static %}
 
-{% block section %}
+{% block propsection %}
   <div class="as-grid as-content">
     <div class="as-grid-justified as-page-header">
       <div class="as-page-title-wrap"><h1 class="as-page-title">Property Settings</h1></div>
@@ -11,48 +11,44 @@
       <div class="as-right-wrap">
         <div class="as-portlet-1">
           <div class="as-grid-justified as-portlet-header">
-            <h2 class="as-portlet-title">Property Platforms</h2>
-            <div class="as-portlet-tools as-grid-justified"><a href="javascript:;" class="as-link-filter"><i class="as-icon as-icon-filter"></i></a><a href="#addUser" data-toggle="modal">+ Add User</a></div>
+            <h2 class="as-portlet-title">Property Platform Settings</h2>
           </div>
-          <div class="as-portlet-body p-4">
-            <label for="">Manage your property platforms. <em>(Currently we support only web)</em></label>
-            <form action="" class="pt-4">
-              <div class="form-group row">
-                <div class="col-md-2">
-                  <h4 class="block-title">Property Type</h4>
+          <div class="as-portlet-body as-portlet-body-tabs">
+            <div class="as-nav-tabs-1">
+              <nav>
+                <div class="nav nav-justified" id="psPlatformsTab" role="tablist">
+                  <a class="nav-item nav-link active" id="websiteTab" data-toggle="tab" href="#navWebsite" role="tab" aria-controls="navWebsite" aria-selected="true">
+                    <span class="as-nav-tab-nav"><span class="as-icon-blue-round"><i class="fa fa-desktop" aria-hidden="true"></i></span><span class="nav-title">Website</span></span>
+                  </a>
+                  <a class="nav-item nav-link disabled" id="androidTab" data-toggle="tab" href="#navAndroid" role="tab" aria-controls="navAndroid" aria-selected="false">
+                    <span class="as-nav-tab-nav"><span class="as-icon-blue-round"><i class="fa fa-android" aria-hidden="true"></i></span><span class="nav-title">Android App</span></span>
+                  </a>
+                  <a class="nav-item nav-link disabled" id="iosTab" data-toggle="tab" href="#navIos" role="tab" aria-controls="navIos" aria-selected="false">
+                    <span class="as-nav-tab-nav"><span class="as-icon-blue-round"><i class="fa fa-apple" aria-hidden="true"></i></span><span class="nav-title">iOS App</span></span>
+                  </a>
                 </div>
-                <div class="col-md-10">
-                  <div class="custom-control custom-radio as-mb-10p">
-                    <input type="radio" class="custom-control-input" id="optionNewCookie" name="yourusers1">
-                    <label class="custom-control-label" for="optionNewCookie">Website</label>
-                  </div>
-                  <div class="custom-control custom-radio as-mb-10p">
-                    <input type="radio" class="custom-control-input" id="optionNewDevice" name="yourusers1" disabled="">
-                    <label class="custom-control-label" for="optionNewDevice">App</label>
-                  </div>
+              </nav>
+              <div class="tab-content" id="psPlatformsTabContent">
+                <div class="tab-pane fade show active" id="navWebsite" role="tabpanel" aria-labelledby="websiteTab">
+                  <form action="{{ form_url }}" id="frmUpdatePlatformURL">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <p class="font-italic mb-4">If you have a website which you want to use with AuthSafe, please enter its URL below. We need the URL in order to validate that you are the owner of the website.</p>
+                        <div class="form-group">
+                          <input type="text" id="inputPropertyURL" name="inputPropertyURL" class="form-control" placeholder="Website URL e.g. example.com" aria-label="Website URL e.g. example.com" aria-describedby="btnSaveUrl" value="{{ website.domain }}">
+                        </div>
+                        <button class="btn as-btn-lg btn-primary" type="submit" id="btnSaveUrl">Save</button>
+                      </div>
+                    </div>
+                  </form>
                 </div>
+                <div class="tab-pane fade" id="navAndroid" role="tabpanel" aria-labelledby="androidTab"></div>
+                <div class="tab-pane fade" id="navIos" role="tabpanel" aria-labelledby="iosTab"></div>
               </div>
-              <div class="form-group row">
-                <div class="col-md-2">
-                  <h4 class="block-title">Website Domain</h4>
-                </div>
-                <div class="col-md-6">
-                  <input type="text" class="form-control" placeholder="Domain e.g. example.com">
-                </div>
-              </div>
-              <div class="as-frm-btns">
-                <button class="btn as-btn-lg btn-primary">Create</button>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <aside class="as-aside-right">
-    <ul class="as-aside-right-menu list-unstyled">
-      <li><a href="{% url 'pssettings' pid %}"><i class="as-icon-rside fa fa-gears"></i><span class="as-rmenu-item">Property Settings</span></a></li>
-      <li class="active"><a href="{% url 'psplatforms' pid %}"><i class="as-icon-rside fa fa-bars"></i><span class="as-rmenu-item">Property Platforms</span></a></li>
-    </ul>
-  </aside>
-{% endblock section %}
+{% endblock propsection %}
