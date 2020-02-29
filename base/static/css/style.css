@@ -201,6 +201,71 @@ a.as-icon-status:hover {
   height: 60px;
   background-image: url(../img/icons/as-icon-endpoint.svg); }
 
+.disabled .as-icon-ruby, .as-gs-coming-soon .as-icon-ruby {
+  background-blend-mode: saturation;
+  background-image: linear-gradient(white, white), url(../img/icons/as-icon-ruby.svg); }
+.disabled .as-icon-php, .as-gs-coming-soon .as-icon-php {
+  background-blend-mode: saturation;
+  background-image: linear-gradient(white, white), url(../img/icons/as-icon-php.svg); }
+.disabled .as-icon-java, .as-gs-coming-soon .as-icon-java {
+  background-blend-mode: saturation;
+  background-image: linear-gradient(white, white), url(../img/icons/as-icon-java.svg); }
+.disabled .as-icon-dotnet, .as-gs-coming-soon .as-icon-dotnet {
+  background-blend-mode: saturation;
+  background-image: linear-gradient(white, white), url(../img/icons/as-icon-dotnet.svg); }
+.disabled .as-icon-python, .as-gs-coming-soon .as-icon-python {
+  background-blend-mode: saturation;
+  background-image: linear-gradient(white, white), url(../img/icons/as-icon-python.svg); }
+.disabled .as-icon-nodejs, .as-gs-coming-soon .as-icon-nodejs {
+  background-blend-mode: saturation;
+  background-image: linear-gradient(white, white), url(../img/icons/as-icon-nodejs.svg); }
+.disabled .as-icon-golang, .as-gs-coming-soon .as-icon-golang {
+  background-blend-mode: saturation;
+  background-image: linear-gradient(white, white), url(../img/icons/as-icon-golang.svg); }
+.disabled .as-icon-csharp, .as-gs-coming-soon .as-icon-csharp {
+  background-blend-mode: saturation;
+  background-image: linear-gradient(white, white), url(../img/icons/as-icon-csharp.svg); }
+
+.as-icon-ruby {
+  width: 70px;
+  height: 70px;
+  background-image: url(../img/icons/as-icon-ruby.svg); }
+
+.as-icon-php {
+  width: 70px;
+  height: 38px;
+  background-image: url(../img/icons/as-icon-php.svg); }
+
+.as-icon-java {
+  width: 90px;
+  height: 50px;
+  background-image: url(../img/icons/as-icon-java.svg); }
+
+.as-icon-dotnet {
+  width: 110px;
+  height: 62px;
+  background-image: url(../img/icons/as-icon-dotnet.svg); }
+
+.as-icon-python {
+  width: 108px;
+  height: 32px;
+  background-image: url(../img/icons/as-icon-python.svg); }
+
+.as-icon-nodejs {
+  width: 101px;
+  height: 62px;
+  background-image: url(../img/icons/as-icon-nodejs.svg); }
+
+.as-icon-golang {
+  width: 102px;
+  height: 90px;
+  background-image: url(../img/icons/as-icon-golang.svg); }
+
+.as-icon-csharp {
+  width: 56px;
+  height: 60px;
+  background-image: url(../img/icons/as-icon-csharp.svg); }
+
 /* @font-face {
 	font-family: 'droid_sans_monoregular';
 	src: url('droidsansmono-webfont.woff2') format('woff2'),
@@ -238,6 +303,12 @@ a:hover {
   font-weight: 500;
   font-size: 22px;
   line-height: 40px;
+  color: #000000; }
+
+.as-subpage-title {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 36px;
   color: #000000; }
 
 .as-portlet-title {
@@ -626,6 +697,9 @@ form .custom-radio .custom-control-input:checked ~ .custom-control-label::after 
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   background-color: #F5F5F5; }
+
+.input-group-append .btn, .input-group-prepend .btn {
+  z-index: 1; }
 
 .as-aside {
   display: none; }
@@ -1288,6 +1362,17 @@ table.as-portlet-table-1 {
   .as-portlet-legends .as-risk-bubble {
     margin-right: 8px; }
 
+.as-icon-blue-round {
+  color: #FFFFFF;
+  font-size: 1.5rem;
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  background-color: #246CF2;
+  box-shadow: none;
+  border-radius: 100%;
+  line-height: 45px; }
+
 .as-nav-tabs-1 .as-nav-tab-nav {
   display: block;
   position: relative;
@@ -1299,9 +1384,18 @@ table.as-portlet-table-1 {
     width: 45px;
     height: 45px;
     box-shadow: none; }
+.as-nav-tabs-1 .nav-link.disabled .as-icon-blue-round {
+  opacity: 0.6;
+  background-color: #6c757d; }
 .as-nav-tabs-1 .nav-item.active .as-nav-tab-nav, .as-nav-tabs-1 .nav-item:hover .as-nav-tab-nav {
   border-color: #246CF2; }
 .as-nav-tabs-1 .nav-item.active .as-icon-round-1, .as-nav-tabs-1 .nav-item:hover .as-icon-round-1 {
+  box-shadow: 0px 10px 15px #BFCAE1; }
+.as-nav-tabs-1 .nav-item.active .as-icon-blue-round, .as-nav-tabs-1 .nav-item:hover .as-icon-blue-round {
+  width: 48px;
+  height: 48px;
+  line-height: 45px;
+  border: 3px solid #FFFFFF;
   box-shadow: 0px 10px 15px #BFCAE1; }
 .as-nav-tabs-1 .nav-title {
   font-weight: 500;
@@ -1459,8 +1553,7 @@ table.as-portlet-table-1 {
 .as-aside-right-menu > li.active .as-rmenu-item {
   color: #FFFFFF; }
 .as-aside-right-menu > li.active .as-icon-rside {
-  color: #FFFFFF;
-  font-size: 20px; }
+  color: #FFFFFF; }
 .as-aside-right-menu > li.active .as-icon-userrole {
   background-image: url(../img/icons/as-icon-userrole-white.svg); }
 .as-aside-right-menu > li.active .as-icon-billing {
@@ -1485,6 +1578,9 @@ table.as-portlet-table-1 {
   padding: 20px 17px;
   width: 100%;
   position: relative; }
+  .as-aside-right-menu > li > a .as-icon-rside {
+    color: #aeaeae;
+    font-size: 20px; }
 .as-aside-right-menu .as-rmenu-item {
   font-weight: 500;
   font-size: 15px;
@@ -1531,6 +1627,61 @@ table.as-portlet-table-1 {
 .as-at .fa {
   color: #ACBCCD;
   font-size: 13px; }
+
+.highlight {
+  position: relative;
+  padding: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  background-color: #f8f9fa;
+  -ms-overflow-style: -ms-autohiding-scrollbar; }
+  .highlight pre {
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    background-color: transparent;
+    border: 0; }
+    .highlight pre code {
+      overflow-wrap: break-word; }
+  .highlight .c-btn {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    padding: 2px 4px;
+    font-size: 12px; }
+    .highlight .c-btn:hover {
+      color: #FFFFFF;
+      background-color: #246CF2; }
+  .highlight .bl {
+    color: teal; }
+  .highlight .str {
+    color: #d14; }
+  .highlight .cl {
+    color: #999; }
+  .highlight .args {
+    color: #f60; }
+
+.list-lang-sdks li {
+  display: inline-block; }
+  .list-lang-sdks li a {
+    display: inline-block;
+    width: 130px;
+    height: 130px;
+    background-color: #FFFFFF;
+    text-align: center;
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    position: relative; }
+    .list-lang-sdks li a .as-icon {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto auto; }
+  .list-lang-sdks li:last-child a {
+    margin-right: 0; }
 
 .as-i-header {
   padding: 22px 0 23px;

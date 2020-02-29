@@ -3,9 +3,11 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
 
-from auths.models import Customer, Property, CPRelationship, PropertyTokens
+from auths.models import Customer, Property, CPRelationship, PropertyTokens, WebPlatform
 from base.views import BaseView
 from django.http import HttpResponse
+import pytz
+from django.utils import timezone
 
 class CMain(BaseView):
 
@@ -40,13 +42,15 @@ class CMain(BaseView):
 		#print ('JSONss', self.SITE_DATA['API_URLS'])
 
 		context = {
+			'cid': cust_obj.id,
 			'cust_email': cust_obj.email,
 			'cust_full_name': cust_full_name,
 			'request': request,
 			'base_url': self.getAbsoluteURL(request),
 			'API_KEY': 'eiWee8ep9due4deeshoa8Peichai8Eih',
 		}
-
+		request.session['django_timezone'] = cust_obj.timezone
+		timezone.activate(pytz.timezone(request.session['django_timezone']))
 		request.session['pid'] = id
 		prop_obj = self.getPropertyObj(request)
 
@@ -55,8 +59,8 @@ class CMain(BaseView):
 		if properties:
 			context.update({
 				'rows': properties,
-				'show_row': prop_obj,
-				'company': prop_obj.pname,
+				'p_row': prop_obj,
+				'pname': prop_obj.pname,
 				'pid': request.session['pid'],
 			})
 		# if not prop_obj:
@@ -83,5 +87,11 @@ class CMain(BaseView):
 		else:
 			request.session['pid'] = prop_obj[0].id
 		#return request.session['pid']
+	def getPropertyWebDetails(self, request, pid):
+		try:
+			p = Property(id=pid)
+			return WebPlatform.objects.get(properties=p)
+		except WebPlatform.DoesNotExist:
+			return None
 
 #property_create_view = PropertyView.as_view();

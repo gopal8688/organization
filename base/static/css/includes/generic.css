@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$color-primary".
-        on line 147 of scss/includes/generic.scss
+        on line 154 of scss/includes/generic.scss
 
-142: }
-143: .as-bg-light-info {
-144: 	background-color: rgba(255, 255, 255, 0.1);
-145: }
-146: .as-as {
-147: 	color: $color-primary;
-148: 	text-decoration-line: underline;
 149: }
-150: .as-va-t {
-151: 	vertical-align: top;
+150: .as-bg-light-info {
+151: 	background-color: rgba(255, 255, 255, 0.1);
 152: }
+153: .as-as {
+154: 	color: $color-primary;
+155: 	text-decoration-line: underline;
+156: }
+157: .as-va-t {
+158: 	vertical-align: top;
+159: }
 
 Backtrace:
-scss/includes/generic.scss:147
+scss/includes/generic.scss:154
 /usr/lib/ruby/vendor_ruby/sass/script/tree/variable.rb:49:in `_perform'
 /usr/lib/ruby/vendor_ruby/sass/script/tree/node.rb:58:in `perform'
 /usr/lib/ruby/vendor_ruby/sass/tree/visitors/perform.rb:397:in `visit_prop'
@@ -69,4 +69,4 @@ scss/includes/generic.scss:147
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$color-primary\".\A         on line 147 of scss/includes/generic.scss\A \A 142: }\A 143: .as-bg-light-info {\A 144: 	background-color: rgba(255, 255, 255, 0.1);\A 145: }\A 146: .as-as {\A 147: 	color: $color-primary;\A 148: 	text-decoration-line: underline;\A 149: }\A 150: .as-va-t {\A 151: 	vertical-align: top;\A 152: }"; }
+  content: "Error: Undefined variable: \"$color-primary\".\A         on line 154 of scss/includes/generic.scss\A \A 149: }\A 150: .as-bg-light-info {\A 151: 	background-color: rgba(255, 255, 255, 0.1);\A 152: }\A 153: .as-as {\A 154: 	color: $color-primary;\A 155: 	text-decoration-line: underline;\A 156: }\A 157: .as-va-t {\A 158: 	vertical-align: top;\A 159: }"; }

@@ -67,8 +67,8 @@
                   </div>
                   <div class="as-prop-change-content">
                     <div class="as-prop-change-header">All Properties ></div>
-                    {% if company and company.strip %}
-                      <div class="as-prop-change-title"> {{company}} <span class="chev-down"><i class="fa fa-chevron-down"></i></span></div>
+                    {% if pname and pname.strip %}
+                      <div class="as-prop-change-title"> {{pname}} <span class="chev-down"><i class="fa fa-chevron-down"></i></span></div>
                     {% else %}
                       <div class="as-prop-change-title"> <Something class="com"></Something> <span class="chev-down"><i class="fa fa-chevron-down"></i></span></div>
                     {% endif %}
@@ -77,7 +77,7 @@
                 <div class="as-prop-dropdown as-head-dropdown scroll-style-1">
                   <ul class="as-prop-menu">
                     {% for row in rows %}
-                      <li><a href="{% url 'pr-home' row.id %}" {% ifequal row.id show_row.id %}class="active"{% endifequal %} data-pid="{{row.id}}"><span class="as-prop-menu-name">Property: {{row.pname}}</span><span class="as-prop-menu-propid">Property ID: {{row.pid}}</span></a></li>
+                      <li><a href="{% url 'pr-home' row.id %}" {% ifequal row.id p_row.id %}class="active"{% endifequal %} data-pid="{{row.id}}"><span class="as-prop-menu-name">Property: {{row.pname}}</span><span class="as-prop-menu-propid">Property ID: {{row.pid}}</span></a></li>
                       <!-- {% ifequal row.id show_row.id %}
                         {% with request.session.id as row.id %}
                         {% endwith %}
@@ -148,7 +148,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
     {% ifequal page 'dashboard' %}
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     {% endifequal %}
@@ -161,6 +161,8 @@
       {% endautoescape %}
       var ML_SERVER_API = '{{ML_SERVER_API}}';
       var API_KEY = '{{API_KEY}}';
+      var CSRF = '{{csrf_token}}';
+      var clipboard = new ClipboardJS('.c-btn');
     </script>
     
     <script src="{% static 'scripts/main.js' %}"></script>

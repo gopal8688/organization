@@ -7,10 +7,11 @@ register = template.Library()
 
 @register.simple_tag(name='script_includer')
 def ifFileExists(filepath):
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    filepath = os.path.join(BASE_DIR, 'static') #, 'scripts', "%s.js"%filepath)
-    
-    if os.path.exists(filepath):
-        return True
-    else:
-        return False
+	BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+	filepath = os.path.join(BASE_DIR, 'static', 'scripts', "%s.js"%filepath)
+	
+	if os.path.exists(filepath):
+		return True
+	else:
+		print('XSS')
+		return False

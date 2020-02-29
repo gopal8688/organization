@@ -126,7 +126,7 @@ function setTableHru(data) {
     for (let i = 0; i < data.length; i++) {
       $("#tblHRU tbody").append(
         '<tr>'+
-            '<td><i class="as-risk-bubble as-bg-high"></i> High</td>'+
+            '<td><i class="as-risk-bubble as-bg-'+RISK_TYPE[data[i].cat]+'"></i> '+capitalize(RISK_TYPE[data[i].cat])+'</td>'+
             '<td><i class="as-icon as-icon-risk-graph"></i></td>'+
             '<td>'+data[i].user+'</td>'+
             '<td><div class="as-btn-risk-score as-bg-light-critical as-border-critical as-text-critical">'+data[i].score+'</div></td>'+
@@ -163,10 +163,10 @@ function setTableSA(data) {
     for (let i = 0; i < data.length; i++) {
       $("#tblSA tbody").append(
         '<tr>'+
-            '<td>'+RISK_TYPE[data[0].cat]+'</td>'+
+            '<td><i class="as-risk-bubble as-bg-'+RISK_TYPE[data[i].cat]+'"></i> '+capitalize(RISK_TYPE[data[i].cat])+'</td>'+
             '<td>Credential Stuffing</td>'+
-            '<td>'+data[0].user+'</td>'+
-            '<td><div class="as-btn-risk-score as-bg-light-high as-border-high as-text-high">'+data[0].score+'</div></td>'+
+            '<td>'+data[i].user+'</td>'+
+            '<td><div class="as-btn-risk-score as-bg-light-'+RISK_TYPE[data[i].cat]+' as-border-'+RISK_TYPE[data[i].cat]+' as-text-'+RISK_TYPE[data[i].cat]+'">'+data[i].score+'</div></td>'+
             '<td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>'+
           '</tr>'
       );

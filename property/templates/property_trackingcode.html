@@ -1,0 +1,43 @@
+{% extends "layouts/property_layout.html" %}
+{% load static %}
+
+{% block propsection %}
+  <div class="as-grid as-content">
+    <div class="as-grid-justified as-page-header">
+      <div class="as-page-title-wrap"><h1 class="as-page-title">Property Settings</h1></div>
+      <div class="as-page-tools"></div>
+    </div>
+    <div class="as-grid as-container">
+      <div class="as-right-wrap">
+        <div class="as-portlet-1">
+          <div class="as-grid-justified as-portlet-header">
+            <h2 class="as-portlet-title">Property Settings</h2>
+          </div>
+          <div class="as-portlet-body p-4">
+            <label for="">Integrate Tracking Code</label>
+            <form action="{{form_url}}" class="pt-4" id="frmAddProperty">
+              <div class="form-group row">
+                <div class="col-md-2">
+                  <h4 class="block-title m-0 as-lh-46">Tracking Code</h4>
+                </div>
+                <div class="col-md-10">
+                  <!-- <textarea name="trackingCode" id="trackingCode" class="form-control" cols="30" rows="10"></textarea> -->
+                  <figure class="highlight">
+                    <button type="button" class="btn c-btn" data-clipboard-target="#bar">Copy</button>
+                    <pre id="bar"><code class="language-javascript" data-lang="javascript">(<span class="bl">function</span>(){
+<span class="bl">var</span> propertyId = <span class="str">"AS-{{ cid }}-{{ pid }}"</span>;
+<span class="bl">var</span> userId = <span class="str">""</span>; <span class="cl">// need user's unique id here in case logged in</span>
+<span class="bl">var</span> userEmail = <span class="str">""</span>; <span class="cl">// need user's email here in case logged in</span>
+<span class="str">"sl7as"</span>in <span class="bl">window</span>||(<span class="bl">window</span>.sl7as=<span class="bl">function</span>(){<span class="bl">window</span>.sl7as.q.<span class="bl">push</span>(<span class="args">arguments</span>)},<span class="bl">window</span>.sl7as.q=[[<span class="str">"init"</span>,propertyId],[<span class="str">"userInit"</span>,userId],[<span class="str">"userEmail"</span>,userEmail]]);<span class="bl">var</span> script=<span class="bl">document</span>.<span class="bl">createElement</span>(<span class="str">"script"</span>);script.src=<span class="str">"http://pixel.authsafe.ai/authsafe.js?v=1"</span>,script.async=!0;<span class="bl">var</span> firstScript=<span class="bl">document</span>.<span class="bl">getElementsByTagName</span>(<span class="str">"script"</span>)[0];firstScript.parentNode.<span class="bl">insertBefore</span>(<span class="args">script</span>,<span class="args">firstScript</span>);})();</code></pre></figure>
+                </div>
+              </div>
+              <div class="as-frm-btns">
+                <button type="button" class="btn as-btn-lg btn-primary c-btn" data-clipboard-target="#bar">Copy to clipboard</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock propsection %}
