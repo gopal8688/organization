@@ -11,7 +11,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}" crossorigin="anonymous">
 
-    <title>AuthSafe Administration Panel</title>
+    <title>{{ page_title }}</title>
   </head>
   <body>
     <section>
@@ -47,8 +47,10 @@
             <ul class="as-aside-menu-nav">
               <li {% ifequal page_menu 'home' %}class="active"{% endifequal %}><a href="{% url 'pr-home' pid %}"><i class="as-menu-icon as-icon-home"></i><span class="as-menu-text">Home</span></a></li>
               <li {% ifequal page_menu 'users' %}class="active"{% endifequal %}><a href="javascript:void"><i class="as-menu-icon as-icon-user"></i><span class="as-menu-text">Users</span></a></li>
-              <li {% ifequal page_menu 'settings' %}class="active"{% endifequal %}><a href="{% url 'pssettings' pid %}"><i class="as-menu-icon as-icon-settings"></i><span class="as-menu-text">Settings</span></a></li>
+              {% comment %}
               <li {% ifequal page_menu 'env' %}class="active"{% endifequal %}><a href="javascript:void"><i class="as-menu-icon as-icon-env"></i><span class="as-menu-text">Environment</span></a></li>
+              {% endcomment %}
+              <li {% ifequal page_menu 'settings' %}class="active"{% endifequal %}><a href="{% url 'pssettings' pid %}"><i class="as-menu-icon as-icon-settings"></i><span class="as-menu-text">Settings</span></a></li>
             </ul>
           </div>
         </div>
@@ -90,14 +92,17 @@
                 </div>
               </div>
             </div>
+            {% comment %}
             <div class="as-header-search" id="navbarSearch">
               <div class="form-group has-search">
                 <input type="text" class="form-control" placeholder="Search">
                 <span class="fa fa-search form-control-feedback"></span>
               </div>
             </div>
+            {% endcomment %}
           </div>
           <div class="as-head-actions">
+            {% comment %}
             <div class="as-noti-bar">
               <div class="as-noti-button">
                 <div class="as-noti-bell"><i class="fa fa-bell-o" aria-hidden="true"></i><i class="as-icon as-icon-unread-bubble"></i></div>
@@ -108,6 +113,7 @@
                 </ul>
               </div>
             </div>
+            {% endcomment %}
             <div class="as-user-menu">
               <div class="as-user-menu-button">
                 <div class="as-user-menu-avatar"><img src="{%static 'img/user-avatar.png' %}" alt=""></div>
@@ -135,12 +141,10 @@
             </div>
           </div>
         </div>
-        <section>
-          {% block section %}
-          {% endblock %}
-        </section>
+        {% block section %}
+        {% endblock %}
         <div class="as-grid as-footer"><div class="as-footer-copyright">2020 &copy; Securelayer7 Technologies Private Limited</div></div>
-        <p></p>
+      </main>
     </section>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -58,8 +58,8 @@ class PropertySettingsView(View, CMain):
 		super(PropertySettingsView, self).__init__()
 		self.arg = arg
 	def get(self, request, id):
-		if(not self.valiDateProperty(request, id)):
-			redirect('home')
+		# if(not self.valiDateProperty(request, id)):
+		# 	redirect('home')
 		self.getBasicDetails(request, id)
 		self.SITE_DATA['page'] = 'property_settings'
 		self.SITE_DATA['page_menu'] = 'settings'
@@ -93,8 +93,9 @@ class PropertyPlatformsView(View, CMain):
 		super(PropertyPlatformsView, self).__init__()
 		self.arg = arg
 	def get(self, request, id):
-		if(not self.valiDateProperty(request, id)):
-			redirect('home')
+		# if(not self.valiDateProperty(request, id)):
+		# 	redirect('home')
+		#return HttpResponse(str(request.GET['firstime']))
 		self.getBasicDetails(request, id)
 		self.SITE_DATA['page'] = 'property_platforms'
 		self.SITE_DATA['page_menu'] = 'settings'
@@ -134,8 +135,8 @@ class PropertyTrackingCodeView(View, CMain):
 		super(PropertyTrackingCodeView, self).__init__()
 		self.arg = arg
 	def get(self, request, id):
-		if(not self.valiDateProperty(request, id)):
-			redirect('home')
+		# if(not self.valiDateProperty(request, id)):
+		# 	redirect('home')
 		self.getBasicDetails(request, id)
 		self.SITE_DATA['page'] = 'property_trackingcode'
 		self.SITE_DATA['page_menu'] = 'settings'
@@ -148,8 +149,8 @@ class PropertyAPIKeysView(View, CMain):
 		super(PropertyAPIKeysView, self).__init__()
 		self.arg = arg
 	def get(self, request, id):
-		if(not self.valiDateProperty(request, id)):
-			redirect('home')
+		# if(not self.valiDateProperty(request, id)):
+		# 	redirect('home')
 		self.getBasicDetails(request, id)
 		#pt = PropertyTokens.objects.filter(pid=id)
 		self.SITE_DATA['page'] = 'property_apikeys'
@@ -198,8 +199,8 @@ class PropertyAPIKeyLogsView(View, CMain):
 		super(PropertyAPIKeyLogsView, self).__init__()
 		self.arg = arg
 	def get(self, request, id):
-		if(not self.valiDateProperty(request, id)):
-			redirect('home')
+		# if(not self.valiDateProperty(request, id)):
+		# 	redirect('home')
 		self.getBasicDetails(request, id)
 		p = Property.objects.get(id=id)
 		pt_objs = PropertyTokens.objects.filter(pid=id).order_by('created_at').reverse()

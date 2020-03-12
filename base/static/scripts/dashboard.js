@@ -137,7 +137,7 @@ function setTableHru(data) {
   } else {
     $("#tblHRU tbody").append('<tr><td colspan="5" class="as-lh-30">No Users</td></tr>');
   }
-  $("#tblHRU tbody").append(
+  /*$("#tblHRU tbody").append(
     '<tr>'+
         '<td colspan="5">'+
           '<div class="as-grid-justified as-tfoot-tools">'+
@@ -154,7 +154,7 @@ function setTableHru(data) {
           '</div>'+
         '</td>'+
       '</tr>'
-  );
+  );*/
 }
 function setTableSA(data) {
   //alert(data.length);
@@ -174,7 +174,7 @@ function setTableSA(data) {
   } else {
     $("#tblSA tbody").append('<tr><td colspan="5" class="as-lh-30">No Alerts</td></tr>');
   }
-  $("#tblSA tbody").append(
+  /*$("#tblSA tbody").append(
     '<tr>'+
         '<td colspan="5">'+
           '<div class="as-grid-justified as-tfoot-tools">'+
@@ -191,7 +191,7 @@ function setTableSA(data) {
           '</div>'+
         '</td>'+
       '</tr>'
-  );
+  );*/
 }
 function setConfigLA(data) {
   return {
@@ -524,6 +524,7 @@ function setConfigRRD(data) {
         display: false,
         //text: 'Chart.js Horizontal Bar Chart'
       },
+      maintainAspectRatio: false,
       scales: {
         xAxes: [{
           display: true,
@@ -633,6 +634,6 @@ function setConfigRRD(data) {
   window.myLine = new Chart(ctx1, config1);
   var ctx2 = document.getElementById('secAlertsChart').getContext('2d');
   window.myLine = new Chart(ctx2, config2);
-  /*var ctx3 = document.getElementById('locationChart').getContext('2d');
+  var ctx3 = document.getElementById('locationChart').getContext('2d');
   window.myHorizontalBar = new Chart(ctx3, config3);
 };*/

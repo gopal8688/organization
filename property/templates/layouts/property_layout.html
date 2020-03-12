@@ -9,8 +9,8 @@
       <li {% ifequal page 'property_settings' %}class="active"{% endifequal %}><a href="{% url 'pssettings' pid %}"><i class="as-icon-rside fa fa-gears"></i><span class="as-rmenu-item">Property Settings</span></a></li>
       <li {% ifequal page 'property_platforms' %}class="active"{% endifequal %}><a href="{% url 'psplatforms' pid %}"><i class="as-icon-rside fa fa-bars"></i><span class="as-rmenu-item">Property Platforms</span></a></li>
       <li {% ifequal page 'property_trackingcode' %}class="active"{% endifequal %}><a href="{% url 'pstrackingcode' pid %}"><i class="as-icon-rside fa fa-code"></i><span class="as-rmenu-item">Tracking Code</span></a></li>
-      <li {% ifequal page 'property_apikeys' %}class="active"{% endifequal %}><a href="{% url 'psapikeys' pid %}"><span class="as-icon-rside"><i class="as-icon as-icon-api"></i></span><span class="as-rmenu-item">API keys</span></a></li>
-      <li {% ifequal page 'property_sdk' %}class="active"{% endifequal %}><a href="{% url 'propertySDK' %}" target="_blank"><span class="as-icon-rside"><i class="as-icon as-icon-api"></i></span><span class="as-rmenu-item">SDK</span></a></li>
+      <li {% ifequal page 'property_apikeys' %}class="active"{% endifequal %}><a href="{% url 'psapikeys' pid %}"><span class="as-icon-rside"><i class="as-icon as-icon-api"></i></span><span class="as-rmenu-item"> API keys</span></a></li>
+      <li {% ifequal page 'property_sdk' %}class="active"{% endifequal %}><a href="{% url 'propertySDK' %}" target="_blank"><i class="as-icon-rside fa fa-clone"></i><span class="as-rmenu-item"> SDK</span></a></li>
     </ul>
   </aside>
 {% endblock section %}

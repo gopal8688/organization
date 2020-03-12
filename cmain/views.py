@@ -36,6 +36,9 @@ class CMain(BaseView):
 
 	def getBasicDetails(self, request, id):
 
+		if(not self.valiDateProperty(request, id)):
+			redirect('home')
+
 		cust_obj = self.getCustomerObj(request)
 
 		cust_full_name = "%s %s"%(cust_obj.fname, cust_obj.lname)
