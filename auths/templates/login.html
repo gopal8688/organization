@@ -10,7 +10,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'css/login.css' %}" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Authsafe - Client Panel Login</title>
   </head>
   <body class="login-bg">
     <form name = "form" action = "{% url 'login_check' %}" 
@@ -46,14 +46,19 @@
                   </div>
                 </div>
               </div>
+              {% comment %}
               <div class="col-sm-6">
                 <div class="form-group">
                   <a href="javascript:;" class="nav-link">Forgot your password?</a>
                 </div>
               </div>
+              {% endcomment %}
             </div>
             <div class="form-group">
-              <button class="btn btn-white">Sign In</button><button class="btn btn-blue">Sign Up</button>
+              <button class="btn btn-white">Sign In</button>
+              {% comment %}
+              <button class="btn btn-blue">Sign Up</button>
+              {% endcomment %}
             </div>
             <div class="terms-line">By signing up, you agree to Authdefence's Terms and Conditions & Privacy Policy</div>
           </div>
