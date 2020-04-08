@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from django.conf import settings
+from django.conf.urls.static import static
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -37,6 +39,7 @@ INSTALLED_APPS = [
     'dashboard.apps.DashboardConfig',
     'cprof.apps.CprofConfig',
     'property.apps.PropertyConfig',
+    'user.apps.UserConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -136,6 +139,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'base/static')              #os.path.join(BASE_DIR, 'login/static')
 ]
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
+MEDIA_URL = '/media/'
 
 # Authentication backends
 

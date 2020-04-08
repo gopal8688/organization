@@ -8,6 +8,7 @@ window.chartColors = {
 	info: 'rgb(184, 195, 206)',
 	gold: 'rgb(255, 231, 0)',
 	blue: 'rgb(36, 108, 242)',
+	t_blue: 'rgba(36, 108, 242, 0.9)',
 	red: 'rgb(255, 99, 132)',
 	orange: 'rgb(255, 159, 64)',
 	yellow: 'rgb(255, 205, 86)',
@@ -39,6 +40,9 @@ window.roundTwoDigits = function(str) {
 }
 window.getLongDate = function(timestamp) {
 	return MONTHS[timestamp.getMonth()]+' '+roundTwoDigits(timestamp.getDate())+', '+timestamp.getFullYear()+' '+roundTwoDigits(timestamp.getHours())+':'+roundTwoDigits(timestamp.getMinutes())+':'+roundTwoDigits(timestamp.getSeconds());
+}
+window.getLongDatePipe = function(timestamp) {
+	return MONTHS[timestamp.getMonth()]+' '+roundTwoDigits(timestamp.getDate())+', '+timestamp.getFullYear()+' | '+roundTwoDigits(timestamp.getHours())+':'+roundTwoDigits(timestamp.getMinutes());
 }
 $(document).click(function (event) {
 	var clickover = $(event.target);
@@ -72,3 +76,186 @@ $(document).ready(function() {
 		$('#navbarSearch').collapse('hide');
 	});
 });
+function getDateByDays (datefrom,days) {
+	return new Date(datefrom.getTime() - (days * 24 * 60 * 60 * 1000));
+}
+function getDateString (objDate) {
+	return fixTwoDigits(objDate.getDate())+'-'+fixTwoDigits(objDate.getMonth()+1)+'-'+objDate.getFullYear();
+}
+function fixTwoDigits (dstring) {
+	if (dstring<10)
+		return '0'+dstring;
+	return dstring;
+}
+var getDataUrl = function (img) {
+  var canvas = document.createElement('canvas')
+  var ctx = canvas.getContext('2d')
+
+  canvas.width = img.width
+  canvas.height = img.height
+  ctx.drawImage(img, 0, 0)
+
+  // If the image is not png, the format
+  // must be specified here
+  return canvas.toDataURL()
+}
+function getFilterDateRange (duration) {
+  var today = new Date();
+  switch (duration) {
+    case 'filter-7':
+      var last = getDateByDays(today,7);
+      var fromdate = getDateString(last);
+      var todate = getDateString(today);
+      return fromdate+':'+todate;
+      break;
+    case 'filter-30':
+      var last = getDateByDays(today,30);
+      var fromdate = getDateString(last);
+      var todate = getDateString(today);
+      return fromdate+':'+todate;
+      break;
+    case 'filter-365':
+      var last = getDateByDays(today,365);
+      var fromdate = getDateString(last);
+      var todate = getDateString(today);
+      return fromdate+':'+todate;
+      break;
+    default:
+      // statements_def
+      break;
+  }
+}
+function getOS ($os) {	
+	switch ($os) {
+		case 'win':
+			$os = 'Windows';
+			break;
+
+		case 'wnt':
+			$os = 'Windows NT';
+			break;
+
+		case 'osx':
+			$os = 'OS X';
+			break;
+
+		case 'deb':
+			$os = 'Debian';
+			break;
+
+		case 'ubt':
+			$os = 'Ubuntu';
+			break;
+
+		case 'mac':
+			$os = 'Macintosh';
+			break;
+
+		case 'bsd':
+			$os = 'OpenBSD';
+			break;
+
+		case 'lnx':
+			$os = 'Linux';
+			break;
+
+		case 'crm':
+			$os = 'ChromeOS';
+			break;
+		
+		// Mobile OS's
+
+		case 'ard':
+			$os = 'AndroidOS';
+			break;
+
+		case 'bb':
+			$os = 'BlackBerryOS';
+			break;
+
+		case 'pal':
+			$os = 'PalmOS';
+			break;
+
+		case 'sym':
+			$os = 'SymbianOS';
+			break;
+
+		case 'wim':
+			$os = 'WindowsMobileOS';
+			break;
+
+		case 'ios':
+			$os = 'iOS';
+			break;
+
+		case 'meg':
+			$os = 'MeeGoOS';
+			break;
+
+		case 'mmo':
+			$os = 'MaemoOS';
+			break;
+
+		case 'jos':
+			$os = 'JavaOS';
+			break;
+
+		case 'wos':
+			$os = 'webOS';
+			break;
+
+		case 'bdo':
+			$os = 'badaOS';
+			break;
+
+		case 'brw':
+			$os = 'BREWOS';
+			break;
+
+		default:
+			$os = "Unknown";
+			break;
+	}
+	return $os;
+}
+function timeSince(date) {
+
+  var seconds = Math.floor((new Date() - date) / 1000);
+
+  var interval = Math.floor(seconds / 31536000);
+
+  if (interval > 1) {
+    return interval + " years ago";
+  }
+  interval = Math.floor(seconds / 2592000);
+  if (interval > 1) {
+    return interval + " months ago";
+  }
+  interval = Math.floor(seconds / 86400);
+  if (interval > 1) {
+    return interval + " days ago";
+  }
+  interval = Math.floor(seconds / 3600);
+  if (interval > 1) {
+    return interval + " hours ago";
+  }
+  interval = Math.floor(seconds / 60);
+  if (interval > 1) {
+    return interval + " minutes ago";
+  }
+  return Math.floor(seconds) + " seconds ago";
+}
+window.getMaxVal = function(maxVal,maxData) {
+	//var maxVal = 0;
+	for (var i = 0; i < maxData.length; i++) {
+		if (maxData[i]>maxVal) {
+			maxVal = maxData[i];
+		}
+	}
+	return maxVal;
+}
+window.getMaxStepRange = function(maxNum,stepSize) {
+	var m5 = maxNum%stepSize;
+	return (maxNum+stepSize-m5);
+}

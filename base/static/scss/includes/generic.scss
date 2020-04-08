@@ -94,6 +94,9 @@ label {
 .as-border-info {
 	border-color: #B8C3CE;
 }
+.as-text-black {
+	color: #000000;
+}
 .as-text-critical {
 	color: #A80000;
 }
@@ -184,7 +187,9 @@ label {
 .as-p-20-30p {
 	padding: 20px 30px;
 }
-
+.mh-390 {
+	min-height: 390px;
+}
 .form-group {
 	margin-bottom: 30px;
 }
@@ -192,6 +197,62 @@ label {
 .btn-primary {
 	background-color: $color-primary;
 	border-color: $color-primary;
+}
+
+.btn-orange {
+	color: #FFFFFF;
+	font-weight: 500;
+	font-size: 15px;
+	background: #E95C59;
+	border: 2px solid #E95C59;
+	border-radius: 6px;
+	padding: 5px 12px;
+	position: relative;
+	border-radius: 6px;
+	.as-icon-wrap {
+		position: absolute;
+		top: 2px;
+		right: 2px;
+		width: 28px;
+		height: 28px;
+		padding-top: 4px;
+		background-color: #FFFFFF;
+		border-top-right-radius: 6px;
+		border-bottom-right-radius: 6px;
+	}
+}
+
+.btn-icon {
+	padding-right: 42px;
+}
+
+.btn-outline-active {
+	color: #55D43F;
+	font-weight: 500;
+	border-color: #55D43F;
+	border-radius: 20px;
+	border-width: 2px;
+	padding: 7px 18px;
+	&:hover {
+		color: #fff;
+		background-color: #55D43F;
+		border-color: #55D43F;
+	}
+	&:focus, &.focus {
+		box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
+	}
+	&.disabled, &:disabled {
+		color: #55D43F;
+		background-color: transparent;
+	}
+	&:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active {
+		color: #fff;
+		background-color: #55D43F;
+		border-color: #55D43F;
+	}
+	&:not(:disabled):not(.disabled):active:focus, &:not(:disabled):not(.disabled).active:focus {
+		box-shadow: 0 0 0 0.2rem rgba(85, 212, 63, 0.5);
+	}
 }
 
 .as-form-btn {

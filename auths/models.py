@@ -4,6 +4,7 @@ from django_mysql.models import EnumField
 from django.core.validators import RegexValidator, MinLengthValidator
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.models import User
+from django.conf.urls.static import static
 
 # Project libraries
 from .managers import CustomUserManager
@@ -30,7 +31,7 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     
     brand_name = models.CharField(max_length=150)
     brand_url = models.URLField()
-    brand_logo = models.ImageField()
+    brand_logo = models.ImageField(upload_to='brand_logo/')
     org_name = models.CharField(max_length=150)
     
     is_staff = models.BooleanField(default=False)

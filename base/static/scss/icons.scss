@@ -275,3 +275,89 @@ a.as-icon-status {
 	height: 60px;
 	background-image: url(../img/icons/as-icon-csharp.svg);
 }
+.as-icon-windows {
+	width: 18px;
+	height: 16px;
+	background-image: url(../img/icons/as-icon-windows.svg);
+}
+.as-icon-windows-white {
+	width: 18px;
+	height: 16px;
+	background-image: url(../img/icons/as-icon-windows-white.svg);
+}
+.as-icon-loc {
+	width: 15px;
+	height: 16px;
+	background-image: url(../img/icons/as-icon-loc.svg);
+}
+.as-icon-loc-white {
+	width: 15px;
+	height: 16px;
+	background-image: url(../img/icons/as-icon-loc-white.svg);
+}
+.as-icon-mobile {
+	width: 9px;
+	height: 16px;
+	background-image: url(../img/icons/as-icon-mobile.svg);
+}
+.as-icon-mobile-white {
+	width: 9px;
+	height: 16px;
+	background-image: url(../img/icons/as-icon-mobile-white.svg);
+}
+.as-icon-wifi {
+	width: 19px;
+	height: 16px;
+	background-image: url(../img/icons/as-icon-wifi.svg);
+}
+.as-icon-wifi-white {
+	width: 19px;
+	height: 16px;
+	background-image: url(../img/icons/as-icon-wifi-white.svg);
+}
+.as-icon-safe {
+	color: #59E98E;
+	display: inline-block;
+	font: normal normal normal 24px/1 FontAwesome;
+	//font-size: inherit;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	&:before {
+		content: "\f05d";
+	}
+}
+.as-icon-unsafe {
+	color: #FF4343;
+	display: inline-block;
+	font: normal normal normal 24px/1 FontAwesome;
+	//font-size: inherit;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	&:before {
+		content: "\f05e";
+	}
+	/* width: 18px;
+	height: 18px;
+	background-image: url(../img/icons/as-icon-unsafe.svg); */
+}
+.as-icon-export {
+	width: 19px;
+	height: 18px;
+	background-image: url(../img/icons/as-icon-export.svg);
+}
+.as-icon-more {
+	width: 20px;
+	height: 5px;
+	background-image: url(../img/icons/as-icon-more.svg);
+}
+.as-icon-clock {
+	width: 20px;
+	height: 20px;
+	background-image: url(../img/icons/as-icon-clock.svg);
+}
+.as-icon-isp {
+	width: 18px;
+	height: 20px;
+	background-image: url(../img/icons/as-icon-isp.svg);
+	background-size: 100% auto;
+}
