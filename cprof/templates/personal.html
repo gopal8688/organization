@@ -1,11 +1,11 @@
-{% extends "index.html" %}
+{% extends "layout_parent.html" %}
 {% load static %}
         
         {% block section %}
         <div class="as-grid as-content">
           <div class="as-grid-justified as-page-header">
             <div class="as-page-title-wrap"><h1 class="as-page-title">Personal Information</h1></div>
-            <div class="as-page-tools"></div>
+            <div class="as-page-tools"><a href="{% url 'home' %}" class="btn btn-outline-primary">Back to Dashboard</a></div>
           </div>
           <div class="as-grid as-container">
             <div class="as-portlet-1">
@@ -17,7 +17,7 @@
                         <span class="as-nav-tab-nav"><i class="as-icon-round-1 as-icon-dash-user"></i><span class="nav-title">Profile Information</span></span>
                       </a>
                       <a class="nav-item nav-link" id="contactTab" data-toggle="tab" href="#navContact" role="tab" aria-controls="navContact" aria-selected="false">
-                        <span class="as-nav-tab-nav"><i class="as-icon-round-1 as-icon-dash-contact"></i><span class="nav-title">Contact Information</span></span>
+                        <span class="as-nav-tab-nav"><i class="as-icon-round-1 as-icon-dash-contact"></i><span class="nav-title">Change Password</span></span>
                       </a>
                       <a class="nav-item nav-link" id="orgTab" data-toggle="tab" href="#navOrg" role="tab" aria-controls="navOrg" aria-selected="false">
                         <span class="as-nav-tab-nav"><i class="as-icon-round-1 as-icon-dash-org"></i><span class="nav-title">Organisation</span></span>
@@ -26,126 +26,151 @@
                   </nav>
                   <div class="tab-content" id="personalTabContent">
                     <div class="tab-pane fade show active" id="navProfile" role="tabpanel" aria-labelledby="profileTab">
-                      <form action="">
-                        <div class="row">
-                          <div class="col-md-5">
-                            <div class="form-group">
-                              <div class="as-img-profile-wrap text-center">
-                                <div class="as-img-profile">
-                                  <figure class="as-img-profile-img">
-                                    <img src="{% static 'img/user-avatar.png' %}" alt="" class="img-fluid">
-                                  </figure>
-                                  <a href="javascript:;" class="as-img-change-btn">
-                                    <i class="as-white-bubble as-icon-camera"></i>
-                                  </a>
+                      <div class="row">
+                        <div class="offset-md-1 col-md-10">
+                          <form action="{{ form_url_personal }}" method="post" id="frmProfilePersonal">
+                            {% csrf_token %}
+                            {% comment %}
+                            <!--div class="row">
+                              <div class="col-md-12">
+                                <div class="form-group">
+                                  <div class="as-img-profile-wrap text-center">
+                                    <div class="as-img-profile">
+                                      <figure class="as-img-profile-img">
+                                        <img src="{% static 'img/user-avatar.png' %}" alt="" class="img-fluid">
+                                      </figure>
+                                      <a href="javascript:;" class="as-img-change-btn">
+                                        <i class="as-white-bubble as-icon-camera"></i>
+                                      </a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div> -->
+                            {% endcomment %}
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="">First Name</label>
+                                  <input type="text" name="first_name" id="first_name" class="form-control" value="{{ cust_obj.fname }}">
+                                </div>
+                                <div class="form-group">
+                                  <label for="">Last Name</label>
+                                  <input type="text" name="last_name" id="last_name" class="form-control" value="{{ cust_obj.lname }}">
+                                </div>
+                                <div class="form-group">
+                                  <label for="">Gender</label>
+                                  <select name="sex" id="sex" class="form-control">
+                                    <option value="m"  {% ifequal cust_obj.sex 'm' %}selected{% endifequal %}>Male</option>
+                                    <option value="f"  {% ifequal cust_obj.sex 'f' %}selected{% endifequal %}>Female</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <div class="form-group">
+                                    <label for="">Email Address</label>
+                                    <input type="email" name="cemail" id="cemail" class="form-control" value="{{ cust_obj.email }}">
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <div class="form-group">
+                                    <label for="">Mobile Number</label>
+                                    <input type="text" name="cphone" id="cphone" class="form-control" value="{{ cust_obj.phone }}">
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                            <div class="form-group">
-                              <label for="">First Name</label>
-                              <input type="text" class="form-control" value="">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="as-frm-btns">
+                                  <button class="btn as-btn-lg btn-primary">Save</button>
+                                  <button class="btn as-btn-lg btn-outline-secondary">Cancel</button>
+                                </div>
+                              </div>
                             </div>
-                            <div class="form-group">
-                              <label for="">Last Name</label>
-                              <input type="text" class="form-control" value="">
-                            </div>
-                          </div>
-                          <div class="col-md-5">
-                            <div class="form-group as-pers-mrg-fix">
-                              <label for="">Date of Birth (dd/mm/yyyy)</label>
-                              <input type="text" class="form-control" id="datepicker" value="">
-                            </div>
-                            <div class="form-group">
-                              <label for="">Gender</label>
-                              <select name="" id="" class="form-control">
-                                <option value="">Male</option>
-                                <option value="">Female</option>
-                              </select>
-                            </div>
-                            <div class="form-group">
-                              <label for="">Password</label>
-                              <input type="password" class="form-control" value="">
-                            </div>
-                          </div>
+                          </form>
                         </div>
-                        <div class="row">
-                          <div class="col-md-10">
-                            <div class="as-frm-btns">
-                              <button class="btn as-btn-lg btn-primary">Save</button>
-                              <button class="btn as-btn-lg btn-outline-secondary">Cancel</button>
-                            </div>
-                          </div>
-                        </div>
-                      </form>
+                      </div>
                     </div>
                     <div class="tab-pane fade" id="navContact" role="tabpanel" aria-labelledby="contactTab">
-                      <form action="">
-                        <div class="row">
-                          <div class="col-md-5">
-                            <div class="form-group">
-                              <label for="">Email Address</label>
-                              <input type="email" class="form-control" value="">
+                      <div class="row">
+                        <div class="offset-md-1 col-md-10">
+                          <form action="{{ form_url_password }}" method="post" id="frmProfilePassword">
+                            {% csrf_token %}
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="">Password</label>
+                                  <input type="password" name="password" id="password" class="form-control" value="">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="">Confirm Password</label>
+                                  <input type="password" name="cpassword" id="cpassword" class="form-control" value="">
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                          <div class="col-md-5">
-                            <div class="form-group">
-                              <label for="">Mobile Number</label>
-                              <input type="text" class="form-control" value="">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="as-frm-btns">
+                                  <button class="btn as-btn-lg btn-primary">Save</button>
+                                  <button class="btn as-btn-lg btn-outline-secondary">Cancel</button>
+                                </div>
+                              </div>
                             </div>
-                          </div>
+                          </form>
                         </div>
-                        <div class="row">
-                          <div class="col-md-10">
-                            <div class="as-frm-btns">
-                              <button class="btn as-btn-lg btn-primary">Save</button>
-                              <button class="btn as-btn-lg btn-outline-secondary">Cancel</button>
-                            </div>
-                          </div>
-                        </div>
-                      </form>
+                      </div>
                     </div>
                     <div class="tab-pane fade" id="navOrg" role="tabpanel" aria-labelledby="orgTab">
-                      <form action="">
-                        <div class="row">
-                          <div class="col-md-5">
-                            <div class="form-group">
-                              <label for="">Company Name</label>
-                              <input type="text" class="form-control" value="">
-                              <div class="form-text text-muted font-italic">Your company name, used for billing and communication purposes</div>
+                      <div class="row">
+                        <div class="offset-md-1 col-md-10">
+                          <form action="{{ form_url_company }}" method="post" id="frmProfileCompany" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="">Company Name</label>
+                                  <input type="text" name="org_name" id="org_name" class="form-control" value="{{ cust_obj.org_name }}">
+                                  <div class="form-text text-muted font-italic">Your company name, used for billing and communication purposes</div>
+                                </div>
+                              </div>
                             </div>
-                          </div>
+                            <hr>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="">Company website URL</label>
+                                  <input type="url" name="brand_url" id="brand_url" class="form-control" value="{{ cust_obj.brand_url }}">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="">Brand Name</label>
+                                  <input type="text" name="brand_name" name="brand_name" class="form-control" value="{{ cust_obj.brand_name }}">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="">Brand Logo URL</label>
+                                  <input type="file" name="brand_logo" id="brand_logo" class="form-control" value="">
+                                  <div class="form-text text-muted font-italic">Image will be scaled to compatible size</div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="as-frm-btns">
+                                  <button class="btn as-btn-lg btn-primary">Save</button>
+                                  <button class="btn as-btn-lg btn-outline-secondary">Cancel</button>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
                         </div>
-                        <hr>
-                        <div class="row">
-                          <div class="col-md-5">
-                            <div class="form-group">
-                              <label for="">Brand URL</label>
-                              <input type="url" class="form-control" value="">
-                            </div>
-                          </div>
-                          <div class="col-md-5">
-                            <div class="form-group">
-                              <label for="">Brand Name</label>
-                              <input type="text" class="form-control" value="">
-                            </div>
-                          </div>
-                          <div class="col-md-5">
-                            <div class="form-group">
-                              <label for="">Brand Logo URL</label>
-                              <input type="url" class="form-control" value="">
-                              <div class="form-text text-muted font-italic">Image will be scaled to correct size</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-10">
-                            <div class="as-frm-btns">
-                              <button class="btn as-btn-lg btn-primary">Save</button>
-                              <button class="btn as-btn-lg btn-outline-secondary">Cancel</button>
-                            </div>
-                          </div>
-                        </div>
-                      </form>
+                      </div>
                     </div>
                   </div>
                 </div>

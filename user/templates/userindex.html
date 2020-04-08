@@ -1,0 +1,243 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block section %}
+  <div class="as-grid as-content">
+    <div class="as-grid-justified as-page-header as-mb-20p">
+      <div class="as-page-title-wrap"><h1 class="as-page-title">Users</h1></div>
+      <div class="as-page-tools">
+        
+      </div>
+    </div>
+    <div class="as-grid as-container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="as-portlet-1">
+            <div class="as-grid-justified as-portlet-header">
+              <h2 class="as-portlet-title">Risk Map</h2>
+              <div class="as-page-tools">
+		        <select name="duration" id="duration" class="form-control js-duration">
+		          <option value="filter-7" selected="">Last 7 days</option>
+		          <option value="filter-30">Last 30 days</option>
+		          <option value="filter-365">Last Year</option>
+		        </select>
+		      </div>
+            </div>
+            <div class="as-portlet-body as-portlet-body-chart">
+              <div id="chart1">
+                <canvas id="chartContainer" height="370"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="as-portlet-3">
+      	<div class="as-grid-justified as-portlet-header">
+          <h2 class="as-portlet-title">User List <span class="as-text-muted-light">|</span> <span class="as-portlet-subtitle">Showing <span class="as-text-black js-show-users">0</span> / <span class="as-text-black js-total-users">0</span> Users</span></h2>
+          <div class="as-portlet-tools">{% comment %}<a href="javascript:;" class="as-link-export"><i class="as-icon as-icon-export"></i> Export</a>{% endcomment %}</div>
+        </div>
+        <div class="as-portlet-body as-portlet-body-tbl">
+          <div class="table-responsive">
+			<table class="table as-portlet-table-2" id="tblUsers">
+				<thead>
+					<tr>
+						<th>User Name</th>
+						<th>Last Seen</th>
+						<th>Latest Ato Status</th>
+						<th width="10%"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr><td colspan="4" class="as-lh-30">No Users</td></tr>
+					{% comment %}
+					<!--
+					<tr>
+						<td>
+							<div class="as-bor-risk as-border-critical">
+								<div class="as-tbl-2-td">
+									<div class="as-tbl-2-tc as-tbl-li-usr">
+										<span class="as-usr-1">
+											<span class="as-usr-avatar"><img src="/cstatic/img/user-avatar.png" alt="" class="img-fluid"></span>
+											<span class="as-usr-1-info">
+												<a href="javascript:;" class="as-usr-name">Sandeep Kamble</a>
+												<span class="as-list-rslerts-wrap">
+													<ul class="as-list-rslerts">
+														<li><a href="javascript:;"><i class="as-icon as-icon-windows"></i></a></li>
+														<li><a href="javascript:;"><i class="as-icon as-icon-loc"></i></a></li>
+														<li><a href="javascript:;"><i class="as-icon as-icon-mobile"></i></a></li>
+														<li><a href="javascript:;"><i class="as-icon as-icon-wifi"></i></a></li>
+													</ul>
+												</span>
+											</span>
+										</span>
+									</div>
+								</div>
+							</div>
+						</td>
+						<td><div class="as-tbl-2-td"><div class="as-tbl-2-tc light-text-1">Dec 25, 2019 | 11:30</div></div></td>
+						<td>
+							<div class="as-tbl-2-td">
+								<div class="as-tbl-2-tc">
+									<div class="as-ato-status">
+										<div class="as-ato-icon"><i class="as-icon as-icon-banned"></i></div>
+										<div class="as-ato-c">
+											<div class="as-ato-t">Compromised - Reset Password</div>
+											<div class="light-text-1">Dec 26, 2019 | 11:30</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</td>
+						<td>
+							<div class="as-tbl-2-td">
+								<div class="as-tbl-2-tc text-center">
+									<a href="javascript:;"><i class="as-icon as-icon-more"></i></a>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="as-bor-risk as-border-medium">
+								<div class="as-tbl-2-td">
+									<div class="as-tbl-2-tc as-tbl-li-usr">
+										<span class="as-usr-1">
+											<span class="as-usr-avatar"><img src="/cstatic/img/user-avatar.png" alt="" class="img-fluid"></span>
+											<span class="as-usr-1-info">
+												<a href="javascript:;" class="as-usr-name">Randeep Hooda</a>
+												<span class="as-list-rslerts-wrap">
+													<ul class="as-list-rslerts">
+														<li><a href="javascript:;"><i class="as-icon as-icon-windows"></i></a></li>
+														<li><a href="javascript:;"><i class="as-icon as-icon-loc"></i></a></li>
+														<li><a href="javascript:;"><i class="as-icon as-icon-mobile"></i></a></li>
+														<li><a href="javascript:;"><i class="as-icon as-icon-wifi"></i></a></li>
+													</ul>
+												</span>
+											</span>
+										</span>
+									</div>
+								</div>
+							</div>
+						</td>
+						<td><div class="as-tbl-2-td"><div class="as-tbl-2-tc light-text-1">Dec 24, 2019 | 11:30</div></div></td>
+						<td>
+							<div class="as-tbl-2-td">
+								<div class="as-tbl-2-tc">
+									<div class="as-ato-status">
+										<div class="as-ato-icon"><i class="as-icon as-icon-banned"></i></div>
+										<div class="as-ato-c">
+											<div class="as-ato-t">Compromised - Reset Password</div>
+											<div class="light-text-1">Dec 25, 2019 | 11:30</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</td>
+						<td>
+							<div class="as-tbl-2-td">
+								<div class="as-tbl-2-tc text-center">
+									<a href="javascript:;"><i class="as-icon as-icon-more"></i></a>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="as-bor-risk as-border-high">
+								<div class="as-tbl-2-td">
+									<div class="as-tbl-2-tc as-tbl-li-usr">
+										<span class="as-usr-1">
+											<span class="as-usr-avatar"><img src="/cstatic/img/user-avatar.png" alt="" class="img-fluid"></span>
+											<span class="as-usr-1-info">
+												<a href="javascript:;" class="as-usr-name">Nana Patekar</a>
+												<span class="as-list-rslerts-wrap">
+													<ul class="as-list-rslerts">
+														<li><a href="javascript:;"><i class="as-icon as-icon-windows"></i></a></li>
+														<li><a href="javascript:;"><i class="as-icon as-icon-loc"></i></a></li>
+														<li><a href="javascript:;"><i class="as-icon as-icon-mobile"></i></a></li>
+														<li><a href="javascript:;"><i class="as-icon as-icon-wifi"></i></a></li>
+													</ul>
+												</span>
+											</span>
+										</span>
+									</div>
+								</div>
+							</div>
+						</td>
+						<td><div class="as-tbl-2-td"><div class="as-tbl-2-tc light-text-1">Dec 23, 2019 | 11:30</div></div></td>
+						<td>
+							<div class="as-tbl-2-td">
+								<div class="as-tbl-2-tc">
+									<div class="as-ato-status">
+										<div class="as-ato-icon"><i class="as-icon as-icon-banned"></i></div>
+										<div class="as-ato-c">
+											<div class="as-ato-t">Compromised - Reset Password</div>
+											<div class="light-text-1">Dec 27, 2019 | 11:30</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</td>
+						<td>
+							<div class="as-tbl-2-td">
+								<div class="as-tbl-2-tc text-center">
+									<a href="javascript:;"><i class="as-icon as-icon-more"></i></a>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="as-bor-risk as-border-low">
+								<div class="as-tbl-2-td">
+									<div class="as-tbl-2-tc as-tbl-li-usr">
+										<span class="as-usr-1">
+											<span class="as-usr-avatar"><img src="/cstatic/img/user-avatar.png" alt="" class="img-fluid"></span>
+											<span class="as-usr-1-info">
+												<a href="javascript:;" class="as-usr-name">Vikram Vedha</a>
+												<span class="as-list-rslerts-wrap">
+													<ul class="as-list-rslerts">
+														<li><a href="javascript:;"><i class="as-icon as-icon-windows"></i></a></li>
+														<li><a href="javascript:;"><i class="as-icon as-icon-loc"></i></a></li>
+														<li><a href="javascript:;"><i class="as-icon as-icon-mobile"></i></a></li>
+														<li><a href="javascript:;"><i class="as-icon as-icon-wifi"></i></a></li>
+													</ul>
+												</span>
+											</span>
+										</span>
+									</div>
+								</div>
+							</div>
+						</td>
+						<td><div class="as-tbl-2-td"><div class="as-tbl-2-tc light-text-1">Dec 21, 2019 | 11:30</div></div></td>
+						<td>
+							<div class="as-tbl-2-td">
+								<div class="as-tbl-2-tc">
+									<div class="as-ato-status">
+										<div class="as-ato-icon"><i class="as-icon as-icon-banned"></i></div>
+										<div class="as-ato-c">
+											<div class="as-ato-t">Compromised - Reset Password</div>
+											<div class="light-text-1">Dec 22, 2019 | 11:30</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</td>
+						<td>
+							<div class="as-tbl-2-td">
+								<div class="as-tbl-2-tc text-center">
+									<a href="javascript:;"><i class="as-icon as-icon-more"></i></a>
+								</div>
+							</div>
+						</td>
+					</tr>
+					-->
+					{% endcomment %}
+				</tbody>
+			</table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock section %}

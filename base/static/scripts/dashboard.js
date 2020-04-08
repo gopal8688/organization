@@ -1,13 +1,27 @@
+function fetchAllStats (datasend) {
+  var duration = $("#duration").val();
+  if (!duration) {
+    alert("Please select a duration");
+  } else {
+    var duration = getFilterDateRange(duration);
+    fetchDS(datasend,duration);
+    fetchHRU(datasend,duration);
+    fetchSA(datasend,duration);
+    fetchLA(datasend,duration);
+    fetchSAA(datasend,duration);
+    fetchRRD(datasend,duration);
+  }
+}
 $(document).ready(function () {
   var datasend = {};
   datasend['key'] = API_KEY;
   datasend['pid'] = PID;
-  fetchDS(datasend);
-  fetchHRU(datasend);
-  fetchSA(datasend);
-  fetchLA(datasend);
-  fetchSAA(datasend);
-  fetchRRD(datasend);
+  fetchAllStats(datasend);
+  $(".js-duration").change(function(event) {
+    $(".js-duration").val($(this).val());
+    /* Act on the event */
+    fetchAllStats(datasend);
+  });
 });
 var randomScalingFactor = function() {
   return Math.floor((Math.random() * 100000) + 1);
@@ -15,11 +29,14 @@ var randomScalingFactor = function() {
 var randomScalingFactorPer = function() {
   return Math.round(Math.random() * 100);
 };
-function fetchDS(datasend) {  
+function fetchDS(datasend,duration) {
+  delete datasend.limit;
+  var paramsDS = datasend;
+  paramsDS.dur = duration;
   $.ajax({
     type: "GET",
     url: ML_SERVER_API+RF_API_URLs.ds,
-    data: datasend,
+    data: paramsDS,
     dataType: "json",
     success: function (response) {
       if(response.status == 'success') {
@@ -30,11 +47,15 @@ function fetchDS(datasend) {
     }
   });
 }
-function fetchHRU(datasend) {  
+function fetchHRU(datasend,duration) {
+  delete datasend.limit;
+  var paramsHRU = datasend;
+  paramsHRU.dur = duration;
+  paramsHRU.limit = 8;
   $.ajax({
     type: "GET",
     url: ML_SERVER_API+RF_API_URLs.hru,
-    data: datasend,
+    data: paramsHRU,
     dataType: "json",
     success: function (response) {
       if(response.status == 'success') {
@@ -45,11 +66,15 @@ function fetchHRU(datasend) {
     }
   });
 }
-function fetchSA(datasend) {  
+function fetchSA(datasend,duration) {
+  delete datasend.limit;
+  var paramsSA = datasend;
+  paramsSA.dur = duration;
+  paramsSA.limit = 8;
   $.ajax({
     type: "GET",
     url: ML_SERVER_API+RF_API_URLs.sa,
-    data: datasend,
+    data: paramsSA,
     dataType: "json",
     success: function (response) {
       if(response.status == 'success') {
@@ -60,11 +85,14 @@ function fetchSA(datasend) {
     }
   });
 }
-function fetchLA(datasend) {  
+function fetchLA(datasend,duration) {
+  delete datasend.limit;
+  var paramsLA = datasend;
+  paramsLA.dur = duration;
   $.ajax({
     type: "GET",
     url: ML_SERVER_API+RF_API_URLs.la,
-    data: datasend,
+    data: paramsLA,
     dataType: "json",
     success: function (response) {
       if(response.status == 'success') {
@@ -77,11 +105,14 @@ function fetchLA(datasend) {
     }
   });
 }
-function fetchSAA(datasend) {  
+function fetchSAA(datasend,duration) {
+  delete datasend.limit;
+  var paramsSAA = datasend;
+  paramsSAA.dur = duration;
   $.ajax({
     type: "GET",
     url: ML_SERVER_API+RF_API_URLs.saa,
-    data: datasend,
+    data: paramsSAA,
     dataType: "json",
     success: function (response) {
       if(response.status == 'success') {
@@ -94,11 +125,14 @@ function fetchSAA(datasend) {
     }
   });
 }
-function fetchRRD(datasend) {  
+function fetchRRD(datasend,duration) {
+  delete datasend.limit;
+  var paramsRRD = datasend;
+  paramsRRD.dur = duration;
   $.ajax({
     type: "GET",
     url: ML_SERVER_API+RF_API_URLs.rrd,
-    data: datasend,
+    data: paramsRRD,
     dataType: "json",
     success: function (response) {
       if(response.status == 'success') {
@@ -129,7 +163,7 @@ function setTableHru(data) {
             '<td><i class="as-risk-bubble as-bg-'+RISK_TYPE[data[i].cat]+'"></i> '+capitalize(RISK_TYPE[data[i].cat])+'</td>'+
             '<td><i class="as-icon as-icon-risk-graph"></i></td>'+
             '<td>'+data[i].user+'</td>'+
-            '<td><div class="as-btn-risk-score as-bg-light-critical as-border-critical as-text-critical">'+data[i].score+'</div></td>'+
+            '<td><div class="as-btn-risk-score as-bg-light-critical as-border-critical as-text-critical">'+Math.floor(data[i].score)+'</div></td>'+
             '<td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>'+
           '</tr>'
       );
@@ -137,24 +171,6 @@ function setTableHru(data) {
   } else {
     $("#tblHRU tbody").append('<tr><td colspan="5" class="as-lh-30">No Users</td></tr>');
   }
-  /*$("#tblHRU tbody").append(
-    '<tr>'+
-        '<td colspan="5">'+
-          '<div class="as-grid-justified as-tfoot-tools">'+
-            '<div class="as-tfoot-filter">'+
-              '<select name="" id="" class="form-control">'+
-                '<option value="">Last 7 days</option>'+
-                '<option value="">Last 30 days</option>'+
-                '<option value="">Last Year</option>'+
-              '</select>'+
-            '</div>'+
-            '<div class="">'+
-              '<a href="javascript:;" class="as-tbl-v-all"><span class="as-as">View All</span> <i class="as-icon-chevron-right"></i></a>'+
-            '</div>'+
-          '</div>'+
-        '</td>'+
-      '</tr>'
-  );*/
 }
 function setTableSA(data) {
   //alert(data.length);
@@ -164,9 +180,9 @@ function setTableSA(data) {
       $("#tblSA tbody").append(
         '<tr>'+
             '<td><i class="as-risk-bubble as-bg-'+RISK_TYPE[data[i].cat]+'"></i> '+capitalize(RISK_TYPE[data[i].cat])+'</td>'+
-            '<td>Credential Stuffing</td>'+
+            '<td>'+((data[i].det==null)?'Behavioral Threat':data[i].det)+'</td>'+
             '<td>'+data[i].user+'</td>'+
-            '<td><div class="as-btn-risk-score as-bg-light-'+RISK_TYPE[data[i].cat]+' as-border-'+RISK_TYPE[data[i].cat]+' as-text-'+RISK_TYPE[data[i].cat]+'">'+data[i].score+'</div></td>'+
+            '<td><div class="as-btn-risk-score as-bg-light-'+RISK_TYPE[data[i].cat]+' as-border-'+RISK_TYPE[data[i].cat]+' as-text-'+RISK_TYPE[data[i].cat]+'">'+Math.floor(data[i].score)+'</div></td>'+
             '<td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>'+
           '</tr>'
       );
@@ -174,26 +190,12 @@ function setTableSA(data) {
   } else {
     $("#tblSA tbody").append('<tr><td colspan="5" class="as-lh-30">No Alerts</td></tr>');
   }
-  /*$("#tblSA tbody").append(
-    '<tr>'+
-        '<td colspan="5">'+
-          '<div class="as-grid-justified as-tfoot-tools">'+
-            '<div class="as-tfoot-filter">'+
-              '<select name="" id="" class="form-control">'+
-                '<option value="">Last 7 days</option>'+
-                '<option value="">Last 30 days</option>'+
-                '<option value="">Last Year</option>'+
-              '</select>'+
-            '</div>'+
-            '<div class="">'+
-              '<a href="javascript:;" class="as-tbl-v-all"><span class="as-as">View All</span> <i class="as-icon-chevron-right"></i></a>'+
-            '</div>'+
-          '</div>'+
-        '</td>'+
-      '</tr>'
-  );*/
 }
 function setConfigLA(data) {
+  var maxVal = 0;
+  var maxVal = getMaxVal(maxVal,data.f_count);
+  var maxVal = getMaxVal(maxVal,data.s_count);
+  maxVal = getMaxStepRange(maxVal,30);
   return {
     type: 'line',
     data: {
@@ -232,7 +234,7 @@ function setConfigLA(data) {
           scaleLabel: {
             display: true,
             labelString: 'Date'
-          }
+          },
         }],
         yAxes: [{
           display: true,
@@ -242,7 +244,7 @@ function setConfigLA(data) {
           },
           ticks: {
             min: 0,
-            max: 150,
+            max: maxVal,
   
             // forces step size to be 5 units
             stepSize: 30
@@ -257,85 +259,12 @@ function setConfigLA(data) {
     }
   };
 }
-/* var config1 = {
-  type: 'line',
-  data: {
-    labels: ['Nov 1', 'Nov 2', 'Nov 3', 'Nov 4', 'Nov 5', 'Nov 6', 'Nov 7'],
-    datasets: [{
-      label: 'Successful Logins',
-      backgroundColor: window.chartColors.low,
-      borderColor: window.chartColors.low,
-      data: [
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor()
-      ],
-      fill: false,
-    }, {
-      label: 'Failed Logins',
-      fill: false,
-      backgroundColor: window.chartColors.high,
-      borderColor: window.chartColors.high,
-      data: [
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor()
-      ],
-    }]
-  },
-  options: {
-    responsive: true,
-    title: {
-      display: false,
-      //text: 'Chart.js Line Chart'
-    },
-    tooltips: {
-      mode: 'index',
-      intersect: false,
-    },
-    hover: {
-      mode: 'nearest',
-      intersect: true
-    },
-    scales: {
-      xAxes: [{
-        display: true,
-        scaleLabel: {
-          display: true,
-          labelString: 'Date'
-        }
-      }],
-      yAxes: [{
-        display: true,
-        scaleLabel: {
-          display: true,
-          labelString: 'Attempts'
-        },
-        ticks: {
-          min: 0,
-          max: 100000,
-
-          // forces step size to be 5 units
-          stepSize: 20000
-        }
-      }]
-    },
-    elements: {
-      line: {
-        tension: 0
-      }
-    }
-  }
-}; */
 function setConfigSAA(data) {
+  var maxVal = 0;
+  var maxVal = getMaxVal(maxVal,data.g_count);
+  var maxVal = getMaxVal(maxVal,data.y_count);
+  var maxVal = getMaxVal(maxVal,data.r_count);
+  maxVal = getMaxStepRange(maxVal,5);
   return {
     type: 'line',
     data: {
@@ -390,7 +319,7 @@ function setConfigSAA(data) {
           },
           ticks: {
             min: 0,
-            max: 25,
+            max: maxVal,
 
             // forces step size to be 5 units
             stepSize: 5
@@ -400,94 +329,6 @@ function setConfigSAA(data) {
     }
   };
 }
-
-/*var config2 = {
-  type: 'line',
-  data: {
-    labels: ['Nov 1', 'Nov 2', 'Nov 3', 'Nov 4', 'Nov 5', 'Nov 6', 'Nov 7'],
-    datasets: [{
-      label: 'Others',
-      backgroundColor: window.chartColors.gold,
-      borderColor: window.chartColors.gold,
-      data: [
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor()
-      ],
-      fill: false,
-    }, {
-      label: 'Brute Force',
-      fill: false,
-      backgroundColor: window.chartColors.low,
-      borderColor: window.chartColors.low,
-      data: [
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor()
-      ],
-    }, {
-      label: 'Credential Stuffing',
-      fill: false,
-      backgroundColor: window.chartColors.high,
-      borderColor: window.chartColors.high,
-      data: [
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor()
-      ],
-    }]
-  },
-  options: {
-    responsive: true,
-    title: {
-      display: false,
-      //text: 'Chart.js Line Chart'
-    },
-    tooltips: {
-      mode: 'index',
-      intersect: false,
-    },
-    hover: {
-      mode: 'nearest',
-      intersect: true
-    },
-    scales: {
-      xAxes: [{
-        display: true,
-        scaleLabel: {
-          display: true,
-          labelString: 'Date'
-        }
-      }],
-      yAxes: [{
-        display: true,
-        scaleLabel: {
-          display: true,
-          labelString: 'Attempts'
-        },
-        ticks: {
-          min: 0,
-          max: 100000,
-
-          // forces step size to be 5 units
-          stepSize: 20000
-        }
-      }]
-    }
-  }
-};*/
 
 function setConfigRRD(data) {
   return {
@@ -554,86 +395,3 @@ function setConfigRRD(data) {
     }
   };
 }
-/*var config3 = {
-  type: 'horizontalBar',
-  data: {
-    labels: ['India', 'United States', 'United Arab Emirates', 'United Kingdom', 'Finland'],
-    datasets: [{
-      label: 'Good Users',
-      backgroundColor: window.chartColors.blue,
-      borderColor: window.chartColors.blue,
-      borderWidth: 1,
-      data: [
-        randomScalingFactorPer(),
-        randomScalingFactorPer(),
-        randomScalingFactorPer(),
-        randomScalingFactorPer(),
-        randomScalingFactorPer()
-      ]
-    }, {
-      label: 'Bad Users',
-      backgroundColor: window.chartColors.high,
-      borderColor: window.chartColors.high,
-      data: [
-        randomScalingFactorPer(),
-        randomScalingFactorPer(),
-        randomScalingFactorPer(),
-        randomScalingFactorPer(),
-        randomScalingFactorPer()
-      ]
-    }]
-
-  },
-  options: {
-    // Elements options apply to all of the options unless overridden in a dataset
-    // In this case, we are setting the border of each horizontal bar to be 2px wide
-    elements: {
-      rectangle: {
-        borderWidth: 2,
-      }
-    },
-    responsive: true,
-    legend: {
-      position: 'right',
-    },
-    title: {
-      display: false,
-      //text: 'Chart.js Horizontal Bar Chart'
-    },
-    scales: {
-      xAxes: [{
-        display: true,
-        ticks: {
-          min: 0,
-          max: 100,
-
-          // forces step size to be 5 units
-          stepSize: 20,
-          callback: function (value) {
-            return value + '%'; // convert it to percentage
-          },
-        },
-        scaleLabel: {
-          display: true,
-          labelString: 'Percentage'
-        }
-      }],
-      yAxes: [{
-        display: true,
-        scaleLabel: {
-          display: true,
-          labelString: 'Countries'
-        }
-      }]
-    }
-  }
-};*/
-
-/*window.onload = function() {
-  var ctx1 = document.getElementById('attemptsChart').getContext('2d');
-  window.myLine = new Chart(ctx1, config1);
-  var ctx2 = document.getElementById('secAlertsChart').getContext('2d');
-  window.myLine = new Chart(ctx2, config2);
-  var ctx3 = document.getElementById('locationChart').getContext('2d');
-  window.myHorizontalBar = new Chart(ctx3, config3);
-};*/
