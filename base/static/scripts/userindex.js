@@ -160,7 +160,7 @@ $(document).ready(function() {
   datasend['key'] = API_KEY;
   datasend['pid'] = PID;
   //datasend['dur'] = getFilterDateRange('filter-365');
-  datasend['limit'] = 25;
+  //datasend['limit'] = 25;
   fetchUserStats(datasend);
   $(".js-duration").change(function(event) {
     $(".js-duration").val($(this).val());
@@ -189,6 +189,7 @@ function fetchUsersMap(datasend,duration) {
 function fetchUsersList(datasend,duration) {
   var params = datasend;
   params.dur = duration;
+  params.limit = 25;
   $.ajax({
     type: "GET",
     url: ML_SERVER_API+RF_API_URLs.ul,
@@ -241,20 +242,13 @@ function setUsersList (data) {
             '<td>'+
               '<div class="as-tbl-2-td">'+
                 '<div class="as-tbl-2-tc">'+
-                  '<div class="as-ato-status">'+
+                  '<div class="as-ato-status" title="'+textCapitalize(data[firstKey]['obs'])+'">'+
                     '<div class="as-ato-icon"><i class="as-icon as-icon-'+data[firstKey]['obs']+'"></i></div>'+
                     '<div class="as-ato-c">'+
                       '<div class="as-ato-t">'+data[firstKey]['rec_threat']+'</div>'+
                       '<div class="light-text-1">'+getLongDatePipe(new Date(data[firstKey]['rec_time']))+'</div>'+
                     '</div>'+
                   '</div>'+
-                '</div>'+
-              '</div>'+
-            '</td>'+
-            '<td>'+
-              '<div class="as-tbl-2-td">'+
-                '<div class="as-tbl-2-tc text-center">'+
-                  '<a href="javascript:;"><i class="as-icon as-icon-more"></i></a>'+
                 '</div>'+
               '</div>'+
             '</td>'+

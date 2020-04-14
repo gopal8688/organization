@@ -30,6 +30,7 @@ class BaseView():
             'bud': 'basic_user_details',
             'rua': 'recent_user_activities',
             'ulo': 'user_locations',
+            'lus': 'linked_users',
         }),
         'ML_SERVER_API': 'http://demo.authsafe.ai:5000/api/',
         'time_zones': json.dumps(getAllTimeZones.__func__())

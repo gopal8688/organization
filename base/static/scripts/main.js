@@ -259,3 +259,6 @@ window.getMaxStepRange = function(maxNum,stepSize) {
 	var m5 = maxNum%stepSize;
 	return (maxNum+stepSize-m5);
 }
+window.textCapitalize = function(str) {
+	return str.substr(0,1).toUpperCase()+str.substr(1);
+}

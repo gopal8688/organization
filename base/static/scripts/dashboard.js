@@ -17,10 +17,34 @@ $(document).ready(function () {
   datasend['key'] = API_KEY;
   datasend['pid'] = PID;
   fetchAllStats(datasend);
-  $(".js-duration").change(function(event) {
+  $("#duration").change(function(event) {
     $(".js-duration").val($(this).val());
     /* Act on the event */
     fetchAllStats(datasend);
+  });
+  $(".js-duration").change(function(event) {
+    var dataType = $(this).data('type');
+    var duration = getFilterDateRange($(this).val());
+    switch (dataType) {
+      case 'hru':
+        fetchHRU(datasend,duration);
+        break;
+      case 'sa':
+        fetchSA(datasend,duration);
+        break;
+      case 'la':
+        fetchLA(datasend,duration);
+        break;
+      case 'saa':
+        fetchSAA(datasend,duration);
+        break;
+      case 'rrd':
+        fetchRRD(datasend,duration);
+        break;
+      default:
+        // statements_def
+        break;
+    }
   });
 });
 var randomScalingFactor = function() {
@@ -155,13 +179,13 @@ function setStatsDS(data) {
 }
 function setTableHru(data) {
   //alert(data.length);
+  $("#tblHRU tbody").html("");
   if(data.length>0) {
-    $("#tblHRU tbody").html("");
     for (let i = 0; i < data.length; i++) {
       $("#tblHRU tbody").append(
         '<tr>'+
             '<td><i class="as-risk-bubble as-bg-'+RISK_TYPE[data[i].cat]+'"></i> '+capitalize(RISK_TYPE[data[i].cat])+'</td>'+
-            '<td><i class="as-icon as-icon-risk-graph"></i></td>'+
+            //'<td><i class="as-icon as-icon-risk-graph"></i></td>'+
             '<td>'+data[i].user+'</td>'+
             '<td><div class="as-btn-risk-score as-bg-light-critical as-border-critical as-text-critical">'+Math.floor(data[i].score)+'</div></td>'+
             '<td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>'+
@@ -174,8 +198,8 @@ function setTableHru(data) {
 }
 function setTableSA(data) {
   //alert(data.length);
+  $("#tblSA tbody").html("");
   if(data.length>0) {
-    $("#tblSA tbody").html("");
     for (let i = 0; i < data.length; i++) {
       $("#tblSA tbody").append(
         '<tr>'+

@@ -6,7 +6,7 @@
     <div class="as-grid-justified as-page-header as-mb-20p">
       <div class="as-page-title-wrap"><h1 class="as-page-title">{{ page_title }}</h1></div>
       <div class="as-page-tools">
-        <select name="duration" id="duration" class="form-control js-duration">
+        <select name="duration" id="duration" class="form-control">
           <option value="filter-7" selected="">Last 7 days</option>
           <option value="filter-30">Last 30 days</option>
           <option value="filter-365">Last Year</option>
@@ -107,7 +107,7 @@
                 <table class="table as-portlet-table-1" id="tblHRU">
                   <thead>
                     <tr>
-                      <th><div class="as-tbl-mrg">Risk</div></th><th></th><th>User Name</th><th>Score (%)</th><th></th>
+                      <th><div class="as-tbl-mrg">Risk</div></th><th>User Name</th><th>Score (%)</th><th></th>
                     </tr>
                   </thead>
                   <tbody>{% comment %}
@@ -189,7 +189,7 @@
               <div class="clearfix tbl-sim">
                 <div class="as-grid-justified as-tfoot-tools">
                   <div class="as-tfoot-filter">
-                    <select name="" id="" class="form-control js-duration">
+                    <select name="" id="" class="form-control js-duration" data-type="hru">
                       <option value="filter-7">Last 7 days</option>
                       <option value="filter-30">Last 30 days</option>
                       <option value="filter-365">Last Year</option>
@@ -296,7 +296,7 @@
               <div class="clearfix tbl-sim">
                 <div class="as-grid-justified as-tfoot-tools">
                   <div class="as-tfoot-filter">
-                    <select name="" id="" class="form-control js-duration">
+                    <select name="" id="" class="form-control js-duration" data-type="sa">
                       <option value="filter-7">Last 7 days</option>
                       <option value="filter-30">Last 30 days</option>
                       <option value="filter-365">Last Year</option>
@@ -329,7 +329,7 @@
               </div>
               <div class="as-grid-justified as-tfoot-tools">
                 <div class="as-tfoot-filter">
-                  <select name="" id="" class="form-control js-duration">
+                  <select name="" id="" class="form-control js-duration" data-type="la">
                     <option value="filter-7">Last 7 days</option>
                     <option value="filter-30">Last 30 days</option>
                     <option value="filter-365">Last Year</option>
@@ -357,7 +357,7 @@
               </div>
               <div class="as-grid-justified as-tfoot-tools">
                 <div class="as-tfoot-filter">
-                  <select name="" id="" class="form-control js-duration">
+                  <select name="" id="" class="form-control js-duration" data-type="saa">
                     <option value="filter-7">Last 7 days</option>
                     <option value="filter-30">Last 30 days</option>
                     <option value="filter-365">Last Year</option>
@@ -380,7 +380,7 @@
               </div>
               <div class="as-grid-justified as-tfoot-tools">
                 <div class="as-tfoot-filter">
-                  <select name="" id="" class="form-control js-duration">
+                  <select name="" id="" class="form-control js-duration" data-type="rrd">
                     <option value="filter-7">Last 7 days</option>
                     <option value="filter-30">Last 30 days</option>
                     <option value="filter-365">Last Year</option>
