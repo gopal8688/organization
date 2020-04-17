@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
                 ('fname', models.CharField(max_length=150)),
                 ('lname', models.CharField(max_length=150)),
-                ('dob', models.DateField(null=True)),
+                #('dob', models.DateField(null=True)),
                 ('sex', models.CharField(choices=[('M', 'Male'), ('F', 'Female'), ('O', 'Prefer not say')], max_length=2)),
                 ('password', models.CharField(max_length=150, validators=[django.core.validators.MinLengthValidator(5)])),
                 ('email', models.EmailField(max_length=150, unique=True)),

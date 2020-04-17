@@ -19,7 +19,7 @@ class Customer(AbstractBaseUser, PermissionsMixin):
 
     fname = models.CharField(max_length=150)
     lname = models.CharField(max_length=150)
-    dob = models.DateField(null=True)
+    #dob = models.DateField(null=True)
     sex = models.CharField(max_length=2, choices=SEX_CHOICE)
     password = models.CharField(max_length=150, validators=[MinLengthValidator(5)])
     email = models.EmailField(max_length=150, unique=True)
@@ -54,6 +54,7 @@ class Property(models.Model):
     pid = models.CharField(max_length=16, unique=True)
     pname = models.CharField(max_length=16)
     country = models.CharField(max_length=16)
+    track = models.BooleanField(default=True)
 
     is_active = models.BooleanField(default=True)
 
