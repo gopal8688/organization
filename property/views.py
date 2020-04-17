@@ -225,7 +225,7 @@ class PropertyAPIKeyLogsView(View, CMain):
 		# 	redirect('home')
 		self.getBasicDetails(request, id)
 		p = Property.objects.get(id=id)
-		pt_objs = PropertyTokens.objects.filter(pid=id).order_by('created_at').reverse()
+		pt_objs = PropertyTokens.objects.filter(pid=p.pid).order_by('created_at').reverse()
 		dataTokens = {}
 		try:
 			if pt_objs:
@@ -250,7 +250,7 @@ class PropertyAPIKeyLogsView(View, CMain):
 			}
 		except:
 			data = {
-				'status': len(dataTokens),
+				'status': 'error',
 				'message': 'There was some error.',
 			}
 		return JsonResponse(data)
