@@ -22,7 +22,6 @@ class Migration(migrations.Migration):
                 ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
                 ('fname', models.CharField(max_length=150)),
                 ('lname', models.CharField(max_length=150)),
-                #('dob', models.DateField(null=True)),
                 ('sex', models.CharField(choices=[('M', 'Male'), ('F', 'Female'), ('O', 'Prefer not say')], max_length=2)),
                 ('password', models.CharField(max_length=150, validators=[django.core.validators.MinLengthValidator(5)])),
                 ('email', models.EmailField(max_length=150, unique=True)),
@@ -67,6 +66,7 @@ class Migration(migrations.Migration):
                 ('is_active', models.BooleanField(default=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
+                ('deleted_at', models.DateTimeField(blank=True, default=None, null=True)),
                 ('properties', models.ManyToManyField(through='auths.CPRelationship', to=settings.AUTH_USER_MODEL)),
             ],
             options={

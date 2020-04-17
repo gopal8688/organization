@@ -158,7 +158,7 @@ class PropertyAPIKeysView(View, CMain):
 		self.SITE_DATA['page_title'] = 'Property API Keys'
 		self.SITE_DATA['form_url'] = reverse('psapikeys', args=[id])
 		self.SITE_DATA['api_url_logs'] = reverse('psapikeylogs', args=[id])
-		self.SITE_DATA['password'] = make_password("kN0Hugme46cfRVfl","z8Mnhff89sE0")
+		#self.SITE_DATA['password'] = make_password("kN0Hugme46cfRVfl","z8Mnhff89sE0")
 		#self.SITE_DATA['token_logs'] = pt;
 		return render(request, 'property_apikeys.html', self.SITE_DATA)
 	def post(self, request, id):

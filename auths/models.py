@@ -19,7 +19,6 @@ class Customer(AbstractBaseUser, PermissionsMixin):
 
     fname = models.CharField(max_length=150)
     lname = models.CharField(max_length=150)
-    #dob = models.DateField(null=True)
     sex = models.CharField(max_length=2, choices=SEX_CHOICE)
     password = models.CharField(max_length=150, validators=[MinLengthValidator(5)])
     email = models.EmailField(max_length=150, unique=True)
