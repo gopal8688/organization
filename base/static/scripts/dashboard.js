@@ -14,8 +14,8 @@ function fetchAllStats (datasend) {
 }
 $(document).ready(function () {
   var datasend = {};
-  datasend['key'] = API_KEY;
-  datasend['pid'] = PID;
+  //datasend['key'] = API_KEY;
+  //datasend['pid'] = PID;
   fetchAllStats(datasend);
   $("#duration").change(function(event) {
     $(".js-duration").val($(this).val());
@@ -35,7 +35,7 @@ $(document).ready(function () {
       case 'la':
         fetchLA(datasend,duration);
         break;
-      case 'saa':
+      case 'ura':
         fetchSAA(datasend,duration);
         break;
       case 'rrd':
@@ -59,7 +59,7 @@ function fetchDS(datasend,duration) {
   paramsDS.dur = duration;
   $.ajax({
     type: "GET",
-    url: ML_SERVER_API+RF_API_URLs.ds,
+    url: RF_API_URLs.ds,
     data: paramsDS,
     dataType: "json",
     success: function (response) {
@@ -78,7 +78,7 @@ function fetchHRU(datasend,duration) {
   paramsHRU.limit = 8;
   $.ajax({
     type: "GET",
-    url: ML_SERVER_API+RF_API_URLs.hru,
+    url: RF_API_URLs.hru,
     data: paramsHRU,
     dataType: "json",
     success: function (response) {
@@ -97,7 +97,7 @@ function fetchSA(datasend,duration) {
   paramsSA.limit = 8;
   $.ajax({
     type: "GET",
-    url: ML_SERVER_API+RF_API_URLs.sa,
+    url: RF_API_URLs.sa,
     data: paramsSA,
     dataType: "json",
     success: function (response) {
@@ -115,7 +115,7 @@ function fetchLA(datasend,duration) {
   paramsLA.dur = duration;
   $.ajax({
     type: "GET",
-    url: ML_SERVER_API+RF_API_URLs.la,
+    url: RF_API_URLs.la,
     data: paramsLA,
     dataType: "json",
     success: function (response) {
@@ -135,7 +135,7 @@ function fetchSAA(datasend,duration) {
   paramsSAA.dur = duration;
   $.ajax({
     type: "GET",
-    url: ML_SERVER_API+RF_API_URLs.saa,
+    url: RF_API_URLs.ura,
     data: paramsSAA,
     dataType: "json",
     success: function (response) {
@@ -155,7 +155,7 @@ function fetchRRD(datasend,duration) {
   paramsRRD.dur = duration;
   $.ajax({
     type: "GET",
-    url: ML_SERVER_API+RF_API_URLs.rrd,
+    url: RF_API_URLs.rrd,
     data: paramsRRD,
     dataType: "json",
     success: function (response) {

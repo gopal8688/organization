@@ -157,8 +157,7 @@ function fetchUserStats (datasend) {
 }
 $(document).ready(function() {
   var datasend = {};
-  datasend['key'] = API_KEY;
-  datasend['pid'] = PID;
+  //datasend['pid'] = PID;
   //datasend['dur'] = getFilterDateRange('filter-365');
   //datasend['limit'] = 25;
   fetchUserStats(datasend);
@@ -174,7 +173,7 @@ function fetchUsersMap(datasend,duration) {
   params.dur = duration;
   $.ajax({
     type: "GET",
-    url: ML_SERVER_API+RF_API_URLs.rm,
+    url: RF_API_URLs.rm,
     data: params,
     dataType: "json",
     success: function (response) {
@@ -192,7 +191,7 @@ function fetchUsersList(datasend,duration) {
   params.limit = 25;
   $.ajax({
     type: "GET",
-    url: ML_SERVER_API+RF_API_URLs.ul,
+    url: RF_API_URLs.ul,
     data: params,
     dataType: "json",
     success: function (response) {

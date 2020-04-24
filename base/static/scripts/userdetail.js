@@ -63,8 +63,8 @@ var colorNames = Object.keys(window.chartColors);
 
 $(document).ready(function() {
 	var datasend = {};
-	datasend['key'] = API_KEY;
-	datasend['pid'] = PID;
+	//datasend['key'] = API_KEY;
+	//datasend['pid'] = PID;
 	datasend['user'] = UID;
 	//datasend['limit'] = 25;
 	fetchUserStats(datasend);
@@ -75,34 +75,34 @@ function fetchUserStats (datasend) {
 	fetchUserActivities(datasend);
 	fetchUserLocations(datasend);
 }
-function fetchUserLinked (datasend) {
+function fetchUserBasic (datasend) {
+	delete datasend['limit'];
 	var params = datasend;
-	params.limit = 12;
 	$.ajax({
 		type: "GET",
-		url: ML_SERVER_API+RF_API_URLs.lus,
+		url: RF_API_URLs.bud,
 		data: params,
 		dataType: "json",
 		success: function (response) {
 			if(response.status == 'success') {
-				setUserLinked(response.data);
+				setUserBasic(response.data);
 			} else {
 				alert(response.message);
 			}
 		}
 	});
 }
-function fetchUserBasic (datasend) {
-	delete datasend['limit'];
+function fetchUserLinked (datasend) {
 	var params = datasend;
+	params.limit = 12;
 	$.ajax({
 		type: "GET",
-		url: ML_SERVER_API+RF_API_URLs.bud,
+		url: RF_API_URLs.lus,
 		data: params,
 		dataType: "json",
 		success: function (response) {
 			if(response.status == 'success') {
-				setUserBasic(response.data);
+				setUserLinked(response.data);
 			} else {
 				alert(response.message);
 			}
@@ -115,7 +115,7 @@ function fetchUserActivities (datasend) {
 	params.limit = 25;
 	$.ajax({
 		type: "GET",
-		url: ML_SERVER_API+RF_API_URLs.rua,
+		url: RF_API_URLs.rua,
 		data: params,
 		dataType: "json",
 		success: function (response) {
@@ -132,7 +132,7 @@ function fetchUserLocations (datasend) {
 	var params = datasend;
 	$.ajax({
 		type: "GET",
-		url: ML_SERVER_API+RF_API_URLs.ulo,
+		url: RF_API_URLs.ulo,
 		data: params,
 		dataType: "json",
 		success: function (response) {

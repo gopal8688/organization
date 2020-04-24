@@ -30,7 +30,7 @@ class PropertyCreateView(View, CMain):
 	def post(self, request):
 		try:
 			pn = request.POST['pn']
-			p = Property(pid=get_random_string(length=16, allowed_chars='123456789'), pname = pn, country="India")
+			p = Property(pid=get_random_string(length=16, allowed_chars='123456789'), pname = pn)
 			p.save()
 
 			if p.id:

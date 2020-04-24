@@ -18,20 +18,21 @@ class BaseView():
     
     SITE_DATA = {
         'APP_NAME': 'authsafe',
-        'API_URLS': json.dumps({
-            'ds': 'dashboard_stats',
-            'hru': 'highrisk_users',
-            'sa': 'security_alerts',
-            'la': 'login_attempts',
-            'saa': 'user_risk_analytics',
-            'rrd': 'region_risk_dist',
-            'rm': 'risk_map',
-            'ul': 'user_list',
-            'bud': 'basic_user_details',
-            'rua': 'recent_user_activities',
-            'ulo': 'user_locations',
-            'lus': 'linked_users',
-        }),
+        # 'API_URLS': json.dumps({
+        #     'ds': 'dashboard_stats',
+        #     'hru': 'highrisk_users',
+        #     'sa': 'security_alerts',
+        #     'la': 'login_attempts',
+        #     'saa': 'user_risk_analytics',
+        #     'rrd': 'region_risk_dist',
+        #     'rm': 'risk_map',
+        #     'ul': 'user_list',
+        #     'bud': 'basic_user_details',
+        #     'rua': 'recent_user_activities',
+        #     'ulo': 'user_locations',
+        #     'lus': 'linked_users',
+        # }),
+        'API_URLS': json.dumps({}),
         'ML_SERVER_API': 'http://demo.authsafe.ai:5000/api/',
         'time_zones': json.dumps(getAllTimeZones.__func__())
     }

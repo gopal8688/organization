@@ -20,7 +20,11 @@ DATABASES = {
         #'PASSWORD': 'toor',
         'HOST': 'localhost', #'95.216.170.200',
         'PORT': '3306',
-    }
+    },
+    # 'mongoc': {
+    #     'ENGINE': 'djongo',
+    #     'NAME': 'ml_logs',
+    # }
 }
 
 # Static files (CSS, JavaScript, Images)

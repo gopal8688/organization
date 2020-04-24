@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'cprof.apps.CprofConfig',
     'property.apps.PropertyConfig',
     'user.apps.UserConfig',
+    'api.apps.ApiConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

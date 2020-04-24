@@ -37,6 +37,8 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
 
+    deleted_at = models.DateTimeField(default=None, blank=True, null=True)
+
     REQUIRED_FIELDS = []
     USERNAME_FIELD = 'email'
 
@@ -52,7 +54,6 @@ class Property(models.Model):
 
     pid = models.CharField(max_length=16, unique=True)
     pname = models.CharField(max_length=16)
-    country = models.CharField(max_length=16)
     track = models.BooleanField(default=True)
 
     is_active = models.BooleanField(default=True)
