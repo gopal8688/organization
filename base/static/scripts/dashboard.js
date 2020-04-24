@@ -14,13 +14,37 @@ function fetchAllStats (datasend) {
 }
 $(document).ready(function () {
   var datasend = {};
-  datasend['key'] = API_KEY;
-  datasend['pid'] = PID;
+  //datasend['key'] = API_KEY;
+  //datasend['pid'] = PID;
   fetchAllStats(datasend);
-  $(".js-duration").change(function(event) {
+  $("#duration").change(function(event) {
     $(".js-duration").val($(this).val());
     /* Act on the event */
     fetchAllStats(datasend);
+  });
+  $(".js-duration").change(function(event) {
+    var dataType = $(this).data('type');
+    var duration = getFilterDateRange($(this).val());
+    switch (dataType) {
+      case 'hru':
+        fetchHRU(datasend,duration);
+        break;
+      case 'sa':
+        fetchSA(datasend,duration);
+        break;
+      case 'la':
+        fetchLA(datasend,duration);
+        break;
+      case 'ura':
+        fetchSAA(datasend,duration);
+        break;
+      case 'rrd':
+        fetchRRD(datasend,duration);
+        break;
+      default:
+        // statements_def
+        break;
+    }
   });
 });
 var randomScalingFactor = function() {
@@ -35,7 +59,7 @@ function fetchDS(datasend,duration) {
   paramsDS.dur = duration;
   $.ajax({
     type: "GET",
-    url: ML_SERVER_API+RF_API_URLs.ds,
+    url: RF_API_URLs.ds,
     data: paramsDS,
     dataType: "json",
     success: function (response) {
@@ -54,7 +78,7 @@ function fetchHRU(datasend,duration) {
   paramsHRU.limit = 8;
   $.ajax({
     type: "GET",
-    url: ML_SERVER_API+RF_API_URLs.hru,
+    url: RF_API_URLs.hru,
     data: paramsHRU,
     dataType: "json",
     success: function (response) {
@@ -73,7 +97,7 @@ function fetchSA(datasend,duration) {
   paramsSA.limit = 8;
   $.ajax({
     type: "GET",
-    url: ML_SERVER_API+RF_API_URLs.sa,
+    url: RF_API_URLs.sa,
     data: paramsSA,
     dataType: "json",
     success: function (response) {
@@ -91,7 +115,7 @@ function fetchLA(datasend,duration) {
   paramsLA.dur = duration;
   $.ajax({
     type: "GET",
-    url: ML_SERVER_API+RF_API_URLs.la,
+    url: RF_API_URLs.la,
     data: paramsLA,
     dataType: "json",
     success: function (response) {
@@ -111,7 +135,7 @@ function fetchSAA(datasend,duration) {
   paramsSAA.dur = duration;
   $.ajax({
     type: "GET",
-    url: ML_SERVER_API+RF_API_URLs.saa,
+    url: RF_API_URLs.ura,
     data: paramsSAA,
     dataType: "json",
     success: function (response) {
@@ -131,7 +155,7 @@ function fetchRRD(datasend,duration) {
   paramsRRD.dur = duration;
   $.ajax({
     type: "GET",
-    url: ML_SERVER_API+RF_API_URLs.rrd,
+    url: RF_API_URLs.rrd,
     data: paramsRRD,
     dataType: "json",
     success: function (response) {
@@ -155,13 +179,13 @@ function setStatsDS(data) {
 }
 function setTableHru(data) {
   //alert(data.length);
+  $("#tblHRU tbody").html("");
   if(data.length>0) {
-    $("#tblHRU tbody").html("");
     for (let i = 0; i < data.length; i++) {
       $("#tblHRU tbody").append(
         '<tr>'+
             '<td><i class="as-risk-bubble as-bg-'+RISK_TYPE[data[i].cat]+'"></i> '+capitalize(RISK_TYPE[data[i].cat])+'</td>'+
-            '<td><i class="as-icon as-icon-risk-graph"></i></td>'+
+            //'<td><i class="as-icon as-icon-risk-graph"></i></td>'+
             '<td>'+data[i].user+'</td>'+
             '<td><div class="as-btn-risk-score as-bg-light-critical as-border-critical as-text-critical">'+Math.floor(data[i].score)+'</div></td>'+
             '<td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>'+
@@ -174,8 +198,8 @@ function setTableHru(data) {
 }
 function setTableSA(data) {
   //alert(data.length);
+  $("#tblSA tbody").html("");
   if(data.length>0) {
-    $("#tblSA tbody").html("");
     for (let i = 0; i < data.length; i++) {
       $("#tblSA tbody").append(
         '<tr>'+

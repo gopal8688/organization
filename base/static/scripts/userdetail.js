@@ -63,14 +63,15 @@ var colorNames = Object.keys(window.chartColors);
 
 $(document).ready(function() {
 	var datasend = {};
-	datasend['key'] = API_KEY;
-	datasend['pid'] = PID;
+	//datasend['key'] = API_KEY;
+	//datasend['pid'] = PID;
 	datasend['user'] = UID;
-	datasend['limit'] = 25;
+	//datasend['limit'] = 25;
 	fetchUserStats(datasend);
 });
 function fetchUserStats (datasend) {
 	fetchUserBasic(datasend);
+	fetchUserLinked(datasend);
 	fetchUserActivities(datasend);
 	fetchUserLocations(datasend);
 }
@@ -79,12 +80,29 @@ function fetchUserBasic (datasend) {
 	var params = datasend;
 	$.ajax({
 		type: "GET",
-		url: ML_SERVER_API+RF_API_URLs.bud,
+		url: RF_API_URLs.bud,
 		data: params,
 		dataType: "json",
 		success: function (response) {
 			if(response.status == 'success') {
 				setUserBasic(response.data);
+			} else {
+				alert(response.message);
+			}
+		}
+	});
+}
+function fetchUserLinked (datasend) {
+	var params = datasend;
+	params.limit = 12;
+	$.ajax({
+		type: "GET",
+		url: RF_API_URLs.lus,
+		data: params,
+		dataType: "json",
+		success: function (response) {
+			if(response.status == 'success') {
+				setUserLinked(response.data);
 			} else {
 				alert(response.message);
 			}
@@ -97,7 +115,7 @@ function fetchUserActivities (datasend) {
 	params.limit = 25;
 	$.ajax({
 		type: "GET",
-		url: ML_SERVER_API+RF_API_URLs.rua,
+		url: RF_API_URLs.rua,
 		data: params,
 		dataType: "json",
 		success: function (response) {
@@ -114,7 +132,7 @@ function fetchUserLocations (datasend) {
 	var params = datasend;
 	$.ajax({
 		type: "GET",
-		url: ML_SERVER_API+RF_API_URLs.ulo,
+		url: RF_API_URLs.ulo,
 		data: params,
 		dataType: "json",
 		success: function (response) {
@@ -134,7 +152,17 @@ function setUserBasic (data) {
 	if (data.rec_loc) {
 		$("#recLocation").html(data.rec_loc);
 	}
-	$("#userRiskScore").html(Math.floor(data.final_score)).addClass('as-bg-'+RISK_TYPE[data.flag]);
+	if (data.final_score) {
+		$("#userRiskScore").html(Math.floor(data.final_score));
+	}
+	if (data.flag) {
+		$("#userRiskScore").addClass('as-bg-'+RISK_TYPE[data.flag]);
+	} else {
+		$("#userRiskScore").addClass('as-bg-low');
+	}
+}
+function setUserLinked (data) {
+	// body... 
 }
 function setUserActivities (data) {
 	if(Object.keys(data).length>0) {
@@ -168,5 +196,5 @@ function setUserActivities (data) {
 	}
 }
 function setUserLocations (data) {
-	alert(Object.keys(data).length);
+	//alert(Object.keys(data).length);
 }

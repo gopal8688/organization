@@ -30,7 +30,7 @@ class PropertyCreateView(View, CMain):
 	def post(self, request):
 		try:
 			pn = request.POST['pn']
-			p = Property(pid=get_random_string(length=16, allowed_chars='123456789'), pname = pn, country="India")
+			p = Property(pid=get_random_string(length=16, allowed_chars='123456789'), pname = pn)
 			p.save()
 
 			if p.id:
@@ -158,18 +158,40 @@ class PropertyAPIKeysView(View, CMain):
 		self.SITE_DATA['page_title'] = 'Property API Keys'
 		self.SITE_DATA['form_url'] = reverse('psapikeys', args=[id])
 		self.SITE_DATA['api_url_logs'] = reverse('psapikeylogs', args=[id])
+		#self.SITE_DATA['password'] = make_password("kN0Hugme46cfRVfl","z8Mnhff89sE0")
 		#self.SITE_DATA['token_logs'] = pt;
 		return render(request, 'property_apikeys.html', self.SITE_DATA)
 	def post(self, request, id):
 		#data = {}
-		pid= id
-		p = Property.objects.get(id=pid)
-		if p:
-			cust_obj = self.getCustomerObj(request)
-			secret_key = get_random_string(length=16)
-			PropertyTokens.objects.filter(pid=pid).update(deleted_at=datetime.now())
-			pt = PropertyTokens(pid=pid, psecret=make_password(secret_key), generated_by=cust_obj.id)
-			pt.save()
+		# pid= id
+		# p = Property.objects.get(id=pid)
+		p = Property.objects.get(id=id)
+		pid = p.pid
+		cust_obj = self.getCustomerObj(request)
+		
+		secret_key = get_random_string(length=16)
+		secret_key_hashed = make_password(secret_key)
+		generated_by = cust_obj.id
+
+		try:
+			pt_obj = PropertyTokens.objects.get(pid=pid, deleted_at__isnull=True)
+			pt_obj.deleted_at=datetime.now()
+			pt_obj.save()
+
+			pt = PropertyTokens(
+				pid=pid,
+				psecret=secret_key_hashed,
+				generated_by=generated_by
+			)
+		except PropertyTokens.DoesNotExist:
+			#print ('HERE')
+			pt_obj = PropertyTokens(
+				pid=pid,
+				psecret=secret_key_hashed,
+				generated_by=generated_by,
+			)
+		pt.save()
+		try:
 			if pt.id:
 				cp = CPRelationship.objects.filter(cust=cust_obj, prop=p)
 				rc = dict(CPRelationship.ROLE_CHOICE)
@@ -187,7 +209,7 @@ class PropertyAPIKeysView(View, CMain):
 						'gen_time': pt.created_at
 					}
 				}
-		if not data:
+		except:
 			data = {
 				'status': 'error',
 				'message': 'There was some error.',
@@ -203,30 +225,30 @@ class PropertyAPIKeyLogsView(View, CMain):
 		# 	redirect('home')
 		self.getBasicDetails(request, id)
 		p = Property.objects.get(id=id)
-		pt_objs = PropertyTokens.objects.filter(pid=id).order_by('created_at').reverse()
+		pt_objs = PropertyTokens.objects.filter(pid=p.pid).order_by('created_at').reverse()
 		dataTokens = {}
-		if pt_objs:
-			i = 0
-			for pt in pt_objs:
-				cust_obj = Customer.objects.get(id=pt.generated_by)
-				if not cust_obj.fname:
-					gen_by = cust_obj.email
-				else:
-					gen_by = cust_obj.fname + ' ' + cust_obj.lname
-				cp = CPRelationship.objects.filter(cust=cust_obj, prop=p)
-				rc = dict(CPRelationship.ROLE_CHOICE)
-				dataTokens[i] = {
-					'gen_by': gen_by,
-					'role': rc[cp[0].role],
-					'gen_time': pt.created_at,
-				}
-				i=i+1
-		if pt:
+		try:
+			if pt_objs:
+				i = 0
+				for pt in pt_objs:
+					cust_obj = Customer.objects.get(id=pt.generated_by)
+					if not cust_obj.fname:
+						gen_by = cust_obj.email
+					else:
+						gen_by = cust_obj.fname + ' ' + cust_obj.lname
+					cp = CPRelationship.objects.filter(cust=cust_obj, prop=p)
+					rc = dict(CPRelationship.ROLE_CHOICE)
+					dataTokens[i] = {
+						'gen_by': gen_by,
+						'role': rc[cp[0].role],
+						'gen_time': pt.created_at,
+					}
+					i=i+1
 			data = {
 				'status': 'success',
 				'logs': dataTokens,
 			}
-		if not data:
+		except:
 			data = {
 				'status': 'error',
 				'message': 'There was some error.',
