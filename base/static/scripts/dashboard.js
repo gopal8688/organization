@@ -160,7 +160,7 @@ function fetchRRD(datasend,duration) {
     dataType: "json",
     success: function (response) {
       if(response.status == 'success') {
-        var config3 = setConfigRRD(response);
+        var config3 = setConfigRRD(response.data);
         var ctx3 = document.getElementById('locationChart').getContext('2d');
         window.myHorizontalBar = new Chart(ctx3, config3);
       } else {

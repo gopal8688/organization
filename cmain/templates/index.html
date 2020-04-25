@@ -89,13 +89,6 @@
                   <ul class="as-prop-menu">
                     {% for row in rows %}
                       <li><a href="{% url 'pr-home' row.id %}" {% ifequal row.id p_row.id %}class="active"{% endifequal %} data-pid="{{row.id}}"><span class="as-prop-menu-name">Property: {{row.pname}}</span><span class="as-prop-menu-propid">Property ID: {{row.pid}}</span></a></li>
-                      <!-- {% ifequal row.id show_row.id %}
-                        {% with request.session.id as row.id %}
-                        {% endwith %}
-                        <li><a href="{% url 'pr-home' row.id %}" class="active" data-pid="{{row.id}}"><span class="as-prop-menu-name">Property: {{row.pname}}</span><span class="as-prop-menu-propid">Property ID: {{row.pid}}</span></a></li>
-                        {% else %}
-                        <li><a href="{% url 'pr-home' row.id %}" data-pid="{{row.id}}"><span class="as-prop-menu-name">Property: {{row.pname}}</span><span class="as-prop-menu-propid">Property ID: {{row.pid}}</span></a></li>
-                      {% endifequal %} -->
                     {% endfor %}
                   </ul>
                 </div>
@@ -140,8 +133,8 @@
                 <hr>
                 <div class="as-user-set-items">
                   <ul class="list-unstyled as-user-set-menu">
-                    <li class="as-user-set-item"><a href="{% url 'view' %}">Personal Information</a></li>
-                    <li class="as-user-set-item"><a href="javascript:;">Manage your authsafe account</a></li>
+                    {% comment %}<li class="as-user-set-item"><a href="{% url 'view' %}">Personal Information</a></li>{% endcomment %}
+                    <li class="as-user-set-item"><a href="{% url 'view' %}">Manage your authsafe account</a></li>
                   </ul>
                 </div>
                 <hr>
