@@ -1,7 +1,7 @@
 function fetchAllStats (datasend) {
   var duration = $("#duration").val();
   if (!duration) {
-    alert("Please select a duration");
+    toastr.error("Please select a duration");
   } else {
     var duration = getFilterDateRange(duration);
     fetchDS(datasend,duration);
@@ -66,7 +66,7 @@ function fetchDS(datasend,duration) {
       if(response.status == 'success') {
         setStatsDS(response);
       } else {
-        alert(response.message);
+        toastr.error(response.message);
       }
     }
   });
@@ -85,7 +85,7 @@ function fetchHRU(datasend,duration) {
       if(response.status == 'success') {
         setTableHru(response.users_scores);
       } else {
-        alert(response.message);
+        toastr.error(response.message);
       }
     }
   });
@@ -104,7 +104,7 @@ function fetchSA(datasend,duration) {
       if(response.status == 'success') {
         setTableSA(response.usr_scr_cat_det);
       } else {
-        alert(response.message);
+        toastr.error(response.message);
       }
     }
   });
@@ -124,7 +124,7 @@ function fetchLA(datasend,duration) {
         var ctx1 = document.getElementById('attemptsChart').getContext('2d');
         window.myLine = new Chart(ctx1, config1);
       } else {
-        alert(response.message);
+        toastr.error(response.message);
       }
     }
   });
@@ -144,7 +144,7 @@ function fetchSAA(datasend,duration) {
         var ctx2 = document.getElementById('secAlertsChart').getContext('2d');
         window.myLine = new Chart(ctx2, config2);
       } else {
-        alert(response.message);
+        toastr.error(response.message);
       }
     }
   });
@@ -164,7 +164,7 @@ function fetchRRD(datasend,duration) {
         var ctx3 = document.getElementById('locationChart').getContext('2d');
         window.myHorizontalBar = new Chart(ctx3, config3);
       } else {
-        alert(response.message);
+        toastr.error(response.message);
       }
     }
   });
@@ -178,7 +178,7 @@ function setStatsDS(data) {
   $("#watchUsers").text(data.watchlist);
 }
 function setTableHru(data) {
-  //alert(data.length);
+  //toastr.error(data.length);
   $("#tblHRU tbody").html("");
   if(data.length>0) {
     for (let i = 0; i < data.length; i++) {
@@ -197,7 +197,7 @@ function setTableHru(data) {
   }
 }
 function setTableSA(data) {
-  //alert(data.length);
+  //toastr.error(data.length);
   $("#tblSA tbody").html("");
   if(data.length>0) {
     for (let i = 0; i < data.length; i++) {

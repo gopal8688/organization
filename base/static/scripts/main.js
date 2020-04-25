@@ -1,5 +1,18 @@
 'use strict';
-
+toastr.options = {
+    "closeButton": true,
+    "debug": false,
+    "positionClass": "toast-top-center",
+    "onclick": null,
+    "showDuration": "1000",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+}
 window.chartColors = {
 	critical: 'rgb(168, 0, 0)',
 	high: 'rgb(255, 67, 67)',
@@ -218,6 +231,17 @@ function getOS ($os) {
 			break;
 	}
 	return $os;
+}
+window.getWebkitDevice = function(os) {
+	var pc = ['win','wnt','osx','deb','ubt','mac','bsd','lnx','crm'];
+	var mobile = ['ard','bb','pal','sym','wim','ios','meg','mmo','jos','wos','bdo','brw'];
+	if ($.inArray(os, pc) != -1) {
+		return 'PC';
+	}
+	if ($.inArray(os, mobile) != -1) {
+		return 'Mobile';
+	}
+	return os;
 }
 function timeSince(date) {
 

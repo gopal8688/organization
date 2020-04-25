@@ -3,7 +3,7 @@ $(document).ready(function () {
         e.preventDefault();
         var pu = $("#inputPropertyURL").val();
         if(!pu) {
-            alert("Please enter property name");
+            toastr.error("Please enter property name");
         } else {
             var datasend = {};
             datasend['pu'] = pu;
@@ -15,9 +15,9 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function (res) {
                     if(res.status == 'success') {
-                        alert(res.message);
+                        toastr.success(res.message);
                     } else {
-                        alert(res.message);
+                        toastr.error(res.message);
                     }
                 }
             });

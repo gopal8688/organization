@@ -27,9 +27,9 @@ DATABASES = {
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 STATIC_ROOT = "/var/www/html/customer/base/static/"
 STATIC_URL = '/cstatic/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'base/static')              #os.path.join(BASE_DIR, 'login/static')
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'base/static')              #os.path.join(BASE_DIR, 'login/static')
+# ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
 MEDIA_URL = '/media/'

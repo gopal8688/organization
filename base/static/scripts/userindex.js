@@ -148,7 +148,7 @@ var randomScalingFactor = function() {
 function fetchUserStats (datasend) {
   var duration = $("#duration").val();
   if (!duration) {
-    alert("Please select a duration");
+    toastr.error("Please select a duration");
   } else {
     var duration = getFilterDateRange(duration);
     fetchUsersMap(datasend,duration);
@@ -180,7 +180,7 @@ function fetchUsersMap(datasend,duration) {
       if(response.status == 'success') {
         setUsersMap(response.data);
       } else {
-        alert(response.message);
+        toastr.error(response.message);
       }
     }
   });
@@ -198,7 +198,7 @@ function fetchUsersList(datasend,duration) {
       if(response.status == 'success') {
         setUsersList(response.data);
       } else {
-        alert(response.message);
+        toastr.error(response.message);
       }
     }
   });
@@ -212,6 +212,11 @@ function setUsersList (data) {
     //console.log(Object.keys(data).length);
     for (let i = 0; i < Object.keys(data).length; i++) {
       var firstKey = Object.keys(data)[i];
+      var device = Object.keys(data[firstKey]['dvc'])[0];
+      var dos = Object.keys(data[firstKey]['os'])[0];
+      if (device == 'WebKit') {
+        device = getWebkitDevice(dos);
+      }
       //console.log(data[firstKey]);
       $("#tblUsers tbody").append(
         '<tr>'+
@@ -225,9 +230,9 @@ function setUsersList (data) {
                         '<a href="'+window.location.href+Object.keys(data)[i]+'" class="as-usr-name">'+$.trim(Object.keys(data)[i])+'</a>'+
                         '<span class="as-list-rslerts-wrap">'+
                           '<ul class="as-list-rslerts">'+
-                            '<li><a href="javascript:;" title="'+Object.keys(data[firstKey]['dvc'])[0]+'"><i class="as-icon as-icon-windows"></i></a></li>'+
-                            '<li><a href="javascript:;" title="'+Object.keys(data[firstKey]['locn'])[0]+'"><i class="as-icon as-icon-loc"></i></a></li>'+
-                            '<li><a href="javascript:;" title="'+getOS(Object.keys(data[firstKey]['os'])[0])+'"><i class="as-icon as-icon-mobile"></i></a></li>'+
+                            '<li><a href="javascript:;" title="'+device+'"><i class="as-icon as-icon-windows"></i></a></li>'+
+                            '<li><a href="javascript:;" title="'+data[firstKey]['locn']+'"><i class="as-icon as-icon-loc"></i></a></li>'+
+                            '<li><a href="javascript:;" title="'+getOS(dos)+'"><i class="as-icon as-icon-mobile"></i></a></li>'+
                             //'<li><a href="javascript:;" title="'+Object.keys(data[firstKey]['dvc'])[0]+'"><i class="as-icon as-icon-wifi"></i></a></li>'+
                           '</ul>'+
                         '</span>'+
@@ -265,7 +270,7 @@ function setUsersList (data) {
           { "aTargets": [ 0 ], "bSortable": true },
           { "aTargets": [ 1 ], "bSortable": true },
           { "aTargets": [ 2 ], "bSortable": true },
-          { "aTargets": [ 3 ], "bSortable": false }
+          //{ "aTargets": [ 3 ], "bSortable": false }
       ]
     });
   }

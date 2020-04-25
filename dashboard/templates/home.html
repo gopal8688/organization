@@ -85,10 +85,10 @@
                 <h4 class="as-dash-stat-num" id="watchUsers">0</h4>
                 <div class="as-dash-stat-title">Users under watchlist</div>
                 <div class="as-dash-stat-actions">
-                  <ul class="list-unstyled as-dash-watch-btns">
+                  {% comment %}<ul class="list-unstyled as-dash-watch-btns">
                     <li><a href="javascript:;" class="as-as">Add User</a></li>
                     <li><a href="javascript:;" class="as-as">View Users</a></li>
-                  </ul>
+                  </ul>{% endcomment %}
                 </div>
               </div>
             </div>
@@ -100,7 +100,9 @@
           <div class="as-portlet-1">
             <div class="as-grid-justified as-portlet-header">
               <h2 class="as-portlet-title">Top Users with Highest Risk score</h2>
+              {% comment %}
               <div class="as-portlet-tools"><a href="javascript:;" class="as-link-filter"><i class="as-icon as-icon-filter"></i></a></div>
+              {% endcomment %}
             </div>
             <div class="as-portlet-body as-portlet-body-tbl">
               <div class="table-responsive">
@@ -166,22 +168,6 @@
                       <td>testUser-2</td>
                       <td><div class="as-btn-risk-score as-bg-light-low as-border-low as-text-low">4874</div></td>
                       <td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>
-                    </tr>
-                    <tr>
-                      <td colspan="5">
-                        <div class="as-grid-justified as-tfoot-tools">
-                          <div class="as-tfoot-filter">
-                            <select name="" id="" class="form-control js-duration">
-                              <option value="filter-7">Last 7 days</option>
-                              <option value="filter-30">Last 30 days</option>
-                              <option value="filter-365">Last Year</option>
-                            </select>
-                          </div>
-                          <div class="">
-                            <a href="javascript:;" class="as-tbl-v-all"><span class="as-as">View All</span> <i class="as-icon-chevron-right"></i></a>
-                          </div>
-                        </div>
-                      </td>
                     </tr>{% endcomment %}
                   </tbody>
                 </table>
@@ -195,9 +181,11 @@
                       <option value="filter-365">Last Year</option>
                     </select>
                   </div>
+                  {% comment %}
                   <div class="">
                     <a href="javascript:;" class="as-tbl-v-all"><span class="as-as">View All</span> <i class="as-icon-chevron-right"></i></a>
                   </div>
+                  {% endcomment %}
                 </div>
               </div>
             </div>
@@ -207,14 +195,14 @@
           <div class="as-portlet-1">
             <div class="as-grid-justified as-portlet-header">
               <h2 class="as-portlet-title">Security Alerts</h2>
-              <div class="as-portlet-tools"><a href="javascript:;" class="as-link-filter"><i class="as-icon as-icon-filter"></i></a></div>
+              {% comment %}<div class="as-portlet-tools"><a href="javascript:;" class="as-link-filter"><i class="as-icon as-icon-filter"></i></a></div>{% endcomment %}
             </div>
             <div class="as-portlet-body as-portlet-body-tbl">
               <div class="table-responsive">
                 <table class="table as-portlet-table-1" id="tblSA">
                   <thead>
                     <tr>
-                      <th><div class="as-tbl-mrg">Risk</div></th><th>Observation</th><th>User Name</th><th>Score</th><th></th>
+                      <th><div class="as-tbl-mrg">Risk</div></th><th>Observation</th><th>User Name</th><th>Score (%)</th><th></th>
                     </tr>
                   </thead>
                   <tbody>{% comment "Optional note" %}
@@ -273,22 +261,6 @@
                       <td>testUser-2</td>
                       <td><div class="as-btn-risk-score as-bg-light-low as-border-low as-text-low">4874</div></td>
                       <td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>
-                    </tr>
-                    <tr>
-                      <td colspan="5">
-                        <div class="as-grid-justified as-tfoot-tools">
-                          <div class="as-tfoot-filter">
-                            <select name="" id="" class="form-control js-duration">
-                              <option value="filter-7">Last 7 days</option>
-                              <option value="filter-30">Last 30 days</option>
-                              <option value="filter-365">Last Year</option>
-                            </select>
-                          </div>
-                          <div class="">
-                            <a href="javascript:;" class="as-tbl-v-all"><span class="as-as">View All</span> <i class="as-icon-chevron-right"></i></a>
-                          </div>
-                        </div>
-                      </td>
                     </tr>{% endcomment %}
                   </tbody>
                 </table>
@@ -302,9 +274,11 @@
                       <option value="filter-365">Last Year</option>
                     </select>
                   </div>
+                  {% comment %}
                   <div class="">
                     <a href="javascript:;" class="as-tbl-v-all"><span class="as-as">View All</span> <i class="as-icon-chevron-right"></i></a>
                   </div>
+                  {% endcomment %}
                 </div>
               </div>
             </div>

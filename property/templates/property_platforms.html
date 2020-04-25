@@ -21,10 +21,10 @@
                     <span class="as-nav-tab-nav"><span class="as-icon-blue-round"><i class="fa fa-desktop" aria-hidden="true"></i></span><span class="nav-title">Website</span></span>
                   </a>
                   <a class="nav-item nav-link disabled" id="androidTab" data-toggle="tab" href="#navAndroid" role="tab" aria-controls="navAndroid" aria-selected="false">
-                    <span class="as-nav-tab-nav"><span class="as-icon-blue-round"><i class="fa fa-android" aria-hidden="true"></i></span><span class="nav-title">Android App</span></span>
+                    <span class="as-nav-tab-nav"><span class="as-nav-tab-w"><span class="as-icon-blue-round"><i class="fa fa-android" aria-hidden="true"></i></span><span class="nav-title">Android App</span><span class="nav-cs">Coming Soon!</span></span></span>
                   </a>
                   <a class="nav-item nav-link disabled" id="iosTab" data-toggle="tab" href="#navIos" role="tab" aria-controls="navIos" aria-selected="false">
-                    <span class="as-nav-tab-nav"><span class="as-icon-blue-round"><i class="fa fa-apple" aria-hidden="true"></i></span><span class="nav-title">iOS App</span></span>
+                    <span class="as-nav-tab-nav"><span class="as-nav-tab-w"><span class="as-icon-blue-round"><i class="fa fa-apple" aria-hidden="true"></i></span><span class="nav-title">iOS App</span><span class="nav-cs">Coming Soon!</span></span></span>
                   </a>
                 </div>
               </nav>
@@ -38,6 +38,7 @@
                           <input type="text" id="inputPropertyURL" name="inputPropertyURL" class="form-control" placeholder="Website URL e.g. example.com" aria-label="Website URL e.g. example.com" aria-describedby="btnSaveUrl" value="{{ website.domain }}">
                         </div>
                         <button class="btn as-btn-lg btn-primary" type="submit" id="btnSaveUrl">Save</button>
+                        <a href="{% url 'pstrackingcode' pid %}" class="btn as-btn-lg btn-outline-primary" type="submit" id="btnSaveUrl">Next</a>
                       </div>
                     </div>
                   </form>
