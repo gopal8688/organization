@@ -3,7 +3,7 @@ from api.customer_apis.config import Config
 from datetime import datetime, timedelta
 
 class HighRiskUsers(Config):
-        
+
     def getHighRiskUsers(self, pid, limit, from_date, to_date):
         try:
             to_date += timedelta(days=1)

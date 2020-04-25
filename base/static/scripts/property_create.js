@@ -3,7 +3,7 @@ $(document).ready(function () {
         e.preventDefault();
         var pn = $("#inputPropertyName").val();
         if(!pn) {
-            alert("Please enter property name");
+            toastr.error("Please enter property name");
         } else {
             var datasend = {};
             datasend['pn'] = pn;
@@ -17,7 +17,7 @@ $(document).ready(function () {
                     if(res.status == 'success') {
                         window.location = res.red_url;
                     } else {
-                        alert(res.message);
+                        toastr.error(res.message);
                     }
                 }
             });

@@ -2,6 +2,7 @@
 @import "https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap";
 @import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 @import "https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css";
+@import "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css";
 .as-icon {
   background-repeat: no-repeat;
   display: inline-block;
@@ -1700,6 +1701,16 @@ table.as-portlet-table-2 {
   line-height: 45px;
   padding-left: 55px;
   white-space: nowrap; }
+.as-nav-tabs-1 .as-nav-tab-w {
+  display: inline-block;
+  position: relative; }
+.as-nav-tabs-1 .nav-cs {
+  position: absolute;
+  bottom: -2px;
+  font-size: 12px;
+  left: 55px;
+  white-space: nowrap;
+  color: #246CF2; }
 .as-nav-tabs-1 .tab-content {
   padding: 3rem 1rem;
   min-height: 550px; }

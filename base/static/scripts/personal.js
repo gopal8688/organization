@@ -7,13 +7,13 @@ $(document).ready(function() {
 		var email = $("#cemail").val();
 		var phone = $("#cphone").val();
 		if (!first_name) {
-			alert("Please enter first name!");
+			toastr.error("Please enter first name!");
 		} else if (!last_name) {
-			alert("Please enter last name!");
+			toastr.error("Please enter last name!");
 		} else if (!sex) {
-			alert("Please select gender!");
+			toastr.error("Please select gender!");
 		} else if (!email) {
-			alert("Please enter email!");
+			toastr.error("Please enter email!");
 		} else {
 			$.ajax({
 				url: $("#frmProfilePersonal").attr('action'),
@@ -23,9 +23,9 @@ $(document).ready(function() {
 			})
 			.done(function(res) {
 				if (res.status == "success") {
-					alert("Successfully Updated!");
+					toastr.success("Successfully Updated!");
 				} else {
-					alert(res.message);
+					toastr.error(res.message);
 				}
 			})
 			.fail(function() {
@@ -40,9 +40,9 @@ $(document).ready(function() {
 		var password = $("#password").val();
 		var cpassword = $("#cpassword").val();
 		if (!password) {
-			alert("Please enter password!");
+			toastr.error("Please enter password!");
 		} else if (password != cpassword) {
-			alert("Both passwords do not match!");
+			toastr.error("Both passwords do not match!");
 		} else {
 			$.ajax({
 				url: $("#frmProfilePassword").attr('action'),
@@ -52,9 +52,9 @@ $(document).ready(function() {
 			})
 			.done(function(res) {
 				if (res.status == "success") {
-					alert("Successfully Updated!");
+					toastr.success("Successfully Updated!");
 				} else {
-					alert(res.message);
+					toastr.error(res.message);
 				}
 			})
 			.fail(function() {
@@ -71,7 +71,7 @@ $(document).ready(function() {
 		var brand_name = $("#brand_name").val();
 		var brand_logo = $("#brand_logo").val();
 		if (!org_name) {
-			alert("Please enter company name!");
+			toastr.error("Please enter company name!");
 		} else {
 			var options = { 
 				target:        '#output2',   // target element(s) to be updated with server response 
@@ -111,8 +111,8 @@ function showRequest(formData, jqForm, options) {
 // post-submit callback 
 function showResponse(responseText, statusText, xhr, $form)  {
     if (responseText.status == "success") {
-		alert("Successfully Updated!");
+		toastr.success("Successfully Updated!");
 	} else {
-		alert(responseText.message);
+		toastr.error(responseText.message);
 	}
 } 

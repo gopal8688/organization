@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils.crypto import get_random_string
 
 from django.views import View
@@ -59,6 +59,8 @@ class PropertySettingsView(View, CMain):
 		self.arg = arg
 	def get(self, request, id):
 		# if(not self.valiDateProperty(request, id)):
+		# 	redirect('home')
+		# if(not self.getBasicDetails(request, id)):
 		# 	redirect('home')
 		self.getBasicDetails(request, id)
 		self.SITE_DATA['page'] = 'property_settings'

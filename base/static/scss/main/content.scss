@@ -526,6 +526,18 @@ table.as-portlet-table-2 {
 		padding-left: 55px;
 		white-space: nowrap;
 	}
+	.as-nav-tab-w {
+		display: inline-block;
+		position: relative;
+	}
+	.nav-cs {
+		position: absolute;
+		bottom: -2px;
+		font-size: 12px;
+		left: 55px;
+		white-space: nowrap;
+		color: #246CF2;
+	}
 	.tab-content {
 		padding: 3rem 1rem;
 		min-height: 550px;

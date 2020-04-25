@@ -23,7 +23,7 @@ $(document).ready(function () {
                         );
                     }
                 } else {
-                    alert(res.message);
+                    toastr.error(res.message);
                 }
             }
         });
@@ -55,7 +55,7 @@ function fetchAPIKeyLogs() {
                 );
             }
         } else {
-            alert(res.message);
+            toastr.error(res.message);
         }
     });    
 }

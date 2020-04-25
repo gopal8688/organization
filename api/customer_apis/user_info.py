@@ -30,66 +30,76 @@ class UsersInfo(Config):
             }
     
     def getUserList(self, pid, from_date, to_date):
-        try:
-            pid = str(pid)
-            to_date += timedelta(days=1)
+        #try:
+        pid = str(pid)
+        to_date += timedelta(days=1)
 
-            logs = self.db[pid]
+        logs = self.db[pid]
 
-            logs_data = logs.find({'datetime': {'$gte':from_date, '$lt': to_date}}).sort([('datetime', 1)])
-            logs_data = self.__aggregateLogs(logs_data)
+        logs_data = logs.find({'datetime': {'$gte':from_date, '$lt': to_date}}).sort([('datetime', 1)])
+        #logs_data = self.__aggregateLogs(logs_data)
+        logs_data = self.aggregateLogs(logs_data)
+        
+        user_info = {}
+        i = 0;
+        for log in logs_data:
+            username = log['uid_key'].strip()
             
-            user_info = {}
-            for log in logs_data:
-                username = log['uid_key']
-                
-                if not user_info.get(username):
-                    user_info[username] = {
-                        'os': {},
-                        'locn': {},
-                        'dvc': {},
-                    }
-                if log.get('leaf_key'):
-                    leaf_key = dict(map(lambda x:x.split(':'), log['leaf_key'].split(';')[1:]))
-                    loc = "%s, %s, %s"%(leaf_key['ci'], leaf_key['st'], leaf_key['co'])
-                    os, device = leaf_key['os'], leaf_key['d']
+            if not user_info.get(username):
+                user_info[username] = {
+                    'os': {},
+                    'locn': {},
+                    'dvc': {},
+                }
+            if log.get('leaf_key'):
+                leaf_key = dict(map(lambda x:x.split(':'), log['leaf_key'].split(';')[1:]))
+                loc = "%s, %s, %s"%(leaf_key['ci'], leaf_key['st'], leaf_key['co'])
+                os, device = leaf_key['os'], leaf_key['d']
+            else:
+                #city, state, country = log.get('ci', ''), log.get('st', ''), log.get('co', '')
+                os, device = log.get('os', ''), log.get('d', '')
+                #loc = "%s, %s, %s"%(city, state, country)
+                loc = 'Unknown'
+
+            if os and not user_info[username]['os'].get(os): user_info[username]['os'][os] = 0
+            if loc and not user_info[username]['locn'].get(loc): user_info[username]['locn'][loc] = 0
+            if device and not user_info[username]['dvc'].get(device): user_info[username]['dvc'][device] = 0
+
+            if os: user_info[username]['os'][os] += 1
+            if loc: user_info[username]['locn'][loc] += 1
+            if device: user_info[username]['dvc'][device] += 1
+        
+            if 1:
+                mscore = log['final_score']
+                if mscore > self.high:
+                    flag = 'R'
+                elif mscore > self.safe:
+                    flag = 'Y'
                 else:
-                    city, state, country = log.get('ci', ''), log.get('st', ''), log.get('co', '')
-                    os, device = log.get('os', ''), log.get('d', '')
-                    loc = "%s, %s, %s"%(city, state, country)
+                    flag = 'G'
 
-                if os and not user_info[username]['os'].get(os): user_info[username]['os'][os] = 0
-                if loc and not user_info[username]['locn'].get(loc): user_info[username]['locn'][loc] = 0
-                if device and not user_info[username]['dvc'].get(device): user_info[username]['dvc'][device] = 0
+                if flag == 'R':
+                    user_info[username]['obs'] = 'unsafe'
+                else:
+                    user_info[username]['obs'] = 'safe'
 
-                if os: user_info[username]['os'][os] += 1
-                if loc: user_info[username]['locn'][loc] += 1
-                if device: user_info[username]['dvc'][device] += 1
-            
-                if 1:
-                    mscore = log['final_score']
-                    if mscore > self.high:
-                        flag = 'R'
-                    elif mscore > self.safe:
-                        flag = 'Y'
-                    else:
-                        flag = 'G'
-
-                    if flag == 'R':
-                        user_info['obs'] = 'unsafe'
-                    else:
-                        user_info['obs'] = 'safe'
-
-                    user_info[username]['rec_time'] = log.get('lgt', log['datetime'])
-                    user_info[username]['rec_score'] = mscore
-                    user_info[username]['rec_flag'] = flag
-                    user_info[username]['rec_threat'] = log.get('threat_type', 'User Behaviour Threat') #Made chancges here
-
-        except:
-            return {
-                'status': 'error',
-                'message': 'There was some error'
-            }
+                user_info[username]['rec_time'] = log.get('lgt', log['datetime'])
+                user_info[username]['rec_score'] = mscore
+                user_info[username]['rec_flag'] = flag
+                user_info[username]['rec_threat'] = log.get('threat_type', 'User Behaviour Threat') #Made chancges here
+        for user_log in user_info:
+            #locations = sorted(user_info[username]['locn'].items(), key = lambda x : x[1])
+            #locations = sorted(user_info[username]['locn'].items(), key = lambda x : x[1])
+            locations = {k: v for k, v in sorted(user_info[user_log]['locn'].items(), key=lambda item: item[1], reverse=True)}
+            if len(locations)>1:
+                if locations.get('Unknown'):
+                    del locations['Unknown']
+            user_info[user_log]['locn'] = list(locations.keys())[0]
+        # except:
+        #     return {
+        #         'status': 'error',
+        #         'message': 'There was some error'
+        #     }
         return {
              'status': 'success', 
              'data': user_info

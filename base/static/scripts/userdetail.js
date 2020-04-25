@@ -87,7 +87,7 @@ function fetchUserBasic (datasend) {
 			if(response.status == 'success') {
 				setUserBasic(response.data);
 			} else {
-				alert(response.message);
+				toastr.error(response.message);
 			}
 		}
 	});
@@ -104,7 +104,7 @@ function fetchUserLinked (datasend) {
 			if(response.status == 'success') {
 				setUserLinked(response.data);
 			} else {
-				alert(response.message);
+				toastr.error(response.message);
 			}
 		}
 	});
@@ -122,7 +122,7 @@ function fetchUserActivities (datasend) {
 			if(response.status == 'success') {
 				setUserActivities(response.data);
 			} else {
-				alert(response.message);
+				toastr.error(response.message);
 			}
 		}
 	});
@@ -139,7 +139,7 @@ function fetchUserLocations (datasend) {
 			if(response.status == 'success') {
 				setUserLocations(response.data);
 			} else {
-				alert(response.message);
+				toastr.error(response.message);
 			}
 		}
 	});
@@ -196,5 +196,5 @@ function setUserActivities (data) {
 	}
 }
 function setUserLocations (data) {
-	//alert(Object.keys(data).length);
+	//toastr.error(Object.keys(data).length);
 }
