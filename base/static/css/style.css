@@ -343,6 +343,11 @@ a.as-icon-status:hover {
   height: 20px;
   background-image: url(../img/icons/as-icon-clock.svg); }
 
+.as-icon-clock-green {
+  width: 20px;
+  height: 20px;
+  background-image: url(../img/icons/as-icon-clock-green.svg); }
+
 .as-icon-isp {
   width: 18px;
   height: 20px;
@@ -535,6 +540,9 @@ label {
 .as-p-20-30p {
   padding: 20px 30px; }
 
+.mh-440 {
+  min-height: 440px; }
+
 .mh-390 {
   min-height: 390px; }
 
@@ -555,7 +563,10 @@ label {
   padding: 5px 12px;
   position: relative;
   border-radius: 6px; }
-  .btn-orange .as-icon-wrap {
+
+.btn-icon {
+  position: relative; }
+  .btn-icon .as-icon-wrap {
     position: absolute;
     top: 2px;
     right: 2px;
@@ -1387,7 +1398,6 @@ form .custom-radio .custom-control-input:checked ~ .custom-control-label::after 
     box-shadow: 0px 5px 10px #E5E9F2;
     overflow: hidden; }
   .as-portlet-1 .as-portlet-body-tbl {
-    min-height: 500px;
     padding-bottom: 80px;
     position: relative; }
   .as-portlet-1 .as-portlet-body-chart {
@@ -1466,6 +1476,9 @@ form .custom-radio .custom-control-input:checked ~ .custom-control-label::after 
     height: 30px;
     display: inline-block;
     margin-left: 14px; }
+    .as-portlet-4 .as-ph-pgs .disabled .as-pg-nav {
+      background-color: #eee;
+      box-shadow: none; }
     .as-portlet-4 .as-ph-pgs .as-pg-nav {
       color: #246CF2;
       display: inline-block;
@@ -1487,7 +1500,8 @@ form .custom-radio .custom-control-input:checked ~ .custom-control-label::after 
 .as-portlet-5 {
   background-color: #FFFFFF;
   border-radius: 6px;
-  overflow: hidden; }
+  overflow: hidden;
+  margin-bottom: 21px; }
   .as-portlet-5 .as-portlet-header {
     padding: 15px 20px;
     background: #E8EFFD; }
@@ -2150,6 +2164,16 @@ table.as-portlet-table-2 {
     position: absolute;
     left: 30px;
     color: #246CF2; }
+
+.dataTables_wrapper .dataTables_scrollHead {
+  background-color: #E8EFFD; }
+  .dataTables_wrapper .dataTables_scrollHead .table.as-portlet-table-1 tr:first-child th:last-child {
+    border-top-right-radius: 0; }
+.dataTables_wrapper.no-footer .dataTables_scrollBody {
+  border-bottom-color: #eee; }
+
+.map-marker .map-heading {
+  font-size: 14px; }
 
 .as-i-header {
   padding: 22px 0 23px;

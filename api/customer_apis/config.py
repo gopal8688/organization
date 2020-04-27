@@ -82,3 +82,16 @@ class Config():
 			agg_one_log.append(new_log)
 
 		return agg_one_log
+	def getRangeOf7(self, list_range):
+		keys = {}
+		keys[0] = 0
+		keys[6] = len(list_range)-1
+		keys[3] = self.getMiddleKey(keys[0],keys[6])
+		mid_key = round(keys[3]/3)
+		keys[1] = keys[0] + mid_key
+		keys[2] = keys[1] + mid_key
+		keys[4] = keys[3] + mid_key
+		keys[5] = keys[4] + mid_key
+		return keys
+	def getMiddleKey(self, key1,key2):
+		return round((key1 + key2)/2)

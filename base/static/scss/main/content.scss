@@ -91,7 +91,7 @@
 		overflow: hidden;
 	}
 	.as-portlet-body-tbl {
-		min-height: 500px;
+		//min-height: 500px;
 		padding-bottom: 80px;
 		position: relative;
 	}
@@ -198,6 +198,12 @@
 		height: 30px;
 		display: inline-block;
 		margin-left: 14px;
+		.disabled {
+			.as-pg-nav {
+				background-color: #eee;
+				box-shadow: none;
+			}
+		}
 		.as-pg-nav {
 			color: #246CF2;
 			display: inline-block;
@@ -223,6 +229,7 @@
 	background-color: #FFFFFF;
 	border-radius: 6px;
 	overflow: hidden;
+	margin-bottom: 21px;
 	.as-portlet-header {
 		padding: 15px 20px;
 		background: #E8EFFD;
@@ -1088,5 +1095,23 @@ table.as-portlet-table-2 {
 			left: 30px;
 			color: #246CF2;
 		}
+	}
+}
+
+.dataTables_wrapper {
+	.dataTables_scrollHead {
+		background-color: #E8EFFD;
+		.table.as-portlet-table-1 tr:first-child th:last-child {
+			border-top-right-radius: 0;
+		}
+	}
+	&.no-footer .dataTables_scrollBody {
+		border-bottom-color: #eee;
+	}
+}
+
+.map-marker {
+	.map-heading {
+		font-size: 14px;
 	}
 }

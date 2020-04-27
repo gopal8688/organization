@@ -30,6 +30,29 @@ from api.customer_apis.user_details import UserDetails
 import json
 import os
 
+class DashboardStatsView(View, CMain, DashboardStats):
+	"""docstring for DashboardStatsView"""
+	def __init__(self, **arg):
+		super(DashboardStatsView, self).__init__()
+		self.arg = arg
+	
+	def get(self, request, id):
+		MyDSForm = DashboardStatsForm(request.GET)
+		if MyDSForm.is_valid():
+			duration = MyDSForm.cleaned_data['dur']
+			duration = duration.split(":")
+			from_date = duration[0]
+			to_date = duration[1]
+			from_date = datetime.strptime(from_date, '%d-%m-%Y')
+			to_date = datetime.strptime(to_date, '%d-%m-%Y')
+			data = self.getCounts(str(id), from_date, to_date)
+		else:
+			data = {
+				'status': 'error',
+				'message': 'There was some error. Please refresh and try again.'
+			}
+		return JsonResponse(data, status=200)
+
 class HighRiskUsersView(View, CMain, HighRiskUsers):
 	"""docstring for HighRiskUsersView"""
 	def __init__(self, **arg):
@@ -47,29 +70,8 @@ class HighRiskUsersView(View, CMain, HighRiskUsers):
 			from_date = datetime.strptime(from_date, '%d-%m-%Y')
 			to_date = datetime.strptime(to_date, '%d-%m-%Y')
 			data = self.getHighRiskUsers(str(id), limit, from_date, to_date)
-		else:
-			data = {
-				'status': 'error',
-				'message': 'There was some error. Please refresh and try again.'
-			}
-		return JsonResponse(data, status=200)
-
-class DashboardStatsView(View, CMain, DashboardStats):
-	"""docstring for DashboardStatsView"""
-	def __init__(self, **arg):
-		super(DashboardStatsView, self).__init__()
-		self.arg = arg
-	
-	def get(self, request, id):
-		MyDSForm = DashboardStatsForm(request.GET)
-		if MyDSForm.is_valid():
-			duration = MyDSForm.cleaned_data['dur']
-			duration = duration.split(":")
-			from_date = duration[0]
-			to_date = duration[1]
-			from_date = datetime.strptime(from_date, '%d-%m-%Y')
-			to_date = datetime.strptime(to_date, '%d-%m-%Y')
-			data = self.getCounts(str(id), from_date, to_date)
+			if data['status'] == 'success':
+				data['user_url'] = reverse('userdetail',args=[id,1])[0:-2]
 		else:
 			data = {
 				'status': 'error',
@@ -94,6 +96,8 @@ class SecurityAlertsView(View, CMain, SecurityAlerts):
 			from_date = datetime.strptime(from_date, '%d-%m-%Y')
 			to_date = datetime.strptime(to_date, '%d-%m-%Y')
 			data = self.getNotableDevice(str(id), limit, from_date, to_date)
+			if data['status'] == 'success':
+				data['user_url'] = reverse('userdetail',args=[id,1])[0:-2]
 		else:
 			data = {
 				'status': 'error',

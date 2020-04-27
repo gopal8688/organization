@@ -1,4 +1,4 @@
-var randomScalingFactor = function() {
+/*var randomScalingFactor = function() {
 	return Math.round(Math.random() * 100);
 };
 
@@ -59,7 +59,7 @@ window.onload = function() {
 	window.myRadar = new Chart(document.getElementById('canvas'), config);
 };
 
-var colorNames = Object.keys(window.chartColors);
+var colorNames = Object.keys(window.chartColors);*/
 
 $(document).ready(function() {
 	var datasend = {};
@@ -145,7 +145,7 @@ function fetchUserLocations (datasend) {
 	});
 }
 function setUserBasic (data) {
-	$("#userName").html(data.user);
+	$("#userName").html(data.uid);
 	if (data.rec_dt) {
 		$("#lastActivity").html('Last Activity: '+timeSince(new Date(data.rec_dt)));
 	}
@@ -160,9 +160,44 @@ function setUserBasic (data) {
 	} else {
 		$("#userRiskScore").addClass('as-bg-low');
 	}
+	if (data.obs == 'unsafe') {
+		$("#accountStatus").html('<button class="btn btn-orange btn-icon">Compromised <span class="as-icon-wrap"><i class="as-icon as-icon-clock"></i></span></button>');
+	} else {
+		$("#accountStatus").html('<button class="btn btn-success btn-icon">Safe <span class="as-icon-wrap"><i class="as-icon as-icon-clock-green"></i></span></button>');
+	}
 }
 function setUserLinked (data) {
-	// body... 
+	if (Object.keys(data).length>0) {
+		$("#linkedUsers").html('<div class="owl-carousel owl-theme"></div>');
+		for (var i = 0; i < Object.keys(data).length; i++) {
+			if (i%6 == 0) {
+				$("#linkedUsers .owl-theme").append('<div class="item"><div class="row">');
+			}
+			$("#linkedUsers .item:last-child .row:last-child").append(
+				'<div class="col-md-6">'+
+					'<span class="as-usr-2 mb-2">'+
+						'<span class="as-usr-risk as-bg-'+RISK_TYPE[data[i].flag]+'">'+data[i].score+'</span>'+
+						'<span class="as-usr-2-info">'+
+							'<a href="javascript:;" class="as-usr-name">'+data[i].uid+'</a>'+
+						'</span>'+
+					'</span>'+
+				'</div>');
+			if (i%6 == 5 || i == Object.keys(data).length) {
+				$("#linkedUsers .owl-theme").append('</div></div>');
+			}
+		}
+		$('.owl-carousel').owlCarousel({
+			loop:false,
+			margin:0,
+			nav:true,
+			items:1,
+			navContainer:'#luNavs',
+			navText:['<a href="javascript:;" class="as-pg-nav"><i class="fa fa-angle-left" aria-hidden="true"></i></a>','<a href="javascript:;" class="as-pg-nav"><i class="fa fa-angle-right" aria-hidden="true"></i></a>'],
+			navElement: 'span'
+		});
+	} else {
+		$("#linkedUsers").html('<p>There are no linked users to this user.</p>');
+	}
 }
 function setUserActivities (data) {
 	if(Object.keys(data).length>0) {
@@ -197,4 +232,76 @@ function setUserActivities (data) {
 }
 function setUserLocations (data) {
 	//toastr.error(Object.keys(data).length);
+	//console.log(events);
+	if (data.length) {
+		var locations = [];
+		for (var i = 0; i < data.length; i++) {
+			//console.log(events[i]);
+			locations[i] = [];
+			locations[i][0] = data[i].ci+', '+data[i].st+', '+data[i].co;
+			locations[i][1] = data[i].la;
+			locations[i][2] = data[i].lo;
+			locations[i][3] = "Location score is "+data[i]['pd'].score+" and marked as "+data[i]['pd'].obs+".";
+		}
+		initializeMap(locations);
+		//console.log(locations);
+	} else {
+		$("#map").html('<p>No known user locations yet.</p>').parent('.as-portlet-body').removeClass('p-0');
+		//toastr.info("No locations");
+	}
+};
+function initializeMap(locations) {
+
+	var myOptions = {
+		center: new google.maps.LatLng(21.146940, 79.089664),
+		zoom: 5,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+	var map = new google.maps.Map(document.getElementById("map"), myOptions);
+	setMarkers(map,locations);
+}
+
+function setMarkers(map,locations){
+
+	var marker, i
+	var contentString = [];
+	for (i = 0; i < locations.length; i++)
+	{
+		var title	= locations[i][0];
+		var lat		= locations[i][1];
+		var long	= locations[i][2];
+		var desc	= locations[i][3];
+
+		latlngset = new google.maps.LatLng(lat, long);
+
+		var marker = new google.maps.Marker({  
+		    map: map, title: title, position: latlngset  
+		});
+		//map.setCenter(marker.getPosition());
+		map.setCenter(latlngset);
+
+
+		//var content = "Loan Number: " + title + '</h3>' + "Address: " + desc;
+		contentString[title] = '<div class="map-marker">'+
+			'<h2 class="map-heading">' + title + '</h2>'+
+			'<div class="map-content">'+ desc + '</div>'+
+		'</div>';
+
+		//console.log(content);
+
+		var infowindow = new google.maps.InfoWindow()
+
+		google.maps.event.addListener(marker, "click", (function(marker) {
+			return function(evt) {
+				//var content = marker.getTitle();
+				var content = '<div class="map-marker">'+
+					'<h2 class="map-heading">' + marker.getTitle() + '</h2>'+
+				'</div>';
+				/*console.log(marker);
+				console.log(map);*/
+				infowindow.setContent(contentString[marker.getTitle()]);
+				infowindow.open(map, marker);
+			}
+		})(marker));
+	}
 }

@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$color-primary".
-        on line 435 of scss/main/content.scss
+        on line 442 of scss/main/content.scss
 
-430: 	}
-431: 	.as-icon-chevron-right {
-432: 		width: 9px;
-433: 		height: 9px;
-434: 		margin-bottom: 2px;
-435: 		border-color: $color-primary;
-436: 	}
-437: }
-438: .as-link-filter {
-439: 	display: inline-block;
-440: 	width: 30px;
+437: 	}
+438: 	.as-icon-chevron-right {
+439: 		width: 9px;
+440: 		height: 9px;
+441: 		margin-bottom: 2px;
+442: 		border-color: $color-primary;
+443: 	}
+444: }
+445: .as-link-filter {
+446: 	display: inline-block;
+447: 	width: 30px;
 
 Backtrace:
-scss/main/content.scss:435
+scss/main/content.scss:442
 /usr/lib/ruby/vendor_ruby/sass/script/tree/variable.rb:49:in `_perform'
 /usr/lib/ruby/vendor_ruby/sass/script/tree/node.rb:58:in `perform'
 /usr/lib/ruby/vendor_ruby/sass/tree/visitors/perform.rb:397:in `visit_prop'
@@ -80,4 +80,4 @@ scss/main/content.scss:435
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$color-primary\".\A         on line 435 of scss/main/content.scss\A \A 430: 	}\A 431: 	.as-icon-chevron-right {\A 432: 		width: 9px;\A 433: 		height: 9px;\A 434: 		margin-bottom: 2px;\A 435: 		border-color: $color-primary;\A 436: 	}\A 437: }\A 438: .as-link-filter {\A 439: 	display: inline-block;\A 440: 	width: 30px;"; }
+  content: "Error: Undefined variable: \"$color-primary\".\A         on line 442 of scss/main/content.scss\A \A 437: 	}\A 438: 	.as-icon-chevron-right {\A 439: 		width: 9px;\A 440: 		height: 9px;\A 441: 		margin-bottom: 2px;\A 442: 		border-color: $color-primary;\A 443: 	}\A 444: }\A 445: .as-link-filter {\A 446: 	display: inline-block;\A 447: 	width: 30px;"; }
