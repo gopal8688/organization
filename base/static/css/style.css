@@ -1086,7 +1086,7 @@ form .custom-radio .custom-control-input:checked ~ .custom-control-label::after 
         background-color: #F8FBFF;
         border-color: #F8FBFF;
         border-left: 4px solid #246CF2; }
-      .as-prop-change .as-prop-menu > li > a:hover:not(.active) {
+      .as-prop-change .as-prop-menu > li > a:hover:not(.active):not(.as-prop-new) {
         background-color: #F8FBFF; }
   .as-prop-change .as-prop-change-button {
     height: 46px;
@@ -1127,6 +1127,11 @@ form .custom-radio .custom-control-input:checked ~ .custom-control-label::after 
     font-size: 9px; }
     .as-prop-change .chev-down .fa {
       color: #246CF2; }
+  .as-prop-change .as-prop-menu > li > a.as-prop-new {
+    background-color: #256DF2;
+    color: #FFFFFF; }
+    .as-prop-change .as-prop-menu > li > a.as-prop-new .as-prop-menu-propid {
+      color: #FFFFFF; }
 
 .as-header-search {
   padding: 12px; }
