@@ -123,4 +123,7 @@ dmypy.json
 .vscode/
 .vscode-root/
 
+# SASS Cache
+.sass-cache/
+
 # End of https://www.gitignore.io/api/django

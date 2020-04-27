@@ -13,7 +13,7 @@ Backtrace:
 /usr/lib/ruby/vendor_ruby/sass/exec/sass_scss.rb:51:in `process_result'
 /usr/lib/ruby/vendor_ruby/sass/exec/base.rb:52:in `parse'
 /usr/lib/ruby/vendor_ruby/sass/exec/base.rb:19:in `parse!'
-/usr/bin/sass:8:in `<main>'
+/usr/bin/scss:8:in `<main>'
 */
 body:before {
   white-space: pre;

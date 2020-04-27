@@ -92,6 +92,7 @@
                     {% for row in rows %}
                       <li><a href="{% url 'pr-home' row.id %}" {% ifequal row.id p_row.id %}class="active"{% endifequal %} data-pid="{{row.id}}"><span class="as-prop-menu-name">Property: {{row.pname}}</span><span class="as-prop-menu-propid">Property ID: {{row.pid}}</span></a></li>
                     {% endfor %}
+                      <li><a href="{% url 'propertyCreate' %}" class="as-prop-new"><span class="as-prop-menu-name">New Property</span><span class="as-prop-menu-propid">click to add new</span></a></li>
                   </ul>
                 </div>
               </div>

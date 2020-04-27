@@ -306,7 +306,7 @@
 					border-color: #F8FBFF;
 					border-left: 4px solid $color-primary;
 				}
-				&:hover:not(.active) {
+				&:hover:not(.active):not(.as-prop-new) {
 					background-color: #F8FBFF;
 				}
 			}
@@ -357,6 +357,15 @@
 		font-size: 9px;
 		.fa {
 			color: $color-primary;
+		}
+	}
+	.as-prop-menu > li > a {
+		&.as-prop-new {
+			background-color: #256DF2;
+			color: #FFFFFF;
+			.as-prop-menu-propid {
+				color: #FFFFFF;
+			}
 		}
 	}
 }
