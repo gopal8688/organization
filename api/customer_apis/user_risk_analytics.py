@@ -30,12 +30,27 @@ class UserRiskAnalytics(Config):
                     y_count_list[date_list.index(key)] += 1
                 else:
                     g_count_list[date_list.index(key)] += 1
+            if no_days>7:
+                new_key_list = self.getRangeOf7(date_list);
+                new_date_list = []
+                new_r_count_list = []
+                new_g_count_list = []
+                new_y_count_list = []
+                for x in range(7):
+                    new_date_list.append(date_list[new_key_list[x]])
+                    new_r_count_list.append(r_count_list[new_key_list[x]])
+                    new_g_count_list.append(g_count_list[new_key_list[x]])
+                    new_y_count_list.append(y_count_list[new_key_list[x]])
+                date_list = new_date_list
+                r_count_list = new_r_count_list
+                g_count_list = new_g_count_list
+                y_count_list = new_y_count_list
             
             return {
-                'date': date_list,
-                'g_count': g_count_list,
-                'y_count': y_count_list,
-                'r_count': r_count_list,
+                'date': date_list[::-1],
+                'g_count': g_count_list[::-1],
+                'y_count': y_count_list[::-1],
+                'r_count': r_count_list[::-1],
                 'status': 'success'
             }
         except:

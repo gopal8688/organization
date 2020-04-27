@@ -12,6 +12,7 @@ function fetchAllStats (datasend) {
     fetchRRD(datasend,duration);
   }
 }
+var tableHRU,tableSA;
 $(document).ready(function () {
   var datasend = {};
   //datasend['key'] = API_KEY;
@@ -83,7 +84,7 @@ function fetchHRU(datasend,duration) {
     dataType: "json",
     success: function (response) {
       if(response.status == 'success') {
-        setTableHru(response.users_scores);
+        setTableHru(response.users_scores,response.user_url);
       } else {
         toastr.error(response.message);
       }
@@ -102,7 +103,7 @@ function fetchSA(datasend,duration) {
     dataType: "json",
     success: function (response) {
       if(response.status == 'success') {
-        setTableSA(response.usr_scr_cat_det);
+        setTableSA(response.usr_scr_cat_det,response.user_url);
       } else {
         toastr.error(response.message);
       }
@@ -177,7 +178,7 @@ function setStatsDS(data) {
   $("#susDevices").text(data.suspicious_device);
   $("#watchUsers").text(data.watchlist);
 }
-function setTableHru(data) {
+function setTableHru(data,user_url) {
   //toastr.error(data.length);
   $("#tblHRU tbody").html("");
   if(data.length>0) {
@@ -188,15 +189,31 @@ function setTableHru(data) {
             //'<td><i class="as-icon as-icon-risk-graph"></i></td>'+
             '<td>'+data[i].user+'</td>'+
             '<td><div class="as-btn-risk-score as-bg-light-critical as-border-critical as-text-critical">'+Math.floor(data[i].score)+'</div></td>'+
-            '<td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>'+
+            '<td><a href="'+user_url+data[i].user+'/'+'" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>'+
           '</tr>'
       );
     }
+    if ( $.fn.dataTable.isDataTable( '#tblHRU' ) ) {
+      tableHRU.destroy();
+    }
+    tableHRU = $('#tblHRU').DataTable( {
+        "scrollY":        "300px",
+        "scrollCollapse": true,
+        "paging":         false,
+        "searching": false,
+        "bInfo" : false,
+        aoColumnDefs: [
+            { "aTargets": [ 0 ], "bSortable": true },
+            { "aTargets": [ 1 ], "bSortable": true },
+            { "aTargets": [ 2 ], "bSortable": true },
+            { "aTargets": [ 3 ], "bSortable": false }
+        ]
+    } );
   } else {
     $("#tblHRU tbody").append('<tr><td colspan="5" class="as-lh-30">No Users</td></tr>');
   }
 }
-function setTableSA(data) {
+function setTableSA(data,user_url) {
   //toastr.error(data.length);
   $("#tblSA tbody").html("");
   if(data.length>0) {
@@ -207,10 +224,27 @@ function setTableSA(data) {
             '<td>'+((data[i].det==null)?'Behavioral Threat':data[i].det)+'</td>'+
             '<td>'+data[i].user+'</td>'+
             '<td><div class="as-btn-risk-score as-bg-light-'+RISK_TYPE[data[i].cat]+' as-border-'+RISK_TYPE[data[i].cat]+' as-text-'+RISK_TYPE[data[i].cat]+'">'+Math.floor(data[i].score)+'</div></td>'+
-            '<td><a href="javascript:;" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>'+
+            '<td><a href="'+user_url+data[i].user+'/'+'" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>'+
           '</tr>'
       );
     }
+    if ( $.fn.dataTable.isDataTable( '#tblSA' ) ) {
+      tableSA.destroy();
+    }
+    tableSA = $('#tblSA').DataTable( {
+        "scrollY":        "300px",
+        "scrollCollapse": true,
+        "paging":         false,
+        "searching": false,
+        "bInfo" : false,
+        aoColumnDefs: [
+            { "aTargets": [ 0 ], "bSortable": true },
+            { "aTargets": [ 1 ], "bSortable": true },
+            { "aTargets": [ 2 ], "bSortable": true },
+            { "aTargets": [ 3 ], "bSortable": true },
+            { "aTargets": [ 4 ], "bSortable": false }
+        ]
+    } );
   } else {
     $("#tblSA tbody").append('<tr><td colspan="5" class="as-lh-30">No Alerts</td></tr>');
   }

@@ -24,11 +24,11 @@
               	</div>
               	<div class="as-usr-tools">
               		<div class="mb-4">
-              			<button class="btn btn-orange btn-icon">Compromised <span class="as-icon-wrap"><i class="as-icon as-icon-clock"></i></span></button>
+              			<div id="accountStatus">{% comment %}<!-- <button class="btn btn-orange btn-icon">Compromised <span class="as-icon-wrap"><i class="as-icon as-icon-clock"></i></span></button> -->{% endcomment %}</div>
               		</div>
               		<div>
               			<button class="btn btn-outline-active">Active</button>
-              			<button class="btn btn-primary">Decision</button>
+              			{% comment %}<!-- <button class="btn btn-primary">Decision</button> -->{% endcomment %}
               		</div>
               	</div>
               </div>
@@ -37,99 +37,84 @@
               <div class="as-grid-justified as-pb-header">
               	<h3 class="as-ph-title">Linked Users</h3>
               	<div class="as-ph-pgmeta">
-              		<span class="as-ph-cp">1 - 6</span><span class="as-ph-ps"> of 6</span><span class="as-ph-pgs"><span class="as-grid-justified"><a href="javascript:;" class="as-pg-nav"><i class="fa fa-angle-left" aria-hidden="true"></i></a><a href="javascript:;" class="as-pg-nav"><i class="fa fa-angle-right" aria-hidden="true"></i></a></span></span>
+              		<!-- <span class="as-ph-cp">1 - 6</span><span class="as-ph-ps"> of 6</span> --><span class="as-ph-pgs"><span class="as-grid-justified" id="luNavs"><!-- <a href="javascript:;" class="as-pg-nav"><i class="fa fa-angle-left" aria-hidden="true"></i></a><a href="javascript:;" class="as-pg-nav"><i class="fa fa-angle-right" aria-hidden="true"></i></a> --></span></span>
               	</div>
               </div>
-              <div class="as-pb-content">
-              	<div class="row">
-					<div class="col-md-6">
-						<span class="as-usr-2 mb-2">
-							<span class="as-usr-risk as-bg-critical">98</span>
-							<span class="as-usr-2-info">
-								<a href="javascript:;" class="as-usr-name">Sandeep Kamble</a>
-							</span>
-						</span>
-					</div>
-					<div class="col-md-6">
-						<span class="as-usr-2 mb-2">
-							<span class="as-usr-risk as-bg-high">98</span>
-							<span class="as-usr-2-info">
-								<a href="javascript:;" class="as-usr-name">Pooja Joshi</a>
-							</span>
-						</span>
-					</div>
-					<div class="col-md-6">
-						<span class="as-usr-2 mb-2">
-							<span class="as-usr-risk as-bg-medium">98</span>
-							<span class="as-usr-2-info">
-								<a href="javascript:;" class="as-usr-name">Sherlock Holmes</a>
-							</span>
-						</span>
-					</div>
-					<div class="col-md-6">
-						<span class="as-usr-2 mb-2">
-							<span class="as-usr-risk as-bg-low">98</span>
-							<span class="as-usr-2-info">
-								<a href="javascript:;" class="as-usr-name">Tushar Tank</a>
-							</span>
-						</span>
-					</div>
-					<div class="col-md-6">
-						<span class="as-usr-2 mb-2">
-							<span class="as-usr-risk as-bg-critical">98</span>
-							<span class="as-usr-2-info">
-								<a href="javascript:;" class="as-usr-name">Rahul Jain</a>
-							</span>
-						</span>
-					</div>
-					<div class="col-md-6">
-						<span class="as-usr-2 mb-2">
-							<span class="as-usr-risk as-bg-medium">98</span>
-							<span class="as-usr-2-info">
-								<a href="javascript:;" class="as-usr-name">Anudeep Hooda</a>
-							</span>
-						</span>
-					</div>
-              	</div>
+              <div class="as-pb-content" id="linkedUsers">
+                <!-- <div class="owl-carousel owl-theme">
+                    <div class="item"><h4>1</h4></div>
+                    <div class="item"><h4>2</h4></div>
+                    <div class="item"><h4>3</h4></div>
+                    <div class="item"><h4>4</h4></div>
+                    <div class="item"><h4>5</h4></div>
+                    <div class="item"><h4>6</h4></div>
+                    <div class="item"><h4>7</h4></div>
+                    <div class="item"><h4>8</h4></div>
+                    <div class="item"><h4>9</h4></div>
+                    <div class="item"><h4>10</h4></div>
+                    <div class="item"><h4>11</h4></div>
+                    <div class="item"><h4>12</h4></div>
+                </div> -->
+              	<!-- <div class="row">
+                                  <div class="col-md-6">
+                                    <span class="as-usr-2 mb-2">
+                                      <span class="as-usr-risk as-bg-critical">98</span>
+                                      <span class="as-usr-2-info">
+                                        <a href="javascript:;" class="as-usr-name">Sandeep Kamble</a>
+                                      </span>
+                                    </span>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <span class="as-usr-2 mb-2">
+                                      <span class="as-usr-risk as-bg-high">98</span>
+                                      <span class="as-usr-2-info">
+                                        <a href="javascript:;" class="as-usr-name">Pooja Joshi</a>
+                                      </span>
+                                    </span>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <span class="as-usr-2 mb-2">
+                                      <span class="as-usr-risk as-bg-medium">98</span>
+                                      <span class="as-usr-2-info">
+                                        <a href="javascript:;" class="as-usr-name">Sherlock Holmes</a>
+                                      </span>
+                                    </span>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <span class="as-usr-2 mb-2">
+                                      <span class="as-usr-risk as-bg-low">98</span>
+                                      <span class="as-usr-2-info">
+                                        <a href="javascript:;" class="as-usr-name">Tushar Tank</a>
+                                      </span>
+                                    </span>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <span class="as-usr-2 mb-2">
+                                      <span class="as-usr-risk as-bg-critical">98</span>
+                                      <span class="as-usr-2-info">
+                                        <a href="javascript:;" class="as-usr-name">Rahul Jain</a>
+                                      </span>
+                                    </span>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <span class="as-usr-2 mb-2">
+                                      <span class="as-usr-risk as-bg-medium">98</span>
+                                      <span class="as-usr-2-info">
+                                        <a href="javascript:;" class="as-usr-name">Anudeep Hooda</a>
+                                      </span>
+                                    </span>
+                                  </div>
+                </div> -->
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-md-6">
           <div class="as-portlet-5 mh-390">
-            <div class="as-portlet-header">
-              <h3 class="as-ph-title">User Location</h3>
-            </div>
-            <div class="as-portlet-body p-0">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15131.466908428356!2d73.7743310697754!3d18.53492375!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1585734267095!5m2!1sen!2sin" style="width:100%" height="344" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-            </div>
-            <div class="as-portlet-footer">
-            	<div class="as-grid-justified">
-            		<div>
-            			<!-- <i class="fa fa-calendar"></i> -->
-            			<select name="" id="" class="select-control">
-            				<option value="">Last 7 days</option>
-            				<option value="">Last 1 month</option>
-            				<option value="">Last 1 year</option>
-            			</select>
-            		</div>
-            		<div class="v-all">
-            			<a href="javascript:;">View all <i class="fa fa-angle-right"></i></a>
-            		</div>
-            	</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-      	<div class="col-md-6">
-      	  <div class="as-portlet-5 mh-390">
             <div class="as-portlet-header">
               <h3 class="as-ph-title">Recent Activity</h3>
             </div>
             <div class="as-portlet-body">
               <div class="as-activity-timeline" id="userTimeline">
-              	<!-- <div class="as-activity-item as-activity-safe">
+                <!-- <div class="as-activity-item as-activity-safe">
                   <div class="as-activity-line"></div>
                   <h4 class="as-activity-title">June, 20 2020 | 01:00 PM</h4>
                   <ul class="as-activity-meta">
@@ -182,7 +167,33 @@
                   </ul>
                 </div> -->
               </div>
+            </div>{% comment %}
+            <div class="as-portlet-footer">
+              <div class="as-grid-justified">
+                <div>
+                  <!-- <i class="fa fa-calendar"></i> -->
+                  <select name="" id="" class="select-control">
+                    <option value="">Last 7 days</option>
+                    <option value="">Last 1 month</option>
+                    <option value="">Last 1 year</option>
+                  </select>
+                </div>
+                <div class="v-all">
+                  <a href="javascript:;">View all <i class="fa fa-angle-right"></i></a>
+                </div>
+              </div>
+            </div>{% endcomment %}
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="as-portlet-5 mh-390">
+            <div class="as-portlet-header">
+              <h3 class="as-ph-title">User Location</h3>
             </div>
+            <div class="as-portlet-body p-0" style="height: 824px">
+              <div id="map" style="height: 760px"></div>
+              <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15131.466908428356!2d73.7743310697754!3d18.53492375!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1585734267095!5m2!1sen!2sin" style="width:100%" height="344" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe> -->
+            </div>{% comment %}
             <div class="as-portlet-footer">
             	<div class="as-grid-justified">
             		<div>
@@ -197,9 +208,14 @@
             			<a href="javascript:;">View all <i class="fa fa-angle-right"></i></a>
             		</div>
             	</div>
-            </div>
+            </div>{% endcomment %}
           </div>
+        </div>
+      </div>
+      <div class="row">
+      	<div class="col-md-6">
       	</div>
+        {% comment %}
       	<div class="col-md-6">
       	  <div class="as-portlet-5 mh-390">
             <div class="as-portlet-header">
@@ -225,6 +241,7 @@
             </div>
           </div>
       	</div>
+        {% endcomment %}
       </div>
     </div>
   </div>

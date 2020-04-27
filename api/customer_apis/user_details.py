@@ -19,7 +19,7 @@ class UserDetails(Config):
             else:
                 recent_log = []
             
-            data = {}
+            data = {'uid':user}
             score = 0
             for rec_data in recent_log:
                 mscore = rec_data['final_score']
@@ -34,7 +34,7 @@ class UserDetails(Config):
                     leaf_key = dict(map(lambda x:x.split(':'), rec_data['leaf_key'].split(';')[1:]))
                     loc = "%s, %s, %s"%(leaf_key['ci'], leaf_key['st'], leaf_key['co'])
                 else:
-                    loc = "%s, %s, %s"%(rec_data.get('ci',''), rec_data.get('st',''), rec_data.get('co',''))
+                    loc = "Unknown"#"%s, %s, %s"%(rec_data.get('ci',''), rec_data.get('st',''), rec_data.get('co',''))
                 
                 data['rec_loc'] = loc
                 
@@ -74,8 +74,20 @@ class UserDetails(Config):
                     break
                 ip = ulog['ip']
                 for log in logs.find({'ip':ip}):
-                    linked_user = log['uid_key']
-                    if linked_user not in linked_users and linked_user != user:
+                    linked_user = {}
+                    linked_user['uid'] = log['uid_key']
+                    mscore = log['final_score']
+                    if mscore > self.high:
+                        linked_user['flag'] = 'R'
+                        linked_user['obs'] = 'unsafe'
+                    elif mscore > self.safe:
+                        linked_user['flag'] = 'Y'
+                        linked_user['obs'] = 'safe'
+                    else:
+                        linked_user['flag'] = 'G'
+                        linked_user['obs'] = 'safe'
+                    linked_user['score'] = mscore
+                    if linked_user not in linked_users and linked_user['uid'] != user:
                         linked_users.append(linked_user)
 
             return {
@@ -124,7 +136,7 @@ class UserDetails(Config):
                         loc = "%s, %s, %s"%(leaf_key['ci'], leaf_key['st'], leaf_key['co'])
                     else:
                         os, device = log['os'], log['d']
-                        loc = "%s, %s, %s"%(log.get('ci',''), log.get('st',''), log.get('co',''))
+                        loc = "Unknown"#"%s, %s, %s"%(log.get('ci',''), log.get('st',''), log.get('co',''))
                     
                     curr_log = {
                         'os': os,
@@ -168,6 +180,7 @@ class UserDetails(Config):
             for uuid, logs in recent_log.items():
                 score = 0
                 highest_score_log = {}
+                loc = ('','','')
                 for log in logs:
                     if log.get('leaf_key'):
                         leaf_key = dict(map(lambda x:x.split(':'), log['leaf_key'].split(';')[1:]))
@@ -186,16 +199,20 @@ class UserDetails(Config):
                 elif data[loc]['final_score'] < score:
                     data[loc] = highest_score_log
 
-            loc_data = {
-                'co': [],
-                'st': [],
-                'ci': [],
-                'la': [],
-                'lo': [],
-                'pd': [],
-            }
+            loc_data = []
+            # loc_data = {
+            #     'co': [],
+            #     'st': [],
+            #     'ci': [],
+            #     'la': [],
+            #     'lo': [],
+            #     'pd': [],
+            # }
             for loc, log in data.items():
                 city, state, country = loc
+                loc_item = {}
+                if city == '' and state == '' and country == '':
+                    continue
                 la, lo = log.get('la', ''), log.get('lo', '')
 
                 mscore = log['final_score']
@@ -209,16 +226,27 @@ class UserDetails(Config):
                     flag = 'G'
                     obs = 'safe'
 
-                loc_data['ci'].append(city)
-                loc_data['co'].append(country)
-                loc_data['st'].append(state)
-                loc_data['la'].append(la)
-                loc_data['lo'].append(lo)
-                loc_data['pd'].append({
+                # loc_item['ci'].append(city)
+                # loc_item['co'].append(country)
+                # loc_item['st'].append(state)
+                # loc_item['la'].append(la)
+                # loc_item['lo'].append(lo)
+                # loc_item['pd'].append({
+                #     'flg': flag,
+                #     'obs': obs,
+                #     'score': mscore
+                # })
+                loc_item['ci'] = city
+                loc_item['co'] = country
+                loc_item['st'] = state
+                loc_item['la'] = la
+                loc_item['lo'] = lo
+                loc_item['pd'] = ({
                     'flg': flag,
                     'obs': obs,
                     'score': mscore
                 })
+                loc_data.append(loc_item)
 
         except:
             return {

@@ -187,6 +187,9 @@ label {
 .as-p-20-30p {
 	padding: 20px 30px;
 }
+.mh-440 {
+	min-height: 440px;
+}
 .mh-390 {
 	min-height: 390px;
 }
@@ -209,6 +212,9 @@ label {
 	padding: 5px 12px;
 	position: relative;
 	border-radius: 6px;
+}
+.btn-icon {
+	position: relative;
 	.as-icon-wrap {
 		position: absolute;
 		top: 2px;
