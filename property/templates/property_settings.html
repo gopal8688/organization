@@ -18,10 +18,25 @@
             <form action="{{form_url}}" class="pt-4" id="frmAddProperty">
               <div class="form-group row">
                 <div class="col-md-2">
-                  <h4 class="block-title m-0 as-lh-46">Property Name</h4>
+                  <h4 class="block-title m-0 as-lh-46">PropertyName</h4>
                 </div>
                 <div class="col-md-6">
                   <input type="text" class="form-control" id="inputPropertyName" name="inputPropertyName" placeholder="Enter Property Name" value="{{pname}}">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-2">
+                  <h4 class="block-title m-0 as-lh-46">Track</h4>
+                </div>
+                <div class="col-md-6">
+                  <div class="custom-switch">
+                    {% if p_row.track %}
+                      <input type="checkbox" class="custom-control-input" id="customSwitch1" name="customSwitch1" checked="checked">
+                    {% else %}
+                      <input type="checkbox" class="custom-control-input" id="customSwitch1" name="customSwitch1">
+                    {% endif %}
+                    <label class="custom-control-label" for="customSwitch1"></label>
+                  </div>
                 </div>
               </div>
               <div class="as-frm-btns">
