@@ -56,8 +56,6 @@ class Property(models.Model):
     pname = models.CharField(max_length=16)
     track = models.BooleanField(default=True)
 
-    is_active = models.BooleanField(default=True)
-
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     

@@ -2,6 +2,7 @@ $(document).ready(function() {
 	$("#frmProfilePersonal").submit(function(event) {
 		/* Act on the event */
 		var first_name = $("#first_name").val();
+		alert(first_name);
 		var last_name = $("#last_name").val();
 		var sex = $("#sex").val();
 		var email = $("#cemail").val();

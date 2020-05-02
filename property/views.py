@@ -30,6 +30,7 @@ class PropertyCreateView(View, CMain):
 	def post(self, request):
 		try:
 			pn = request.POST['pn']
+			# track = request.POST['track']
 			p = Property(pid=get_random_string(length=16, allowed_chars='123456789'), pname = pn)
 			p.save()
 
@@ -72,7 +73,12 @@ class PropertySettingsView(View, CMain):
 		try:
 			pid= id
 			pn = request.POST['pn']
-			p = Property.objects.filter(id=pid).update(pname=pn)
+			track = request.POST['track']
+			if(track=='true'):
+				track=1
+			else:
+				track=0
+			p = Property.objects.filter(id=pid).update(pname=pn, track=track)
 			if p>0:
 				data = {
 					'status': 'success',
