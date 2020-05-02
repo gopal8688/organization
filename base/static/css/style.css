@@ -1552,9 +1552,15 @@ table.as-portlet-table-1 {
     position: relative; }
   table.as-portlet-table-1 .as-tbl-mrg {
     margin-left: 15px; }
-  table.as-portlet-table-1 .as-risk-bubble {
-    margin-left: 15px;
-    margin-right: 10px; }
+  table.as-portlet-table-1 .as-tbl-risk-cover {
+    position: relative;
+    padding-left: 35px; }
+    table.as-portlet-table-1 .as-tbl-risk-cover .as-risk-bubble {
+      position: absolute;
+      left: 15px;
+      top: 7px;
+      /* margin-left: 15px;
+      margin-right: 10px; */ }
   table.as-portlet-table-1 .as-tbl-v {
     color: #9CAFC3; }
   table.as-portlet-table-1 .as-tfoot-tools {

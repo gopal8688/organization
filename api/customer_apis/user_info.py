@@ -16,17 +16,21 @@ class UsersInfo(Config):
             ])
 
             x_y = {}
+            max_val = 0
             for res in agg_res:
-                x_y[res['_id']] = res['count']
+                x_y[round(res['_id'])] = res['count']
+            for z in x_y:
+                if(x_y[z]>max_val):
+                    max_val = x_y[z]
+            return {
+                   'status': 'success',
+                   'data': x_y,
+                   'max': max_val
+                }
         except:
             return {
                 'status': 'error',
                 'message': 'There was some error'
-            }
-
-        return {
-               'status': 'success',
-               'data': x_y
             }
     
     def getUserList(self, pid, from_date, to_date):
@@ -70,10 +74,10 @@ class UsersInfo(Config):
                 if device: user_info[username]['dvc'][device] += 1
             
                 if 1:
-                    mscore = log['final_score']
+                    mscore = round(log['final_score'])
                     if mscore > self.high:
                         flag = 'R'
-                    elif mscore > self.safe:
+                    elif mscore > self.mid:
                         flag = 'Y'
                     else:
                         flag = 'G'
@@ -87,6 +91,7 @@ class UsersInfo(Config):
                     user_info[username]['rec_score'] = mscore
                     user_info[username]['rec_flag'] = flag
                     user_info[username]['rec_threat'] = log.get('threat_type', 'User Behaviour Threat') #Made chancges here
+                    user_info[username]['rec_ip'] = log.get('ip', 'Unknown')
             for user_log in user_info:
                 #locations = sorted(user_info[username]['locn'].items(), key = lambda x : x[1])
                 #locations = sorted(user_info[username]['locn'].items(), key = lambda x : x[1])

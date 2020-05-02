@@ -22,9 +22,9 @@ class Config():
 
 	client = MongoClient(MONGO_HOST,MONGO_PORT,username=MONGO_USER,password=MONGO_PASS)
 	db = client[MONGO_DB]
-	high = 0
-	mid = 0
-	safe = 0
+	high = 90
+	mid = 77
+	safe = 20
 	extract_size = 30
 
 	# Generalized criterias.

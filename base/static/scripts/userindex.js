@@ -5,7 +5,7 @@ var randomDataTen = function() {
   }
   return data;
 };
-var setUsersMap = function(data) {
+var setUsersMap = function(data,max) {
   var ctx = document.getElementById('chartContainer').getContext('2d');
 
   ctx.canvas.width  = document.getElementById('chart1').clientWidth;
@@ -61,7 +61,7 @@ var setUsersMap = function(data) {
   ctx.lineTo(y1*3, canvas_height-distance_from_y);
   ctx.stroke();
 
-  // Draw a tick mark 6px long (-3 to 3)
+  // Draw X axis
   var grid_x = canvas_width/11;
   ctx.font = "13px Roboto";
   ctx.fillStyle = "#B0BAC9";
@@ -74,20 +74,22 @@ var setUsersMap = function(data) {
     //ctx.fillText("TEXT", X POS, Y POS, maxWidth{optional);
   }
 
-  // Draw a tick mark 6px long (-3 to 3)
+  // Draw Y axis
   var grid_y = canvas_height/11;
   ctx.font = "13px Roboto";
   ctx.fillStyle = "#B0BAC9";
   ctx.fillText("0", 38, canvas_height-distance_from_y);
   var currX;
+  max = getM10(max);
+  var xStep = parseInt(max/10);
   for (var i = 1; i <= 10; i++) {
-    currX = 30;
+    currX = getCX(i*xStep);//30;
     ctx.font = "13px Roboto";
     ctx.fillStyle = "#B0BAC9";
-    if(i==10) {
+    /*if(i==10) {
       currX = 25;
-    }
-    ctx.fillText(i*10, currX, canvas_height-distance_from_y-(grid_y*i));
+    }*/
+    ctx.fillText(i*xStep, currX, canvas_height-distance_from_y-(grid_y*i));
     //ctx.fillText("TEXT", X POS, Y POS, maxWidth{optional);
   }
 
@@ -136,7 +138,7 @@ var setUsersMap = function(data) {
   for (var i = 0; i < dataset.length; i++) {
     //console.log(dataset[i]);
     ctx.beginPath();
-    ctx.arc(Math.floor(((dataset[i].x/10)*grid_x)+distance_from_x), canvas_height-distance_from_y-((dataset[i].y/10)*grid_y), 5, 0, 2 * Math.PI);
+    ctx.arc(Math.floor(((dataset[i].x/10)*grid_x)+distance_from_x), canvas_height-distance_from_y-((dataset[i].y/xStep)*grid_y), 5, 0, 2 * Math.PI);
     ctx.fillStyle = "rgba(36, 108, 242, 0.76)";
     ctx.fill();
   }
@@ -178,7 +180,7 @@ function fetchUsersMap(datasend,duration) {
     dataType: "json",
     success: function (response) {
       if(response.status == 'success') {
-        setUsersMap(response.data);
+        setUsersMap(response.data,response.max);
       } else {
         toastr.error(response.message);
       }
@@ -233,7 +235,7 @@ function setUsersList (data) {
                             '<li><a href="javascript:;" title="'+device+'"><i class="as-icon as-icon-windows"></i></a></li>'+
                             '<li><a href="javascript:;" title="'+data[firstKey]['locn']+'"><i class="as-icon as-icon-loc"></i></a></li>'+
                             '<li><a href="javascript:;" title="'+getOS(dos)+'"><i class="as-icon as-icon-mobile"></i></a></li>'+
-                            //'<li><a href="javascript:;" title="'+Object.keys(data[firstKey]['dvc'])[0]+'"><i class="as-icon as-icon-wifi"></i></a></li>'+
+                            '<li><a href="javascript:;" title="'+data[firstKey]['rec_ip']+'"><i class="as-icon as-icon-wifi"></i></a></li>'+
                           '</ul>'+
                         '</span>'+
                       '</span>'+
@@ -242,7 +244,7 @@ function setUsersList (data) {
                 '</div>'+
               '</div>'+
             '</td>'+
-            '<td><div class="as-tbl-2-td"><div class="as-tbl-2-tc light-text-1">'+getLongDatePipe(new Date(data[firstKey]['rec_time']))+'</div></div></td>'+
+            '<td><div class="as-tbl-2-td"><div class="as-tbl-2-tc light-text-1">'+timeSince(new Date(data[firstKey]['rec_time']))+'</div></div></td>'+
             '<td>'+
               '<div class="as-tbl-2-td">'+
                 '<div class="as-tbl-2-tc">'+
@@ -273,5 +275,23 @@ function setUsersList (data) {
           //{ "aTargets": [ 3 ], "bSortable": false }
       ]
     });
+  }
+}
+function getM10 (mv) {
+  var sb10 = String(mv).substr(-1);
+  if (sb10 == '0') {
+    return parseInt(mv);
+  }
+  sb10 = 10-parseInt(sb10);
+  return parseInt(mv)+sb10;
+}
+function getCX (tx) {
+  var ltx = tx.toString().length;
+  if (ltx == 1) {
+    return 38;
+  } else if (ltx == 2) {
+    return 30;
+  } else {
+    return 25;
   }
 }

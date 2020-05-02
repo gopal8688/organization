@@ -203,7 +203,12 @@ function setUserActivities (data) {
 	if(Object.keys(data).length>0) {
 		$("#userTimeline").html("");
 		for (var i = 0; i < Object.keys(data).length; i++) {
-      		var firstKey = Object.keys(data)[i];
+			var firstKey = Object.keys(data)[i];
+			var device = data[firstKey]['dvc'];
+			var dos = data[firstKey]['os'];
+			if (device == 'WebKit') {
+				device = getWebkitDevice(dos);
+			}
 			$("#userTimeline").append(
 				'<div class="as-activity-item as-activity-'+data[firstKey]['obs']+'">'+
 					'<div class="as-activity-line"></div>'+
@@ -216,14 +221,14 @@ function setUserActivities (data) {
 							'<div class="as-icon-wrap"><i class="as-icon as-icon-isp"></i></div>127.0.0.1 Gazon Communication ISP, '+
 						'</li>'+*/
 						'<li>'+
-							'<div class="as-icon-wrap"><i class="fa fa-mobile"></i></div>'+data[firstKey]['dvc']+
+							'<div class="as-icon-wrap"><i class="fa fa-mobile"></i></div>'+device+
 						'</li>'+
 						'<li>'+
-							'<div class="as-icon-wrap"><i class="fa fa-windows"></i></div>'+getOS(data[firstKey]['os'])+
+							'<div class="as-icon-wrap"><i class="fa fa-windows"></i></div>'+getOS(dos)+
 						'</li>'+
-						/*'<li>'+
-							'<div class="as-icon-wrap"><i class="fa fa-wifi"></i></div>Sample text'+                      
-						'</li>'+*/
+						'<li>'+
+							'<div class="as-icon-wrap"><i class="fa fa-wifi"></i></div>'+data[firstKey]['ip']+
+						'</li>'+
 					'</ul>'+
 				'</div>'
 			);

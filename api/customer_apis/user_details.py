@@ -156,6 +156,7 @@ class UserDetails(Config):
 
                     curr_log['final_score'] = mscore
                     curr_log['datetime'] = log['datetime']
+                    curr_log['ip'] = log.get('ip', 'Unknown')
 
                 data.append(curr_log)
         except:

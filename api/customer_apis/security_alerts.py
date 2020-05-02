@@ -29,7 +29,7 @@ class SecurityAlerts(Config):
                 threat_type = log.get('threat_type')
                 usr_scr_cat_det.append({
                         'user': user,
-                        'score': mscore,
+                        'score': round(mscore),
                         'cat': flag,
                         'det': threat_type
                 })

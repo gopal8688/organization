@@ -121,9 +121,12 @@ function fetchLA(datasend,duration) {
     dataType: "json",
     success: function (response) {
       if(response.status == 'success') {
+        if (window.myLine1) {
+          window.myLine1.destroy();
+        }
         var config1 = setConfigLA(response);
         var ctx1 = document.getElementById('attemptsChart').getContext('2d');
-        window.myLine = new Chart(ctx1, config1);
+        window.myLine1 = new Chart(ctx1, config1);
       } else {
         toastr.error(response.message);
       }
@@ -141,9 +144,12 @@ function fetchSAA(datasend,duration) {
     dataType: "json",
     success: function (response) {
       if(response.status == 'success') {
+        if (window.myLine2) {
+          window.myLine2.destroy();
+        }
         var config2 = setConfigSAA(response);
         var ctx2 = document.getElementById('secAlertsChart').getContext('2d');
-        window.myLine = new Chart(ctx2, config2);
+        window.myLine2 = new Chart(ctx2, config2);
       } else {
         toastr.error(response.message);
       }
@@ -161,6 +167,9 @@ function fetchRRD(datasend,duration) {
     dataType: "json",
     success: function (response) {
       if(response.status == 'success') {
+        if (window.myHorizontalBar) {
+          window.myHorizontalBar.destroy();
+        }
         var config3 = setConfigRRD(response.data);
         var ctx3 = document.getElementById('locationChart').getContext('2d');
         window.myHorizontalBar = new Chart(ctx3, config3);
@@ -185,10 +194,10 @@ function setTableHru(data,user_url) {
     for (let i = 0; i < data.length; i++) {
       $("#tblHRU tbody").append(
         '<tr>'+
-            '<td><i class="as-risk-bubble as-bg-'+RISK_TYPE[data[i].cat]+'"></i> '+capitalize(RISK_TYPE[data[i].cat])+'</td>'+
+            '<td><div class="as-tbl-risk-cover"><i class="as-risk-bubble as-bg-'+RISK_TYPE[data[i].cat]+'"></i> '+capitalize(RISK_TYPE[data[i].cat])+'</div></td>'+
             //'<td><i class="as-icon as-icon-risk-graph"></i></td>'+
             '<td>'+data[i].user+'</td>'+
-            '<td><div class="as-btn-risk-score as-bg-light-critical as-border-critical as-text-critical">'+Math.floor(data[i].score)+'</div></td>'+
+            '<td><div class="as-btn-risk-score as-bg-light-'+RISK_TYPE[data[i].cat]+' as-border-'+RISK_TYPE[data[i].cat]+' as-text-'+RISK_TYPE[data[i].cat]+'">'+Math.floor(data[i].score)+'</div></td>'+
             '<td><a href="'+user_url+data[i].user+'/'+'" class="as-tbl-v"><i class="fa fa-eye"></i></a></td>'+
           '</tr>'
       );
@@ -220,7 +229,7 @@ function setTableSA(data,user_url) {
     for (let i = 0; i < data.length; i++) {
       $("#tblSA tbody").append(
         '<tr>'+
-            '<td><i class="as-risk-bubble as-bg-'+RISK_TYPE[data[i].cat]+'"></i> '+capitalize(RISK_TYPE[data[i].cat])+'</td>'+
+            '<td><div class="as-tbl-risk-cover"><i class="as-risk-bubble as-bg-'+RISK_TYPE[data[i].cat]+'"></i> '+capitalize(RISK_TYPE[data[i].cat])+'</div></td>'+
             '<td>'+((data[i].det==null)?'Behavioral Threat':data[i].det)+'</td>'+
             '<td>'+data[i].user+'</td>'+
             '<td><div class="as-btn-risk-score as-bg-light-'+RISK_TYPE[data[i].cat]+' as-border-'+RISK_TYPE[data[i].cat]+' as-text-'+RISK_TYPE[data[i].cat]+'">'+Math.floor(data[i].score)+'</div></td>'+
