@@ -16,8 +16,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'authsafe_customer', #database name
         'USER': 'root', #username
-        'PASSWORD': 'Sl7@1234',
+        # 'PASSWORD': 'Sl7@1234',
         #'PASSWORD': 'toor',
+        'PASSWORD': '',
         'HOST': 'localhost', #'95.216.170.200',
         'PORT': '3306',
     },
@@ -29,7 +30,8 @@ DATABASES = {
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-STATIC_ROOT = "/var/www/html/customer/base/static/"
+# STATIC_ROOT = "/var/www/html/customer/base/static/"
+STATIC_ROOT = "C:/xampp/htdocs/customer/base/static/"
 STATIC_URL = '/cstatic/'
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, 'base/static')              #os.path.join(BASE_DIR, 'login/static')
