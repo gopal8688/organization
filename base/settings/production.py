@@ -34,6 +34,6 @@ STATIC_URL = '/cstatic/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
 MEDIA_URL = '/media/'
 
-SITE_URL = 'http://client.authsafe.ai/'
+SITE_URL = 'https://client.authsafe.ai/'
 
 LOGIN_URL = SITE_URL

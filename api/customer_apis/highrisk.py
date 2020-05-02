@@ -33,7 +33,7 @@ class HighRiskUsers(Config):
                         'cat': flag
                     }
                 elif user_info[user]['score'] > mscore:
-                    user_info[user]['score'] = mscore
+                    user_info[user]['score'] = round(mscore)
                     user_info[user]['cat'] = flag
 
             users_scores = [info for info in user_info.values()]

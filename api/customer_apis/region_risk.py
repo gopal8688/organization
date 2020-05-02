@@ -54,8 +54,11 @@ class RegionRiskCount(Config):
             bad_users = df_data['bad_users']
             good_users = df_data['good_users']
 
-            df_data['bad_users'] = round((bad_users/(bad_users+good_users))*100, 2)
-            df_data['good_users'] = round((good_users/(bad_users+good_users))*100, 2)
+            df_data['bad_users'] = round((bad_users/(bad_users+good_users))*100)
+            df_data['good_users'] = round((good_users/(bad_users+good_users))*100)
+
+            for x in df_data['bad_users']:
+                df_data['bad_users'][x] = str(df_data['bad_users'][x])+'%'
             dict_ = df_data.to_dict('list')
             
             return {

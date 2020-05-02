@@ -300,9 +300,16 @@ table.as-portlet-table-1 {
 	.as-tbl-mrg {
 		margin-left: 15px;
 	}
-	.as-risk-bubble {
-		margin-left: 15px;
-		margin-right: 10px;
+	.as-tbl-risk-cover {
+		position: relative;
+		padding-left: 35px;
+		.as-risk-bubble {
+			position: absolute;
+			left: 15px;
+			top: 7px;
+			/* margin-left: 15px;
+			margin-right: 10px; */
+		}
 	}
 	.as-tbl-v {
 		color: #9CAFC3;
