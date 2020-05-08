@@ -14,6 +14,7 @@ from datetime import datetime
 
 import os
 import re
+import sys
 
 # Create your views here.
 class PropertyCreateView(View, CMain):
@@ -291,25 +292,57 @@ class PropertyDNTrackView(View, CMain):
 		self.SITE_DATA['form_url_ip'] = reverse('psdntrackip', args=[id])
 		self.SITE_DATA['form_url_email'] = reverse('psdntrackemail', args=[id])
 		return render(request, 'property_dntrack.html', self.SITE_DATA)
+
 class PropertyDNTrackIPView(View, CMain):
 	""" docstring for PropertyDNTrackIPView """
 	def __init__(self, **arg):
 		super(PropertyDNTrackIPView, self).__init__()
 		self.arg = arg
+
+	def get(self, request, id):
+		self.getBasicDetails(request, id)
+		p = DoNotTrackIP.objects.get(id=id)
+		pt_objs = DoNotTrackIP.objects.filter(pid=p.pid).order_by('created_at').reverse()
+		dataTokens = []
+		try:
+			if pt_objs:
+				i = 0
+				for pt in pt_objs:
+					ip_obj = DoNotTrackIP.objects.get(ip=pt.ip)
+					dataTokens.append(ip_obj)
+					i=i+1
+			data = {
+				'status': 'success',
+				'logs': dataTokens,
+			}
+		except:
+			data = {
+				'status': 'error',
+				'message': 'There was some error.',
+			}
+		return JsonResponse(data)
+		
+
 	def post(self, request, id):
 		p = Property.objects.get(id=id)
 
 		try:
 			# Form submission code goes here
 			pid = p.pid
-			ip = request.POST['dnt_ip']
-			# cust_obj = self.getCustomerObj(request)
-			q = DoNotTrackIP(pid = pid, ip = ip)
-			q.save()
+			customerIP = request.POST['dnt_ip']
+			iplist = customerIP.split(", ")
+			# Comma separated entries will be broken and added separately
+			for ip in iplist:
+				if ip:
+					q = DoNotTrackIP(pid = pid, ip = ip)
+					q.save()
+				else:
+					data = {}
 			data = {
-				'status': 'success',
-				'message': 'IP successfully added for not tracking.',
-			}
+						'status': 'success',
+						'message': 'IP successfully added for not tracking.',
+						'items': customerIP,
+					}
 		except:
 			data = {
 				'status': 'error',
@@ -322,6 +355,30 @@ class PropertyDNTrackEmailView(View, CMain):
 	def __init__(self, **arg):
 		super(PropertyDNTrackEmailView, self).__init__()
 		self.arg = arg
+
+	def get(self, request, id):
+		self.getBasicDetails(request, id)
+		p = DoNotTrackEmail.objects.get(id=id)
+		pt_objs = DoNotTrackEmail.objects.filter(pid=p.pid).order_by('created_at').reverse()
+		dataTokens = []
+		try:
+			if pt_objs:
+				i = 0
+				for pt in pt_objs:
+					email_obj = DoNotTrackEmail.objects.get(email=pt.email)
+					dataTokens.append(email_obj)
+					i=i+1
+			data = {
+				'status': 'success',
+				'logs': dataTokens,
+			}
+		except:
+			data = {
+				'status': 'error',
+				'message': 'There was some error.',
+			}
+		return JsonResponse(data)
+
 	def post(self, request, id):
 		p = Property.objects.get(id=id)
 		try:
@@ -337,6 +394,7 @@ class PropertyDNTrackEmailView(View, CMain):
 				data = {
 				'status': 'success',
 				'message': 'Email successfully added for not tracking.',
+				'items': email,
 				}
 			elif((re.search(domainRegex, email))):
 				q = DoNotTrackEmail(pid = pid, email = email)
@@ -344,11 +402,13 @@ class PropertyDNTrackEmailView(View, CMain):
 				data = {
 				'status': 'success',
 				'message': 'Domain successfully added for not tracking.',
+				'items': email,
 				}
 			else:
 				data = {
 				'status': 'error',
 				'message': 'Please enter valid email address or domain name',
+				'items': email,
 				}
 
 		except:
