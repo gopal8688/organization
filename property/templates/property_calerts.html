@@ -1,0 +1,104 @@
+{% extends "layouts/property_layout.html" %}
+{% load static %}
+
+{% block propsection %}
+  <div class="as-grid as-content">
+    <div class="as-grid-justified as-page-header">
+      <div class="as-page-title-wrap"><h1 class="as-page-title">Manage your AuthSafe Account</h1></div>
+      <div class="as-page-tools"></div>
+    </div>
+    <div class="as-grid as-container">
+      <div class="as-right-wrap">
+        <div class="as-portlet-1">
+          <div class="as-grid-justified as-portlet-header">
+            <h2 class="as-portlet-title">Customize Alerts</h2>
+          </div>
+          <div class="as-portlet-body as-p-20p">
+            <div class="text-muted as-mb-20p">Configure how to get notified when a login exceeds the specified risk threshold. You can also let your users resolve these alerts by activating Security Notifications.</div>
+            <div class="accordion" id="accordionExample">
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      Email
+                    </button>
+                    <div class="custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                      <label class="custom-control-label" for="customSwitch1"></label>
+                    </div>
+                  </h2>
+                </div>
+
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <div class="as-mb-20p">
+                      <div class="text-muted">Do-Not-Track IPs are used when you want to disable tracking for certain IP address. A typical use-case is when your support team wants to impersonate your customers, but not affect their risk score or trigger user notifications.</div>
+                    </div>
+                    <div class="as-mb-10p row">
+                      <div class="col-md-6">
+                        <select name="" id="" class="form-control">
+                          <option value="">Suspicious (30%)</option>
+                          <option value="">Suspicious (40%)</option>
+                          <option value="">Suspicious (50%)</option>
+                          <option value="">Suspicious (60%)</option>
+                          <option value="">Suspicious (70%)</option>
+                          <option value="">Compromised (80%)</option>
+                          <option value="">Compromised (90%)</option>
+                          <option value="">Compromised (100%)</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="as-mb-20p row">
+                      <div class="col-md-6">
+                        <input type="text" class="form-control" placeholder="Enter Email" value="tushar.tank001@gmail.com">
+                      </div>
+                    </div>
+                    <button class="btn as-btn-lg btn-primary">Test</button>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingTwo">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      Slack
+                    </button>
+                    <div class="custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" id="customSwitch2">
+                      <label class="custom-control-label" for="customSwitch2"></label>
+                    </div>
+                  </h2>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <div class="text-muted as-mb-20p">Do-Not-Track IPs are used when you want to disable tracking for certain IP address. A typical use-case is when your support team wants to impersonate your customers, but not affect their risk score or trigger user notifications.</div>
+                    <div class="as-mb-10p row">
+                      <div class="col-md-6">
+                        <select name="" id="" class="form-control">
+                          <option value="">Suspicious (30%)</option>
+                          <option value="">Suspicious (40%)</option>
+                          <option value="">Suspicious (50%)</option>
+                          <option value="">Suspicious (60%)</option>
+                          <option value="">Suspicious (70%)</option>
+                          <option value="">Compromised (80%)</option>
+                          <option value="">Compromised (90%)</option>
+                          <option value="">Compromised (100%)</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="as-mb-20p row">
+                      <div class="col-md-6">
+                        <input type="text" class="form-control" placeholder="Enter Slack Username" value="@test.user">
+                      </div>
+                    </div>
+                    <button class="btn as-btn-lg btn-primary">Test</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock propsection %}

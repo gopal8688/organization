@@ -6,16 +6,16 @@ from django.views import View
 from django.conf import settings
 
 from auths.models import Customer, Property, CPRelationship, PropertyTokens, WebPlatform
-from base.views import BaseView
+from customer.views import CustomerView
 from django.http import HttpResponse
 import pytz
 from django.utils import timezone
-from base.middleware import redirect
+from customer.middleware import redirect
 
-class CMain(BaseView):
+class CMain(CustomerView):
 
 	def __init__(self):
-		BaseView.__init__(self)
+		CustomerView.__init__(self)
 
 	def getAbsoluteURL(self, request):
 		full_url = request.get_host()

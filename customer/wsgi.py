@@ -10,13 +10,13 @@ https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/
 import os, sys
 
 # add the base project path into the sys.path
-sys.path.append('/var/www/html/customer/base')
+sys.path.append('/var/www/html/customer/customer')
 
 # add the virtualenv site-packages path to the sys.path
 sys.path.append('/usr/local/lib/python3.6/dist-packages')
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings.development')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'customer.settings.development')
 
 application = get_wsgi_application()

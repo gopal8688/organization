@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))+'/../'
 # Application definition
 
 INSTALLED_APPS = [
-    'base.apps.BaseConfig',
+    'customer.apps.CustomerConfig',
     'auths.apps.AuthsConfig',
     'cmain.apps.CmainConfig',
     'dashboard.apps.DashboardConfig',
@@ -48,15 +48,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'base.middleware.RedirectMiddleware',
+    'customer.middleware.RedirectMiddleware',
 ]
 
-ROOT_URLCONF = 'base.urls'
+ROOT_URLCONF = 'customer.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'base/templates'),],
+        'DIRS': [os.path.join(BASE_DIR, 'customer/templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -66,13 +66,13 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
             'libraries':{
-                'custom_tags': 'base.templatetags.custom_tags',
+                'custom_tags': 'customer.templatetags.custom_tags',
             }
         },
     },
 ]
 
-WSGI_APPLICATION = 'base.wsgi.application'
+WSGI_APPLICATION = 'customer.wsgi.application'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
