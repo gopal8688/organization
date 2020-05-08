@@ -112,6 +112,9 @@ class PropertyTokens(models.Model):
 class DoNotTrackIP(models.Model):
     pid = models.CharField(max_length=16)
     ip = models.CharField(max_length=200)
+     
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         db_table = 'do_not_track_ip'
@@ -119,6 +122,9 @@ class DoNotTrackIP(models.Model):
 class DoNotTrackEmail(models.Model):
     pid = models.CharField(max_length=16)
     email = models.CharField(max_length=150)
+     
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         db_table = 'do_not_track_email'
