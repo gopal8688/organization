@@ -273,3 +273,90 @@ class PropertySDKView(View, CMain):
 		self.SITE_DATA['page_title'] = 'Property SDK'
 		self.SITE_DATA['form_url'] = reverse('propertySDK')
 		return render(request, 'property_sdk.html', self.SITE_DATA)
+class PropertyDNTrackView(View, CMain):
+	""" docstring for PropertyDNTrackView """
+	def __init__(self, **arg):
+		super(PropertyDNTrackView, self).__init__()
+		self.arg = arg
+	def get(self, request, id):
+		# if(not self.valiDateProperty(request, id)):
+		# 	redirect('home')
+		# if(not self.getBasicDetails(request, id)):
+		# 	redirect('home')
+		self.getBasicDetails(request, id)
+		self.SITE_DATA['page'] = 'property_dntrack'
+		self.SITE_DATA['page_menu'] = 'settings'
+		self.SITE_DATA['page_title'] = 'Property Settings'
+		self.SITE_DATA['form_url_ip'] = reverse('psdntrackip', args=[id])
+		self.SITE_DATA['form_url_email'] = reverse('psdntrackemail', args=[id])
+		return render(request, 'property_dntrack.html', self.SITE_DATA)
+class PropertyDNTrackIPView(View, CMain):
+	""" docstring for PropertyDNTrackIPView """
+	def __init__(self, **arg):
+		super(PropertyDNTrackIPView, self).__init__()
+		self.arg = arg
+	def post(self, request, id):
+		p = Property.objects.get(id=id)
+		try:
+			# Form submission code goes here
+			data = {
+				'status': 'success',
+				'message': 'IP successfully added for not tracking.',
+			}
+		except:
+			data = {
+				'status': 'error',
+				'message': 'There was some error.',
+			}
+		return JsonResponse(data)
+class PropertyDNTrackEmailView(View, CMain):
+	""" docstring for PropertyDNTrackEmailView """
+	def __init__(self, **arg):
+		super(PropertyDNTrackEmailView, self).__init__()
+		self.arg = arg
+	def post(self, request, id):
+		p = Property.objects.get(id=id)
+		try:
+			# Form submission code goes here
+			data = {
+				'status': 'success',
+				'message': 'Email successfully added for not tracking.',
+			}
+		except:
+			data = {
+				'status': 'error',
+				'message': 'There was some error.',
+			}
+		return JsonResponse(data)
+class PropertyWebhooksView(View, CMain):
+	""" docstring for PropertyWebhooksView """
+	def __init__(self, **arg):
+		super(PropertyWebhooksView, self).__init__()
+		self.arg = arg
+	def get(self, request, id):
+		# if(not self.valiDateProperty(request, id)):
+		# 	redirect('home')
+		# if(not self.getBasicDetails(request, id)):
+		# 	redirect('home')
+		self.getBasicDetails(request, id)
+		self.SITE_DATA['page'] = 'property_webhooks'
+		self.SITE_DATA['page_menu'] = 'settings'
+		self.SITE_DATA['page_title'] = 'Property Settings'
+		self.SITE_DATA['form_url'] = reverse('pswebhooks', args=[id])
+		return render(request, 'property_webhooks.html', self.SITE_DATA)
+class PropertyCAlertsView(View, CMain):
+	""" docstring for PropertyCAlertsView """
+	def __init__(self, **arg):
+		super(PropertyCAlertsView, self).__init__()
+		self.arg = arg
+	def get(self, request, id):
+		# if(not self.valiDateProperty(request, id)):
+		# 	redirect('home')
+		# if(not self.getBasicDetails(request, id)):
+		# 	redirect('home')
+		self.getBasicDetails(request, id)
+		self.SITE_DATA['page'] = 'property_calerts'
+		self.SITE_DATA['page_menu'] = 'settings'
+		self.SITE_DATA['page_title'] = 'Property Settings'
+		self.SITE_DATA['form_url'] = reverse('pscalerts', args=[id])
+		return render(request, 'property_calerts.html', self.SITE_DATA)

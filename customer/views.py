@@ -2,7 +2,7 @@ import json
 import pytz
 from auths.models import Customer, Property, CPRelationship, PropertyTokens
 
-class BaseView():
+class CustomerView():
     @staticmethod
     def getAllTimeZones():
         all_timezones = []
