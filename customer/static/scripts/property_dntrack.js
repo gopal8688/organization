@@ -16,9 +16,9 @@ $(document).ready(function() {
 				url: $("#formIP").attr('action'), //BASE_URL,
 				data: datasend,
 				dataType: "json",
-				success: function (res) {
+				success: function (res) {	
 					if(res.status == 'success') {
-						toastr.success(res.message);
+						toastr.success(res.items);
 					} else {
 						toastr.error(res.message);
 					}
@@ -45,7 +45,7 @@ $(document).ready(function() {
 				dataType: "json",
 				success: function (res) {
 					if(res.status == 'success') {
-						toastr.success(res.message);
+						toastr.success(res.items);
 					} else {
 						toastr.error(res.message);
 					}
