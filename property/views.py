@@ -7,12 +7,13 @@ from django.urls import reverse
 from django.contrib.auth.hashers import make_password
 
 from cmain.views import CMain
-from auths.models import Customer,Property,CPRelationship,WebPlatform,PropertyTokens
+from auths.models import Customer,Property,CPRelationship,WebPlatform,PropertyTokens,DoNotTrackIP,DoNotTrackEmail
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from datetime import datetime
 
 import os
+import re
 
 # Create your views here.
 class PropertyCreateView(View, CMain):
@@ -297,8 +298,14 @@ class PropertyDNTrackIPView(View, CMain):
 		self.arg = arg
 	def post(self, request, id):
 		p = Property.objects.get(id=id)
+
 		try:
 			# Form submission code goes here
+			pid = p.pid
+			ip = request.POST['dnt_ip']
+			# cust_obj = self.getCustomerObj(request)
+			q = DoNotTrackIP(pid = pid, ip = ip)
+			q.save()
 			data = {
 				'status': 'success',
 				'message': 'IP successfully added for not tracking.',
@@ -309,6 +316,7 @@ class PropertyDNTrackIPView(View, CMain):
 				'message': 'There was some error.',
 			}
 		return JsonResponse(data)
+
 class PropertyDNTrackEmailView(View, CMain):
 	""" docstring for PropertyDNTrackEmailView """
 	def __init__(self, **arg):
@@ -318,10 +326,31 @@ class PropertyDNTrackEmailView(View, CMain):
 		p = Property.objects.get(id=id)
 		try:
 			# Form submission code goes here
-			data = {
+			pid = p.id
+			email = request.POST['dnt_email']
+			#check for valid email id or domain name
+			emailRegex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
+			domainRegex = "\A([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}\Z"
+			if((re.search(emailRegex, email))):
+				q = DoNotTrackEmail(pid = pid, email = email)
+				q.save()
+				data = {
 				'status': 'success',
 				'message': 'Email successfully added for not tracking.',
-			}
+				}
+			elif((re.search(domainRegex, email))):
+				q = DoNotTrackEmail(pid = pid, email = email)
+				q.save()
+				data = {
+				'status': 'success',
+				'message': 'Domain successfully added for not tracking.',
+				}
+			else:
+				data = {
+				'status': 'error',
+				'message': 'Please enter valid email address or domain name',
+				}
+
 		except:
 			data = {
 				'status': 'error',

@@ -109,3 +109,17 @@ class PropertyTokens(models.Model):
     class Meta:
         db_table = 'property_tokens'
 
+class DoNotTrackIP(models.Model):
+    pid = models.CharField(max_length=16)
+    ip = models.CharField(max_length=200)
+
+    class Meta:
+        db_table = 'do_not_track_ip'
+
+class DoNotTrackEmail(models.Model):
+    pid = models.CharField(max_length=16)
+    email = models.CharField(max_length=150)
+
+    class Meta:
+        db_table = 'do_not_track_email'
+
