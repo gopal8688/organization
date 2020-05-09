@@ -15,6 +15,7 @@ from datetime import datetime
 import os
 import re
 import sys
+import json
 
 # Create your views here.
 class PropertyCreateView(View, CMain):
@@ -301,15 +302,17 @@ class PropertyDNTrackIPView(View, CMain):
 
 	def get(self, request, id):
 		self.getBasicDetails(request, id)
-		p = DoNotTrackIP.objects.get(id=id)
-		pt_objs = DoNotTrackIP.objects.filter(pid=p.pid).order_by('created_at').reverse()
-		dataTokens = []
+		#p = DoNotTrackIP.objects.get(id=id)
 		try:
+			pt_objs = DoNotTrackIP.objects.filter(pid=id).order_by('created_at').reverse()
+			dataTokens = []
 			if pt_objs:
 				i = 0
 				for pt in pt_objs:
-					ip_obj = DoNotTrackIP.objects.get(ip=pt.ip)
-					dataTokens.append(ip_obj)
+					dataTokenItem = {}
+					dataTokenItem['id'] = pt.id
+					dataTokenItem['ip'] = pt.ip
+					dataTokens.append(dataTokenItem)
 					i=i+1
 			data = {
 				'status': 'success',
@@ -324,24 +327,49 @@ class PropertyDNTrackIPView(View, CMain):
 		
 
 	def post(self, request, id):
-		p = Property.objects.get(id=id)
-
 		try:
+			self.getBasicDetails(request, id)
 			# Form submission code goes here
-			pid = p.pid
-			customerIP = request.POST['dnt_ip']
-			iplist = customerIP.split(", ")
+			dnt_ip = request.POST['dnt_ip']
+			ipRegex = '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+			ipRangeRegex = '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\/([0-9]|[1-2][0-9]|3[0-2])$'
 			# Comma separated entries will be broken and added separately
-			for ip in iplist:
-				if ip:
-					q = DoNotTrackIP(pid = pid, ip = ip)
-					q.save()
-				else:
-					data = {}
+			if((re.search(ipRegex, dnt_ip))):
+				q = DoNotTrackIP(pid = id, ip = dnt_ip)
+				q.save()
+				data = {
+				'status': 'success',
+				'message': 'IP address successfully added for not tracking.',
+				'data': {'id':q.id,'ip':q.ip},
+				}
+			elif((re.search(ipRangeRegex, dnt_ip))):
+				q = DoNotTrackIP(pid = id, ip = dnt_ip)
+				q.save()
+				data = {
+				'status': 'success',
+				'message': 'IP range successfully added for not tracking.',
+				'data': {'id':q.id,'ip':q.ip},
+				}
+			else:
+				data = {
+				'status': 'error',
+				'message': 'Please enter valid IP address or IP range'
+				}
+		except:
 			data = {
-						'status': 'success',
-						'message': 'IP successfully added for not tracking.',
-						'items': customerIP,
+				'status': 'error',
+				'message': 'There was some error.',
+			}
+		return JsonResponse(data)
+	def delete(self, request, id):
+		try:
+			ip_obj = DoNotTrackIP.objects.get(id=id)
+			self.getBasicDetails(request, ip_obj.pid)
+			DoNotTrackIP.objects.filter(id=id).delete()
+			data = {
+					'status': 'success',
+					'message': 'IP address successfully removed',
+					#'data': ip_id,
 					}
 		except:
 			data = {
@@ -358,15 +386,19 @@ class PropertyDNTrackEmailView(View, CMain):
 
 	def get(self, request, id):
 		self.getBasicDetails(request, id)
-		p = DoNotTrackEmail.objects.get(id=id)
-		pt_objs = DoNotTrackEmail.objects.filter(pid=p.pid).order_by('created_at').reverse()
+		#p = DoNotTrackEmail.objects.get(id=id)
+		pt_objs = DoNotTrackEmail.objects.filter(pid=id).order_by('created_at').reverse()
 		dataTokens = []
 		try:
+			pt_objs = DoNotTrackEmail.objects.filter(pid=id).order_by('created_at').reverse()
+			dataTokens = []
 			if pt_objs:
 				i = 0
 				for pt in pt_objs:
-					email_obj = DoNotTrackEmail.objects.get(email=pt.email)
-					dataTokens.append(email_obj)
+					dataTokenItem = {}
+					dataTokenItem['id'] = pt.id
+					dataTokenItem['email'] = pt.email
+					dataTokens.append(dataTokenItem)
 					i=i+1
 			data = {
 				'status': 'success',
@@ -380,37 +412,51 @@ class PropertyDNTrackEmailView(View, CMain):
 		return JsonResponse(data)
 
 	def post(self, request, id):
-		p = Property.objects.get(id=id)
 		try:
+			self.getBasicDetails(request, id)
 			# Form submission code goes here
-			pid = p.id
 			email = request.POST['dnt_email']
 			#check for valid email id or domain name
 			emailRegex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
 			domainRegex = "\A([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}\Z"
 			if((re.search(emailRegex, email))):
-				q = DoNotTrackEmail(pid = pid, email = email)
+				q = DoNotTrackEmail(pid = id, email = email)
 				q.save()
 				data = {
 				'status': 'success',
 				'message': 'Email successfully added for not tracking.',
-				'items': email,
+				'data': {'id':q.id,'email':q.email},
 				}
 			elif((re.search(domainRegex, email))):
-				q = DoNotTrackEmail(pid = pid, email = email)
+				q = DoNotTrackEmail(pid = id, email = email)
 				q.save()
 				data = {
 				'status': 'success',
 				'message': 'Domain successfully added for not tracking.',
-				'items': email,
+				'data': {'id':q.id,'email':q.email},
 				}
 			else:
 				data = {
 				'status': 'error',
-				'message': 'Please enter valid email address or domain name',
-				'items': email,
+				'message': 'Please enter valid email address or domain name'
 				}
 
+		except:
+			data = {
+				'status': 'error',
+				'message': 'There was some error.',
+			}
+		return JsonResponse(data)
+	def delete(self, request, id):
+		try:
+			email_obj = DoNotTrackEmail.objects.get(id=id)
+			self.getBasicDetails(request, email_obj.pid)
+			DoNotTrackEmail.objects.filter(id=id).delete()
+			data = {
+					'status': 'success',
+					'message': 'Email successfully removed',
+					#'data': ip_id,
+					}
 		except:
 			data = {
 				'status': 'error',
