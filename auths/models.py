@@ -116,9 +116,6 @@ class DoNotTrackIP(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
     class Meta:
         db_table = 'do_not_track_ip'
 
@@ -129,9 +126,18 @@ class DoNotTrackEmail(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        db_table = 'do_not_track_email'
+
+class CustomizeAlerts(models.Model):
+    pid = models.IntegerField()
+    risk_threshold = models.CharField(max_length=150)
+    email = models.CharField(max_length=150)
+    email_track = models.BooleanField(default=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = 'do_not_track_email'
+        db_table = 'customize_alerts'
 
