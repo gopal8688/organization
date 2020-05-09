@@ -503,23 +503,24 @@ class PropertyCAlertsView(View, CMain):
 			# Form submission code goes here
 			risk_threshold = request.POST['risk_threshold']
 			email = request.POST['email']
-			email_track = request.POST['track']
-
-			if(email_track == 'true'):
-				email_track = 1
+			is_active = request.POST['is_active']
+			app_type = "email"
+			
+			if(is_active == 'true'):
+				is_active = 1
 			else:
-				email_track = 0
+				is_active = 0
 
 			#check for valid email id
 			emailRegex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
 			
 			if((re.search(emailRegex, email))):
-				q = CustomizeAlerts(pid = id, risk_threshold=risk_threshold, email = email, email_track= email_track)
+				q = CustomizeAlerts(pid = id, risk_threshold = risk_threshold, email = email, app_type = app_type, is_active = is_active)
 				q.save()
 				data = {
 				'status': 'success',
 				'message': 'Email and risk threshold successfully added.',
-				'data': {'id':q.id,'email':q.email, 'risk_threshold':q.risk_threshold, 'email_track': q.email_track},
+				'data': {'id':q.id,'email':q.email, 'risk_threshold':q.risk_threshold, 'app_type':q.app_type, 'is_active': q.is_active},
 				}
 			else:
 				data = {
