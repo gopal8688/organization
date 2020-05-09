@@ -286,3 +286,9 @@ window.getMaxStepRange = function(maxNum,stepSize) {
 window.textCapitalize = function(str) {
 	return str.substr(0,1).toUpperCase()+str.substr(1);
 }
+window.replaceLastPartOfURL = function(surl,rstr) {
+	surl = surl.split("/");
+	surl[surl.length - 1] = rstr;
+	surl = surl.join("/");
+	return surl;
+}
