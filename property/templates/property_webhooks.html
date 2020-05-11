@@ -33,4 +33,52 @@
       </div>
     </div>
   </div>
+  <!-- Modal -->
+  <div class="modal fade custom-modal-1" id="addEndpoint" tabindex="-1" role="dialog" aria-labelledby="addUserTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addUserTitle">Set up a new webhook endpoint</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="">
+            <div class="form-group">
+              <h6 class="block-title">Endpoint URL</h6>
+              <input type="text" class="form-control" placeholder="https:/api.example.com/alerts">
+              <div class="form-text text-muted">Recommeded: Use a URL from service like Webhook Tester to inspect webhook data before starting implementation.</div>
+            </div>
+            <div class="form-group">
+              <h6 class="block-title">Options</h6>
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="optionOYes" name="example1">
+                <label class="custom-control-label" for="optionYes">Yes</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="optionONo" name="example1">
+                <label class="custom-control-label" for="optionNo">No</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <h6 class="block-title">Enabled</h6>
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="optionEYes" name="example2">
+                <label class="custom-control-label" for="optionYes">Yes</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="optionENo" name="example2">
+                <label class="custom-control-label" for="optionNo">No</label>
+              </div>
+            </div>
+            <div class="as-frm-btns">
+              <button class="btn as-btn-lg btn-primary">Save</button>
+              <button class="btn as-btn-lg btn-outline-secondary">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock propsection %}
