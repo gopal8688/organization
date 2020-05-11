@@ -6,7 +6,7 @@ import functools
 from sshtunnel import SSHTunnelForwarder
 
 class Config():
-	MONGO_HOST = "localhost"
+	MONGO_HOST = "10.10.10.4"
 	MONGO_PORT = 27017
 	MONGO_DB = 'ml_logs' #"DATABASE_NAME"
 	MONGO_USER = 'admin'
@@ -43,13 +43,13 @@ class Config():
 
 	def getElasticConn(self):
 		conn = Elasticsearch([{
-					'host':  '95.216.170.200', 
+					'host':  '10.10.10.4', 
 					'port':  '9200'
 				}], 
-				http_auth=(
-					'elastic', 
-					'263508SL72k19'
-				)
+				# http_auth=(
+				# 	'elastic', 
+				# 	'263508SL72k19'
+				# )
 			)
 		return conn 
 
