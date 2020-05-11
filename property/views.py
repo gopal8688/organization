@@ -514,12 +514,18 @@ class PropertyCAlertsView(View, CMain):
 		emailRegex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
 		
 		if((re.search(emailRegex, email))):
-			q = CustomizeAlerts(pid = id, risk_threshold=risk_threshold, email = email, app_type= 'email', is_active= is_active)
-			q.save()
+			co_obj = CustomizeAlerts.objects.filter(pid=id, app_type= 'email')
+			if co_obj:
+				co_obj.update(pid = id, risk_threshold=risk_threshold, email = email, app_type= 'email', is_active= is_active)
+				dataReturn = {'id':co_obj[0].id,'email':co_obj[0].email, 'risk_threshold':co_obj[0].risk_threshold, 'is_active': co_obj[0].is_active}
+			else:
+				q = CustomizeAlerts(pid = id, risk_threshold=risk_threshold, email = email, app_type= 'email', is_active= is_active)
+				q.save()
+				dataReturn = {'id':q.id,'email':q.email, 'risk_threshold':q.risk_threshold, 'is_active': q.is_active}
 			data = {
 			'status': 'success',
 			'message': 'Email and risk threshold successfully added.',
-			'data': {'id':q.id,'email':q.email, 'risk_threshold':q.risk_threshold, 'is_active': q.is_active},
+			'data': dataReturn,
 			}
 		else:
 			data = {
