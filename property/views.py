@@ -498,38 +498,38 @@ class PropertyCAlertsView(View, CMain):
 		return render(request, 'property_calerts.html', self.SITE_DATA)
 
 	def post(self, request, id):
-		try:
-			self.getBasicDetails(request, id)
-			# Form submission code goes here
-			risk_threshold = request.POST['risk_threshold']
-			email = request.POST['email']
-			email_track = request.POST['track']
+		#try:
+		self.getBasicDetails(request, id)
+		# Form submission code goes here
+		risk_threshold = request.POST['risk_threshold']
+		email = request.POST['email']
+		is_active = request.POST['track']
 
-			if(email_track == 'true'):
-				email_track = 1
-			else:
-				email_track = 0
+		if(is_active == 'true'):
+			is_active = 1
+		else:
+			is_active = 0
 
-			#check for valid email id
-			emailRegex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
-			
-			if((re.search(emailRegex, email))):
-				q = CustomizeAlerts(pid = id, risk_threshold=risk_threshold, email = email, email_track= email_track)
-				q.save()
-				data = {
-				'status': 'success',
-				'message': 'Email and risk threshold successfully added.',
-				'data': {'id':q.id,'email':q.email, 'risk_threshold':q.risk_threshold, 'email_track': q.email_track},
-				}
-			else:
-				data = {
-				'status': 'error',
-				'message': 'Please enter valid email address or domain name'
-				}
-		except:
+		#check for valid email id
+		emailRegex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
+		
+		if((re.search(emailRegex, email))):
+			q = CustomizeAlerts(pid = id, risk_threshold=risk_threshold, email = email, app_type= 'email', is_active= is_active)
+			q.save()
 			data = {
-				'status': 'error',
-				'message': 'There was some error.',
+			'status': 'success',
+			'message': 'Email and risk threshold successfully added.',
+			'data': {'id':q.id,'email':q.email, 'risk_threshold':q.risk_threshold, 'is_active': q.is_active},
 			}
+		else:
+			data = {
+			'status': 'error',
+			'message': 'Please enter valid email address or domain name'
+			}
+		# except:
+		# 	data = {
+		# 		'status': 'error',
+		# 		'message': 'There was some error.',
+		# 	}
 		return JsonResponse(data)
 

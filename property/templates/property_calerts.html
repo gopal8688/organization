@@ -15,6 +15,7 @@
           </div>
           <div class="as-portlet-body as-p-20p">
             <div class="text-muted as-mb-20p">Configure how to get notified when a login exceeds the specified risk threshold. You can also let your users resolve these alerts by activating Security Notifications.</div>
+            <input type="hidden" id="form_url" value="{{ form_url }}">
             <div class="accordion" id="accordionExample">
               <div class="card">
                 <div class="card-header" id="headingOne">
@@ -36,29 +37,29 @@
                     </div>
                     <div class="as-mb-10p row">
                       <div class="col-md-6">
-                        <select name="risk_threshold" id="risk_threshold" class="form-control">
-                          <option value="">Suspicious (30%)</option>
-                          <option value="">Suspicious (40%)</option>
-                          <option value="">Suspicious (50%)</option>
-                          <option value="">Suspicious (60%)</option>
-                          <option value="">Suspicious (70%)</option>
-                          <option value="">Compromised (80%)</option>
-                          <option value="">Compromised (90%)</option>
-                          <option value="">Compromised (100%)</option>
+                        <select name="risk_threshold" class="form-control risk_threshold">
+                          <option value="30">Suspicious (30%)</option>
+                          <option value="40">Suspicious (40%)</option>
+                          <option value="50">Suspicious (50%)</option>
+                          <option value="60">Suspicious (60%)</option>
+                          <option value="70">Suspicious (70%)</option>
+                          <option value="80">Compromised (80%)</option>
+                          <option value="90">Compromised (90%)</option>
+                          <option value="100">Compromised (100%)</option>
                         </select>
                       </div>
                     </div>
                     <div class="as-mb-20p row">
                       <div class="col-md-6">
-                        <input type="text" class="form-control" name="email" placeholder="Enter Email" value="tushar.tank001@gmail.com">
+                        <input type="text" class="form-control calert_email" name="email" placeholder="Enter Email" value="tushar.tank001@gmail.com">
                       </div>
                     </div>
-                    <button class="btn as-btn-lg btn-primary">Test</button>
+                    <button type="button" class="btn as-btn-lg btn-primary js-calert-btn">Test</button>
                   </div>
                 </div>
               </div>
-              <div class="card">
-               <!--  <div class="card-header" id="headingTwo">
+              <!--  <div class="card">
+               <div class="card-header" id="headingTwo">
                   <h2 class="mb-0">
                     <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                       Slack
@@ -68,7 +69,7 @@
                       <label class="custom-control-label" for="customSwitch2"></label>
                     </div>
                   </h2>
-                </div> -->
+                </div>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="text-muted as-mb-20p">Do-Not-Track IPs are used when you want to disable tracking for certain IP address. A typical use-case is when your support team wants to impersonate your customers, but not affect their risk score or trigger user notifications.</div>
@@ -86,15 +87,15 @@
                         </select>
                       </div>
                     </div>
-                    <!-- <div class="as-mb-20p row">
+                    <div class="as-mb-20p row">
                       <div class="col-md-6">
                         <input type="text" class="form-control" placeholder="Enter Slack Username" value="@test.user">
                       </div>
-                    </div> -->
+                    </div>
                     <button class="btn as-btn-lg btn-primary">Test</button>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
