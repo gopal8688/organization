@@ -133,7 +133,8 @@ class CustomizeAlerts(models.Model):
     pid = models.IntegerField()
     risk_threshold = models.CharField(max_length=150)
     email = models.CharField(max_length=150)
-    email_track = models.BooleanField(default=True)
+    app_type = models.CharField(max_length=150)
+    is_active = models.BooleanField(default=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
