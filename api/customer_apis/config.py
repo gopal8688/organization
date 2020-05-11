@@ -9,8 +9,8 @@ class Config():
 	MONGO_HOST = "10.10.10.4"
 	MONGO_PORT = 27017
 	MONGO_DB = 'ml_logs' #"DATABASE_NAME"
-	MONGO_USER = 'admin'
-	MONGO_PASS = 'Sl7@1234'
+	MONGO_USER = ''
+	MONGO_PASS = ''
 
 	# server = SSHTunnelForwarder(
 	#     MONGO_HOST,
