@@ -132,7 +132,7 @@ class DoNotTrackEmail(models.Model):
 class CustomizeAlerts(models.Model):
     pid = models.IntegerField()
     risk_threshold = models.CharField(max_length=150)
-    email = models.CharField(max_length=150)
+    app_uid = models.CharField(max_length=150)
     app_type = models.CharField(max_length=150)
     is_active = models.BooleanField(default=True)
 
