@@ -24,7 +24,7 @@ $(document).ready(function() {
 				data: datasend,
 			})
 			.done(function(res) {
-				console.log(res);
+				//console.log(res);
 				if (res.status == "success") {
 					toastr.success(res.message);
 				} else {
