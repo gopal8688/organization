@@ -24,7 +24,11 @@
                       Email
                     </button>
                     <div class="custom-control custom-switch">
+                      {% if email_active == 1 %}
+                      <input type="checkbox" class="custom-control-input" id="customSwitch1" {% ifequal co_obj.is_active 1 %}checked=""{% endifequal %}>
+                      {% else %}
                       <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                      {% endif %}
                       <label class="custom-control-label" for="customSwitch1"></label>
                     </div>
                   </h2>
@@ -37,6 +41,18 @@
                     </div>
                     <div class="as-mb-10p row">
                       <div class="col-md-6">
+                        {% if email_active == 1 %}
+                        <select name="risk_threshold" class="form-control risk_threshold">
+                          <option value="30" {% ifequal co_obj.risk_threshold '30' %}selected=""{% endifequal %}>Suspicious (30%)</option>
+                          <option value="40" {% ifequal co_obj.risk_threshold '40' %}selected=""{% endifequal %}>Suspicious (40%)</option>
+                          <option value="50" {% ifequal co_obj.risk_threshold '50' %}selected=""{% endifequal %}>Suspicious (50%)</option>
+                          <option value="60" {% ifequal co_obj.risk_threshold '60' %}selected=""{% endifequal %}>Suspicious (60%)</option>
+                          <option value="70" {% ifequal co_obj.risk_threshold '70' %}selected=""{% endifequal %}>Suspicious (70%)</option>
+                          <option value="80" {% ifequal co_obj.risk_threshold '80' %}selected=""{% endifequal %}>Compromised (80%)</option>
+                          <option value="90" {% ifequal co_obj.risk_threshold '90' %}selected=""{% endifequal %}>Compromised (90%)</option>
+                          <option value="100" {% ifequal co_obj.risk_threshold '100' %}selected=""{% endifequal %}>Compromised (100%)</option>
+                        </select>
+                        {% else %}
                         <select name="risk_threshold" class="form-control risk_threshold">
                           <option value="30">Suspicious (30%)</option>
                           <option value="40">Suspicious (40%)</option>
@@ -47,11 +63,16 @@
                           <option value="90">Compromised (90%)</option>
                           <option value="100">Compromised (100%)</option>
                         </select>
+                        {% endif %}
                       </div>
                     </div>
                     <div class="as-mb-20p row">
                       <div class="col-md-6">
-                        <input type="text" class="form-control calert_email" name="email" placeholder="Enter Email" value="tushar.tank001@gmail.com">
+                        {% if email_active == 1 %}
+                        <input type="text" class="form-control calert_userid" name="email" placeholder="Enter Email" value="{{ co_obj.app_uid }}">
+                        {% else %}
+                        <input type="text" class="form-control calert_userid" name="email" placeholder="Enter Email" value="">
+                        {% endif %}
                       </div>
                     </div>
                     <button type="button" class="btn as-btn-lg btn-primary js-calert-btn">Test</button>

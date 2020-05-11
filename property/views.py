@@ -491,6 +491,11 @@ class PropertyCAlertsView(View, CMain):
 		# if(not self.getBasicDetails(request, id)):
 		# 	redirect('home')
 		self.getBasicDetails(request, id)
+		self.SITE_DATA['email_active'] = 0
+		co_obj = CustomizeAlerts.objects.filter(pid=id, app_type= 'email')
+		if co_obj:
+			self.SITE_DATA['email_active'] = 1
+			self.SITE_DATA['co_obj'] = co_obj[0]
 		self.SITE_DATA['page'] = 'property_calerts'
 		self.SITE_DATA['page_menu'] = 'settings'
 		self.SITE_DATA['page_title'] = 'Property Settings'
@@ -502,26 +507,26 @@ class PropertyCAlertsView(View, CMain):
 		self.getBasicDetails(request, id)
 		# Form submission code goes here
 		risk_threshold = request.POST['risk_threshold']
-		email = request.POST['email']
+		app_uid = request.POST['username']
 		is_active = request.POST['track']
 
-		if(is_active == 'true'):
-			is_active = 1
-		else:
-			is_active = 0
+		# if(is_active == 'true'):
+		# 	is_active = 1
+		# else:
+		# 	is_active = 0
 
 		#check for valid email id
 		emailRegex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
 		
-		if((re.search(emailRegex, email))):
+		if((re.search(emailRegex, app_uid))):
 			co_obj = CustomizeAlerts.objects.filter(pid=id, app_type= 'email')
-			if co_obj:
-				co_obj.update(pid = id, risk_threshold=risk_threshold, email = email, app_type= 'email', is_active= is_active)
-				dataReturn = {'id':co_obj[0].id,'email':co_obj[0].email, 'risk_threshold':co_obj[0].risk_threshold, 'is_active': co_obj[0].is_active}
-			else:
-				q = CustomizeAlerts(pid = id, risk_threshold=risk_threshold, email = email, app_type= 'email', is_active= is_active)
+			if not co_obj:
+				q = CustomizeAlerts(pid = id, risk_threshold=risk_threshold, app_uid = app_uid, app_type= 'email', is_active= is_active)
 				q.save()
-				dataReturn = {'id':q.id,'email':q.email, 'risk_threshold':q.risk_threshold, 'is_active': q.is_active}
+				dataReturn = {'id':q.id,'app_uid':q.app_uid, 'risk_threshold':q.risk_threshold, 'is_active': q.is_active}
+			else:
+				co_obj.update(pid = id, risk_threshold=risk_threshold, app_uid = app_uid, app_type= 'email', is_active= is_active)
+				dataReturn = {'id':co_obj[0].id,'app_uid':co_obj[0].app_uid, 'risk_threshold':co_obj[0].risk_threshold, 'is_active': co_obj[0].is_active}
 			data = {
 			'status': 'success',
 			'message': 'Email and risk threshold successfully added.',
@@ -530,7 +535,7 @@ class PropertyCAlertsView(View, CMain):
 		else:
 			data = {
 			'status': 'error',
-			'message': 'Please enter valid email address or domain name'
+			'message': 'Please enter valid email address'
 			}
 		# except:
 		# 	data = {
