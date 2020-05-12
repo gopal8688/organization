@@ -1,21 +1,20 @@
-# from django import forms
-# import re
+from django import forms
+import re
 
-# class DNTrackIPForm(forms.Form):
-# 	# brand_name = forms.CharField(max_length=150,required=False)
-# 	# brand_url = forms.URLField(required=False)
-# 	# brand_logo = forms.ImageField(required=False)
-# 	# org_name = forms.CharField(max_length=150)
-# 	dnt_ip = forms.CharField(max_length=150)
-# 	ipRegex = '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-# 	ipRangeRegex = '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\/([0-9]|[1-2][0-9]|3[0-2])$'
-# 	if((re.search(ipRegex, dnt_ip))):
-# 		dnt_ip = 
-# 	elif((re.search(ipRangeRegex, dnt_ip))):
-# 		dnt_ip
-# 	else:
-# 		data = {
-# 				'status': 'error',
-# 				'message': 'Please enter valid IP address or IP range'
-# 				}
+class DNTrackIPForm(forms.Form):
+	dnt_ip = forms.RegexField(regex=re.compile(r'^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'))
+	# dnt_ip2 = forms.RegexField(regex=re.compile(r'^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\/([0-9]|[1-2][0-9]|3[0-2])$'))
+	
+class DNTrackEmailForm(forms.Form):
+	email = forms.RegexField(regex=re.compile(r'^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'))
+
+class WebhookForm(forms.Form):
+	url = forms.RegexField(regex=re.compile(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'))
+	options = forms.CharField(max_length=150)
+	is_active = forms.BooleanField()
+
+class CustomizeAlertsForm(forms.Form):
+	app_uid = forms.RegexField(regex=re.compile(r'^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'))
+	risk_threshold = forms.CharField(max_length=150)
+	is_active = forms.BooleanField()
 
