@@ -483,6 +483,23 @@ class PropertyWebhooksView(View, CMain):
 		self.SITE_DATA['form_url'] = reverse('pswebhooks', args=[id])
 		return render(request, 'property_webhooks.html', self.SITE_DATA)
 	def post(self, request, id):
+		# try:
+		# 	self.getBasicDetails(request, id)
+		# 	prop_obj = self.getPropertyObj(request)
+		# 	# Form submission code goes here
+		# 	url = request.POST['url']
+		# 	options = request.POST['options']
+		# 	is_active = request.POST['is_active']
+		# 	if(is_active==True):
+		# 		is_active = 1
+		# 	else:
+		# 		is_active = 0
+
+		# 	#check for valid url
+		# 	urlRegex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+			
+		# 	if((re.search(urlRegex, url))):
+		# 		q = Webhooks(prop = prop_obj, url = url, options = options, is_active = is_active)
 		WebhookForm = WebhookForm(request.POST)
 		if WebhookForm.is_valid():
 			url = WebhookForm.cleaned_data('url')
