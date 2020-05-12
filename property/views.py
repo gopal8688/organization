@@ -499,14 +499,14 @@ class PropertyWebhooksView(View, CMain):
 				q = Webhooks(pid = id, url = url, options = options, is_active = is_active)
 				q.save()
 				data = {
-				'status': 'success',
-				'message': 'URL successfully added for webhook.',
-				'data': {'id':q.id,'url':q.url, 'options':q.options, 'is_active':q.is_active},
+					'status': 'success',
+					'message': 'URL successfully added for webhook.',
+					'data': {'id':q.id,'url':q.url, 'options':q.options, 'is_active':q.is_active},
 				}
 			else:
 				data = {
-				'status': 'error',
-				'message': 'Please enter valid URL'
+					'status': 'error',
+					'message': 'Please enter valid URL'
 				}
 
 		except:
@@ -528,8 +528,9 @@ class PropertyCAlertsView(View, CMain):
 		# if(not self.getBasicDetails(request, id)):
 		# 	redirect('home')
 		self.getBasicDetails(request, id)
+		prop_obj = self.getPropertyObj(request)
 		self.SITE_DATA['email_active'] = 0
-		co_obj = CustomizeAlerts.objects.filter(pid=id, app_type= 'email')
+		co_obj = CustomizeAlerts.objects.filter(prop=prop_obj, app_type= 'email')
 		if co_obj:
 			self.SITE_DATA['email_active'] = 1
 			self.SITE_DATA['co_obj'] = co_obj[0]
@@ -542,6 +543,7 @@ class PropertyCAlertsView(View, CMain):
 	def post(self, request, id):
 		#try:
 		self.getBasicDetails(request, id)
+		prop_obj = self.getPropertyObj(request)
 		# Form submission code goes here
 		risk_threshold = request.POST['risk_threshold']
 		app_uid = request.POST['username']
@@ -556,13 +558,13 @@ class PropertyCAlertsView(View, CMain):
 		emailRegex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
 		
 		if((re.search(emailRegex, app_uid))):
-			co_obj = CustomizeAlerts.objects.filter(pid=id, app_type= 'email')
+			co_obj = CustomizeAlerts.objects.filter(prop = prop_obj, app_type = 'email')
 			if not co_obj:
-				q = CustomizeAlerts(pid = id, risk_threshold=risk_threshold, app_uid = app_uid, app_type= 'email', is_active= is_active)
+				q = CustomizeAlerts(prop = prop_obj, risk_threshold=risk_threshold, app_uid = app_uid, app_type= 'email', is_active= is_active)
 				q.save()
 				dataReturn = {'id':q.id,'app_uid':q.app_uid, 'risk_threshold':q.risk_threshold, 'is_active': q.is_active}
 			else:
-				co_obj.update(pid = id, risk_threshold=risk_threshold, app_uid = app_uid, app_type= 'email', is_active= is_active)
+				co_obj.update(prop = prop_obj, risk_threshold=risk_threshold, app_uid = app_uid, app_type= 'email', is_active= is_active)
 				dataReturn = {'id':co_obj[0].id,'app_uid':co_obj[0].app_uid, 'risk_threshold':co_obj[0].risk_threshold, 'is_active': co_obj[0].is_active}
 			data = {
 			'status': 'success',

@@ -130,7 +130,7 @@ class DoNotTrackEmail(models.Model):
         db_table = 'do_not_track_email'
 
 class CustomizeAlerts(models.Model):
-    pid = models.ForeignKey(Property, on_delete=models.CASCADE)
+    prop = models.ForeignKey(Property, on_delete=models.CASCADE)
     risk_threshold = models.CharField(max_length=150)
     app_uid = models.CharField(max_length=150)
     app_type = models.CharField(max_length=150)
