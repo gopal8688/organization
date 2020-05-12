@@ -130,7 +130,7 @@ class DoNotTrackEmail(models.Model):
         db_table = 'do_not_track_email'
 
 class CustomizeAlerts(models.Model):
-    pid = models.IntegerField()
+    pid = models.ForeignKey(Property, on_delete=models.CASCADE)
     risk_threshold = models.CharField(max_length=150)
     app_uid = models.CharField(max_length=150)
     app_type = models.CharField(max_length=150)
@@ -141,4 +141,16 @@ class CustomizeAlerts(models.Model):
 
     class Meta:
         db_table = 'customize_alerts'
+
+class Webhooks(models.Model):
+    pid = models.ForeignKey(Property, on_delete=models.CASCADE)
+    url = models.CharField(max_length=150)
+    options = models.CharField(max_length=150)
+    is_active = models.BooleanField(default=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'webhooks'
 
