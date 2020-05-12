@@ -329,13 +329,14 @@ class PropertyDNTrackIPView(View, CMain):
 	def post(self, request, id):
 		try:
 			self.getBasicDetails(request, id)
+			prop_obj = self.getPropertyObj(request)
 			# Form submission code goes here
 			dnt_ip = request.POST['dnt_ip']
 			ipRegex = '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
 			ipRangeRegex = '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\/([0-9]|[1-2][0-9]|3[0-2])$'
 			# Comma separated entries will be broken and added separately
 			if((re.search(ipRegex, dnt_ip))):
-				q = DoNotTrackIP(pid = id, ip = dnt_ip)
+				q = DoNotTrackIP(prop = prop_obj, ip = dnt_ip)
 				q.save()
 				data = {
 				'status': 'success',
@@ -343,7 +344,7 @@ class PropertyDNTrackIPView(View, CMain):
 				'data': {'id':q.id,'ip':q.ip},
 				}
 			elif((re.search(ipRangeRegex, dnt_ip))):
-				q = DoNotTrackIP(pid = id, ip = dnt_ip)
+				q = DoNotTrackIP(prop = prop_obj, ip = dnt_ip)
 				q.save()
 				data = {
 				'status': 'success',
@@ -414,13 +415,14 @@ class PropertyDNTrackEmailView(View, CMain):
 	def post(self, request, id):
 		try:
 			self.getBasicDetails(request, id)
+			prop_obj = self.getPropertyObj(request)
 			# Form submission code goes here
 			email = request.POST['dnt_email']
 			#check for valid email id or domain name
 			emailRegex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
 			domainRegex = "\A([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}\Z"
 			if((re.search(emailRegex, email))):
-				q = DoNotTrackEmail(pid = id, email = email)
+				q = DoNotTrackEmail(prop = prop_obj, email = email)
 				q.save()
 				data = {
 				'status': 'success',
@@ -428,7 +430,7 @@ class PropertyDNTrackEmailView(View, CMain):
 				'data': {'id':q.id,'email':q.email},
 				}
 			elif((re.search(domainRegex, email))):
-				q = DoNotTrackEmail(pid = id, email = email)
+				q = DoNotTrackEmail(prop = prop_obj, email = email)
 				q.save()
 				data = {
 				'status': 'success',
@@ -481,40 +483,79 @@ class PropertyWebhooksView(View, CMain):
 		self.SITE_DATA['form_url'] = reverse('pswebhooks', args=[id])
 		return render(request, 'property_webhooks.html', self.SITE_DATA)
 	def post(self, request, id):
-		try:
-			self.getBasicDetails(request, id)
-			prop_obj = self.getPropertyObj(request)
-			# Form submission code goes here
-			url = request.POST['url']
-			options = request.POST['options']
-			is_active = request.POST['is_active']
-			if(is_active==True):
-				is_active = 1
-			else:
-				is_active = 0
+		# try:
+		# 	self.getBasicDetails(request, id)
+		# 	prop_obj = self.getPropertyObj(request)
+		# 	# Form submission code goes here
+		# 	url = request.POST['url']
+		# 	options = request.POST['options']
+		# 	is_active = request.POST['is_active']
+		# 	if(is_active==True):
+		# 		is_active = 1
+		# 	else:
+		# 		is_active = 0
 
-			#check for valid url
-			urlRegex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+		# 	#check for valid url
+		# 	urlRegex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
 			
-			if((re.search(urlRegex, url))):
-				q = Webhooks(prop = prop_obj, url = url, options = options, is_active = is_active)
+		# 	if((re.search(urlRegex, url))):
+		# 		q = Webhooks(prop = prop_obj, url = url, options = options, is_active = is_active)
+		WebhookForm = WebhookForm(request.POST)
+		if WebhookForm.is_valid():
+			url = WebhookForm.cleaned_data('url')
+			options = WebhookForm.cleaned_data('options')
+			is_active = WebhookForm.cleaned_data('is_active')
+			web_object = Webhooks.objects.filter(pid=id, url=url)
+			if not web_object:
+				q = Webhooks(pid = id, url = url, options = options, is_active = is_active)
 				q.save()
-				data = {
-					'status': 'success',
-					'message': 'URL successfully added for webhook.',
-					'data': {'id':q.id,'url':q.url, 'options':q.options, 'is_active':q.is_active},
-				}
+				dataReturn = {'id':q.id, 'url':q.url, 'options':q.options, 'is_active':q.is_active}
 			else:
-				data = {
-					'status': 'error',
-					'message': 'Please enter valid URL'
-				}
-
-		except:
+				q = web_object.update(pid = id, url = url, options = options, is_active = is_active)
+				dataReturn = {'id':web_object[0].id, 'url':web_object[0].url, 'options':web_object[0].options, 'is_active':web_object[0].is_active}
+			data = {
+			'status': 'success',
+			'message': 'URL successfully added.',
+			'data': dataReturn,
+			}
+		else:
 			data = {
 				'status': 'error',
-				'message': 'There was some error.',
-			}
+				'message': 'Please enter valid URL'
+				}
+		# try:
+		# 	self.getBasicDetails(request, id)
+		# 	# Form submission code goes here
+		# 	url = request.POST['url']
+		# 	options = request.POST['options']
+		# 	is_active = request.POST['is_active']
+		# 	if(is_active==True):
+		# 		is_active = 1
+		# 	else:
+		# 		is_active = 0
+
+		# 	#check for valid url
+		# 	urlRegex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+			
+		# 	if((re.search(urlRegex, url))):
+		# 		q = Webhooks(pid = id, url = url, options = options, is_active = is_active)
+		# 		q.save()
+		# 		data = {
+		# 			'status': 'success',
+		# 			'message': 'URL successfully added for webhook.',
+		# 			'data': {'id':q.id,'url':q.url, 'options':q.options, 'is_active':q.is_active},
+		# 		}
+		# 	else:
+		# 		data = {
+		# 			'status': 'error',
+		# 			'message': 'Please enter valid URL'
+		# 		}
+
+		# except:
+		# 	data = {
+		# 		'status': 'error',
+		# 		'message': 'There was some error.',
+		# 	}
 		return JsonResponse(data)
 
 

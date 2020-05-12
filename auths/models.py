@@ -110,7 +110,7 @@ class PropertyTokens(models.Model):
         db_table = 'property_tokens'
 
 class DoNotTrackIP(models.Model):
-    pid = models.IntegerField()
+    prop = models.ForeignKey(Property, on_delete=models.CASCADE)
     ip = models.CharField(max_length=200)
      
     created_at = models.DateTimeField(auto_now_add=True)
@@ -120,7 +120,7 @@ class DoNotTrackIP(models.Model):
         db_table = 'do_not_track_ip'
 
 class DoNotTrackEmail(models.Model):
-    pid = models.IntegerField()
+    prop = models.ForeignKey(Property, on_delete=models.CASCADE)
     email = models.CharField(max_length=150)
      
     created_at = models.DateTimeField(auto_now_add=True)
