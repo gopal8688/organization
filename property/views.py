@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.contrib.auth.hashers import make_password
 
 from cmain.views import CMain
-from auths.models import Customer,Property,CPRelationship,WebPlatform,PropertyTokens,DoNotTrackIP,DoNotTrackEmail,CustomizeAlerts
+from auths.models import Customer,Property,CPRelationship,WebPlatform,PropertyTokens,DoNotTrackIP,DoNotTrackEmail,CustomizeAlerts,Webhooks
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from datetime import datetime
@@ -463,6 +463,7 @@ class PropertyDNTrackEmailView(View, CMain):
 				'message': 'There was some error.',
 			}
 		return JsonResponse(data)
+		
 class PropertyWebhooksView(View, CMain):
 	""" docstring for PropertyWebhooksView """
 	def __init__(self, **arg):
@@ -479,6 +480,42 @@ class PropertyWebhooksView(View, CMain):
 		self.SITE_DATA['page_title'] = 'Property Settings'
 		self.SITE_DATA['form_url'] = reverse('pswebhooks', args=[id])
 		return render(request, 'property_webhooks.html', self.SITE_DATA)
+	def post(self, request, id):
+		try:
+			self.getBasicDetails(request, id)
+			# Form submission code goes here
+			url = request.POST['url']
+			options = request.POST['options']
+			is_active = request.POST['is_active']
+			if(is_active==True):
+				is_active = 1
+			else:
+				is_active = 0
+
+			#check for valid url
+			urlRegex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+			
+			if((re.search(urlRegex, url))):
+				q = Webhooks(pid = id, url = url, options = options, is_active = is_active)
+				q.save()
+				data = {
+				'status': 'success',
+				'message': 'URL successfully added for webhook.',
+				'data': {'id':q.id,'url':q.url, 'options':q.options, 'is_active':q.is_active},
+				}
+			else:
+				data = {
+				'status': 'error',
+				'message': 'Please enter valid URL'
+				}
+
+		except:
+			data = {
+				'status': 'error',
+				'message': 'There was some error.',
+			}
+		return JsonResponse(data)
+
 
 class PropertyCAlertsView(View, CMain):
 	""" docstring for PropertyCAlertsView """
