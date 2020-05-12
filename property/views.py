@@ -483,6 +483,7 @@ class PropertyWebhooksView(View, CMain):
 	def post(self, request, id):
 		try:
 			self.getBasicDetails(request, id)
+			prop_obj = self.getPropertyObj(request)
 			# Form submission code goes here
 			url = request.POST['url']
 			options = request.POST['options']
@@ -496,7 +497,7 @@ class PropertyWebhooksView(View, CMain):
 			urlRegex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
 			
 			if((re.search(urlRegex, url))):
-				q = Webhooks(pid = id, url = url, options = options, is_active = is_active)
+				q = Webhooks(prop = prop_obj, url = url, options = options, is_active = is_active)
 				q.save()
 				data = {
 					'status': 'success',
