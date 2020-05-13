@@ -143,7 +143,7 @@ class CustomizeAlerts(models.Model):
         db_table = 'customize_alerts'
 
 class Webhooks(models.Model):
-    pid = models.ForeignKey(Property, on_delete=models.CASCADE)
+    prop = models.ForeignKey(Property, on_delete=models.CASCADE)
     url = models.CharField(max_length=150)
     options = models.CharField(max_length=150)
     is_active = models.BooleanField(default=True)

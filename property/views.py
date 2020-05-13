@@ -11,6 +11,7 @@ from auths.models import Customer,Property,CPRelationship,WebPlatform,PropertyTo
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from datetime import datetime
+from property.forms import *
 
 import os
 import re
@@ -483,62 +484,40 @@ class PropertyWebhooksView(View, CMain):
 		self.SITE_DATA['form_url'] = reverse('pswebhooks', args=[id])
 		return render(request, 'property_webhooks.html', self.SITE_DATA)
 	def post(self, request, id):
-		WebhookForm = WebhookForm(request.POST)
-		if WebhookForm.is_valid():
-			url = WebhookForm.cleaned_data('url')
-			options = WebhookForm.cleaned_data('options')
-			is_active = WebhookForm.cleaned_data('is_active')
-			web_object = Webhooks.objects.filter(pid=id, url=url)
-			if not web_object:
-				q = Webhooks(pid = id, url = url, options = options, is_active = is_active)
-				q.save()
-				dataReturn = {'id':q.id, 'url':q.url, 'options':q.options, 'is_active':q.is_active}
+		try:
+			self.getBasicDetails(request, id)
+			prop_obj = self.getPropertyObj(request)
+			# Form submission code goes here
+			url = request.POST['url']
+			options = request.POST['options']
+			is_active = request.POST['is_active']
+			if(is_active==True):
+				is_active = 1
 			else:
-				q = web_object.update(pid = id, url = url, options = options, is_active = is_active)
-				dataReturn = {'id':web_object[0].id, 'url':web_object[0].url, 'options':web_object[0].options, 'is_active':web_object[0].is_active}
-			data = {
-			'status': 'success',
-			'message': 'URL successfully added.',
-			'data': dataReturn,
-			}
-		else:
+				is_active = 0
+
+			#check for valid url
+			urlRegex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+			
+			if((re.search(urlRegex, url))):
+				q = Webhooks(prop = prop_obj, url = url, options = options, is_active = is_active)
+				q.save()
+				data = {
+					'status': 'success',
+					'message': 'URL successfully added for webhook.',
+					'data': {'id':q.id,'url':q.url, 'options':q.options, 'is_active':q.is_active},
+				}
+			else:
+				data = {
+					'status': 'error',
+					'message': 'Please enter valid URL'
+				}
+
+		except:
 			data = {
 				'status': 'error',
-				'message': 'Please enter valid URL'
-				}
-		# try:
-		# 	self.getBasicDetails(request, id)
-		# 	# Form submission code goes here
-		# 	url = request.POST['url']
-		# 	options = request.POST['options']
-		# 	is_active = request.POST['is_active']
-		# 	if(is_active==True):
-		# 		is_active = 1
-		# 	else:
-		# 		is_active = 0
-
-		# 	#check for valid url
-		# 	urlRegex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
-			
-		# 	if((re.search(urlRegex, url))):
-		# 		q = Webhooks(pid = id, url = url, options = options, is_active = is_active)
-		# 		q.save()
-		# 		data = {
-		# 			'status': 'success',
-		# 			'message': 'URL successfully added for webhook.',
-		# 			'data': {'id':q.id,'url':q.url, 'options':q.options, 'is_active':q.is_active},
-		# 		}
-		# 	else:
-		# 		data = {
-		# 			'status': 'error',
-		# 			'message': 'Please enter valid URL'
-		# 		}
-
-		# except:
-		# 	data = {
-		# 		'status': 'error',
-		# 		'message': 'There was some error.',
-		# 	}
+				'message': 'There was some error.',
+			}
 		return JsonResponse(data)
 
 
@@ -573,11 +552,6 @@ class PropertyCAlertsView(View, CMain):
 		risk_threshold = request.POST['risk_threshold']
 		app_uid = request.POST['username']
 		is_active = request.POST['track']
-
-		# if(is_active == 'true'):
-		# 	is_active = 1
-		# else:
-		# 	is_active = 0
 
 		#check for valid email id
 		emailRegex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
