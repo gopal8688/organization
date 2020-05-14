@@ -6,6 +6,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.models import User
 from django.conf.urls.static import static
 
+
 # Project libraries
 from .managers import CustomUserManager
 
@@ -53,6 +54,7 @@ class Customer(AbstractBaseUser, PermissionsMixin):
 class Property(models.Model):
 
     pid = models.CharField(max_length=16, unique=True)
+    uuid = models.CharField(max_length=150, unique=True)
     pname = models.CharField(max_length=16)
     track = models.BooleanField(default=True)
 

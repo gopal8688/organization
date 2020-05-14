@@ -17,6 +17,8 @@ import os
 import re
 import sys
 import json
+import uuid
+
 
 # Create your views here.
 class PropertyCreateView(View, CMain):
@@ -35,7 +37,7 @@ class PropertyCreateView(View, CMain):
 		try:
 			pn = request.POST['pn']
 			# track = request.POST['track']
-			p = Property(pid=get_random_string(length=16, allowed_chars='123456789'), pname = pn)
+			p = Property(pid=get_random_string(length=16, allowed_chars='123456789'),uuid = uuid.uuid1(),pname = pn)
 			p.save()
 
 			if p.id:
@@ -57,6 +59,39 @@ class PropertyCreateView(View, CMain):
 					'status': 'error',
 					'message': 'There was some error. Please refresh and try again.',
 				})
+
+	def uuid(self):
+		try:
+			count=Property.objects.all().count()
+			for i in range(1, count):
+				q=Property.objects.get(id=i)
+				if (q.uuid==''):
+					query=Property.objects.filter(id=i).update(uuid=uuid.uuid1())
+					if query>0:
+						data = {
+						'status': 'success',
+						'message': 'Property Successfully updated!',
+						}
+					else:
+						data = {
+						'status': 'error',
+						'message': 'There was some error.',
+						}
+
+				else:
+					data = {
+						'status': 'success',
+						'message': 'Nothing to update!',
+						}
+				i=i+1
+				
+			return JsonResponse(data)
+		except:
+			return JsonResponse({
+					'status': 'error',
+					'message': 'There was some error. Please refresh and try again.',
+				})
+
 class PropertySettingsView(View, CMain):
 	""" docstring for PropertySettingsView """
 	def __init__(self, **arg):
