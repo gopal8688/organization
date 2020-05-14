@@ -17,5 +17,5 @@ urlpatterns = [
 	path('settings/webhooks/<int:id>', login_required(PropertyWebhooksView.as_view()), name="pswebhooks"),
 	path('settings/customized-alerts/<int:id>', login_required(PropertyCAlertsView.as_view()), name="pscalerts"),
 
-	path('uuid', login_required(PV.uuid), name="propertyCreate")
+	path('uuid', login_required(PV.uuid), name="propertyUUID")
 ]
