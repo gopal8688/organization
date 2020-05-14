@@ -11,13 +11,13 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='GeeksModel',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('geeks_field', models.UUIDField()),
-            ],
-        ),
+        # migrations.CreateModel(
+        #     name='GeeksModel',
+        #     fields=[
+        #         ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+        #         ('geeks_field', models.UUIDField()),
+        #     ],
+        # ),
         migrations.RemoveField(
             model_name='property',
             name='deleted_at',
@@ -26,11 +26,11 @@ class Migration(migrations.Migration):
             model_name='property',
             name='is_active',
         ),
-        migrations.AddField(
-            model_name='customer',
-            name='deleted_at',
-            field=models.DateTimeField(blank=True, default=None, null=True),
-        ),
+        # migrations.AddField(
+        #     model_name='customer',
+        #     name='deleted_at',
+        #     field=models.DateTimeField(blank=True, default=None, null=True),
+        # ),
         migrations.AddField(
             model_name='property',
             name='track',
