@@ -303,9 +303,9 @@ class PropertyDNTrackIPView(View, CMain):
 
 	def get(self, request, id):
 		self.getBasicDetails(request, id)
-		#p = DoNotTrackIP.objects.get(id=id)
+		prop_obj = self.getPropertyObj(request)
 		try:
-			pt_objs = DoNotTrackIP.objects.filter(pid=id).order_by('created_at').reverse()
+			pt_objs = DoNotTrackIP.objects.filter(prop=prop_obj).order_by('created_at').reverse()
 			dataTokens = []
 			if pt_objs:
 				i = 0
@@ -388,11 +388,9 @@ class PropertyDNTrackEmailView(View, CMain):
 
 	def get(self, request, id):
 		self.getBasicDetails(request, id)
-		#p = DoNotTrackEmail.objects.get(id=id)
-		pt_objs = DoNotTrackEmail.objects.filter(pid=id).order_by('created_at').reverse()
-		dataTokens = []
+		prop_obj = self.getPropertyObj(request)
 		try:
-			pt_objs = DoNotTrackEmail.objects.filter(pid=id).order_by('created_at').reverse()
+			pt_objs = DoNotTrackEmail.objects.filter(prop=prop_obj).order_by('created_at').reverse()
 			dataTokens = []
 			if pt_objs:
 				i = 0
