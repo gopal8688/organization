@@ -17,6 +17,8 @@ import os
 import re
 import sys
 import json
+import uuid
+
 
 # Create your views here.
 class PropertyCreateView(View, CMain):
@@ -35,7 +37,7 @@ class PropertyCreateView(View, CMain):
 		try:
 			pn = request.POST['pn']
 			# track = request.POST['track']
-			p = Property(pid=get_random_string(length=16, allowed_chars='123456789'), pname = pn)
+			p = Property(pid=get_random_string(length=16, allowed_chars='123456789'),uuid = uuid.uuid1(),pname = pn)
 			p.save()
 
 			if p.id:
