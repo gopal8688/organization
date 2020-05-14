@@ -59,6 +59,39 @@ class PropertyCreateView(View, CMain):
 					'status': 'error',
 					'message': 'There was some error. Please refresh and try again.',
 				})
+
+	def uuid(self):
+		try:
+			count=Property.objects.all().count()
+			for i in range(1, count):
+				q=Property.objects.get(id=i)
+				if (q.uuid==''):
+					query=Property.objects.filter(id=i).update(uuid=uuid.uuid1())
+					if query>0:
+						data = {
+						'status': 'success',
+						'message': 'Property Successfully updated!',
+						}
+					else:
+						data = {
+						'status': 'error',
+						'message': 'There was some error.',
+						}
+
+				else:
+					data = {
+						'status': 'success',
+						'message': 'Nothing to update!',
+						}
+				i=i+1
+				
+			return JsonResponse(data)
+		except:
+			return JsonResponse({
+					'status': 'error',
+					'message': 'There was some error. Please refresh and try again.',
+				})
+
 class PropertySettingsView(View, CMain):
 	""" docstring for PropertySettingsView """
 	def __init__(self, **arg):
