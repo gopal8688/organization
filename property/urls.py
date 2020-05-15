@@ -11,9 +11,9 @@ urlpatterns = [
 	path('settings/tracking-code/<int:id>', login_required(PropertyTrackingCodeView.as_view()), name="pstrackingcode"),
 	path('settings/api-keys/<int:id>', login_required(PropertyAPIKeysView.as_view()), name="psapikeys"),
 	path('settings/api-key-logs/<int:id>', login_required(PropertyAPIKeyLogsView.as_view()), name="psapikeylogs"),
-	path('settings/do-not-track/<int:id>', login_required(PropertyDNTrackView.as_view()), name="psdntrack"),
-	path('settings/do-not-track-ip/<int:id>', login_required(PropertyDNTrackIPView.as_view()), name="psdntrackip"),
-	path('settings/do-not-track-email/<int:id>', login_required(PropertyDNTrackEmailView.as_view()), name="psdntrackemail"),
+	path('settings/do-not-track/<str:uuid>', login_required(PropertyDNTrackView.as_view()), name="psdntrack"),
+	path('settings/do-not-track-ip/<str:uuid>', login_required(PropertyDNTrackIPView.as_view()), name="psdntrackip"),
+	path('settings/do-not-track-email/<str:uuid>', login_required(PropertyDNTrackEmailView.as_view()), name="psdntrackemail"),
 	path('settings/webhooks/<int:id>', login_required(PropertyWebhooksView.as_view()), name="pswebhooks"),
 	path('settings/customized-alerts/<int:id>', login_required(PropertyCAlertsView.as_view()), name="pscalerts"),
 

@@ -11,7 +11,7 @@
       <li {% ifequal page 'property_trackingcode' %}class="active"{% endifequal %}><a href="{% url 'pstrackingcode' pid %}"><i class="as-icon-rside fa fa-code"></i><span class="as-rmenu-item">Tracking Code</span></a></li>
       <li {% ifequal page 'property_apikeys' %}class="active"{% endifequal %}><a href="{% url 'psapikeys' pid %}"><span class="as-icon-rside"><i class="as-icon as-icon-api"></i></span><span class="as-rmenu-item"> API keys</span></a></li>
       <li {% ifequal page 'property_sdk' %}class="active"{% endifequal %}><a href="{% url 'propertySDK' %}" target="_blank"><i class="as-icon-rside fa fa-clone"></i><span class="as-rmenu-item"> SDK</span></a></li>
-      <li {% ifequal page 'property_dntrack' %}class="active"{% endifequal %}><a href="{% url 'psdntrack' pid %}"><span class="as-icon-rside"><i class="as-icon as-icon-dntrack"></i></span><span class="as-rmenu-item">Do not track</span></a></li>
+      <li {% ifequal page 'property_dntrack' %}class="active"{% endifequal %}><a href="{% url 'psdntrack' uuid %}"><span class="as-icon-rside"><i class="as-icon as-icon-dntrack"></i></span><span class="as-rmenu-item">Do not track</span></a></li>
       <li {% ifequal page 'property_webhooks' %}class="active"{% endifequal %}><a href="{% url 'pswebhooks' pid %}"><span class="as-icon-rside"><i class="as-icon as-icon-webhook"></i></span><span class="as-rmenu-item">Webhooks</span></a></li>
       <li {% ifequal page 'property_calerts' %}class="active"{% endifequal %}><a href="{% url 'pscalerts' pid %}"><span class="as-icon-rside"><i class="as-icon as-icon-calert"></i></span><span class="as-rmenu-item">Customize Alerts</span></a></li>
     </ul>
