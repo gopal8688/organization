@@ -59,7 +59,7 @@ class PropertyCreateView(View, CMain):
 					'status': 'error',
 					'message': 'There was some error. Please refresh and try again.',
 				})
-
+	#function to update uuid in property where not assign
 	def uuid(self):
 		try:
 			count=Property.objects.all().count()
@@ -97,12 +97,12 @@ class PropertySettingsView(View, CMain):
 	def __init__(self, **arg):
 		super(PropertySettingsView, self).__init__()
 		self.arg = arg
-	def get(self, request, id):
+	def get(self, request, uuid):
 		# if(not self.valiDateProperty(request, id)):
 		# 	redirect('home')
 		# if(not self.getBasicDetails(request, id)):
 		# 	redirect('home')
-		self.getBasicDetails(request, id)
+		self.getBasicDetails(request, uuid)
 		self.SITE_DATA['page'] = 'property_settings'
 		self.SITE_DATA['page_menu'] = 'settings'
 		self.SITE_DATA['page_title'] = 'Property Settings'
@@ -181,10 +181,10 @@ class PropertyTrackingCodeView(View, CMain):
 	def __init__(self, **arg):
 		super(PropertyTrackingCodeView, self).__init__()
 		self.arg = arg
-	def get(self, request, id):
+	def get(self, request, uuid):
 		# if(not self.valiDateProperty(request, id)):
 		# 	redirect('home')
-		self.getBasicDetails(request, id)
+		self.getBasicDetails(request, uuid)
 		self.SITE_DATA['page'] = 'property_trackingcode'
 		self.SITE_DATA['page_menu'] = 'settings'
 		self.SITE_DATA['page_title'] = 'Property Tracking Code'
@@ -335,7 +335,7 @@ class PropertyDNTrackIPView(View, CMain):
 	def __init__(self, **arg):
 		super(PropertyDNTrackIPView, self).__init__()
 		self.arg = arg
-
+	#reflects the inserted data on page load
 	def get(self, request, id):
 		self.getBasicDetails(request, id)
 		prop_obj = self.getPropertyObj(request)
@@ -415,12 +415,13 @@ class PropertyDNTrackIPView(View, CMain):
 			}
 		return JsonResponse(data)
 
+#class for getting email that should not get track
 class PropertyDNTrackEmailView(View, CMain):
 	""" docstring for PropertyDNTrackEmailView """
 	def __init__(self, **arg):
 		super(PropertyDNTrackEmailView, self).__init__()
 		self.arg = arg
-
+#reflects the inserted data on page load
 	def get(self, request, id):
 		self.getBasicDetails(request, id)
 		prop_obj = self.getPropertyObj(request)
@@ -505,12 +506,9 @@ class PropertyWebhooksView(View, CMain):
 	def __init__(self, **arg):
 		super(PropertyWebhooksView, self).__init__()
 		self.arg = arg
-	def get(self, request, id):
-		# if(not self.valiDateProperty(request, id)):
-		# 	redirect('home')
-		# if(not self.getBasicDetails(request, id)):
-		# 	redirect('home')
-		self.getBasicDetails(request, id)
+	def get(self, request, uuid):
+		
+		self.getBasicDetails(request, uuid)
 		self.SITE_DATA['page'] = 'property_webhooks'
 		self.SITE_DATA['page_menu'] = 'settings'
 		self.SITE_DATA['page_title'] = 'Property Settings'
@@ -553,18 +551,14 @@ class PropertyWebhooksView(View, CMain):
 			}
 		return JsonResponse(data)
 
-
+#class for customize-alerts
 class PropertyCAlertsView(View, CMain):
 	""" docstring for PropertyCAlertsView """
 	def __init__(self, **arg):
 		super(PropertyCAlertsView, self).__init__()
 		self.arg = arg
-	def get(self, request, id):
-		# if(not self.valiDateProperty(request, id)):
-		# 	redirect('home')
-		# if(not self.getBasicDetails(request, id)):
-		# 	redirect('home')
-		self.getBasicDetails(request, id)
+	def get(self, request, uuid):
+		self.getBasicDetails(request, uuid)
 		prop_obj = self.getPropertyObj(request)
 		self.SITE_DATA['email_active'] = 0
 		co_obj = CustomizeAlerts.objects.filter(prop=prop_obj, app_type= 'email')
@@ -578,7 +572,7 @@ class PropertyCAlertsView(View, CMain):
 		return render(request, 'property_calerts.html', self.SITE_DATA)
 
 	def post(self, request, id):
-		#try:
+		
 		self.getBasicDetails(request, id)
 		prop_obj = self.getPropertyObj(request)
 		# Form submission code goes here
@@ -608,10 +602,6 @@ class PropertyCAlertsView(View, CMain):
 			'status': 'error',
 			'message': 'Please enter valid email address'
 			}
-		# except:
-		# 	data = {
-		# 		'status': 'error',
-		# 		'message': 'There was some error.',
-		# 	}
+		
 		return JsonResponse(data)
 
