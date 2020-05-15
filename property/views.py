@@ -317,12 +317,12 @@ class PropertyDNTrackView(View, CMain):
 	def __init__(self, **arg):
 		super(PropertyDNTrackView, self).__init__()
 		self.arg = arg
-	def get(self, request, id):
+	def get(self, request, uuid):
 		# if(not self.valiDateProperty(request, id)):
 		# 	redirect('home')
 		# if(not self.getBasicDetails(request, id)):
 		# 	redirect('home')
-		self.getBasicDetails(request, id)
+		self.getBasicDetails(request, uuid)
 		self.SITE_DATA['page'] = 'property_dntrack'
 		self.SITE_DATA['page_menu'] = 'settings'
 		self.SITE_DATA['page_title'] = 'Property Settings'

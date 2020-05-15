@@ -40,6 +40,11 @@ class CMain(CustomerView):
 	def getBasicDetails(self, request, id):
 
 		try:
+			if(type(id) == str):
+				prop_id = Property.objects.get(uuid=id)
+				id = prop_id.id
+			else:
+				id = id
 			if(not self.valiDateProperty(request, id)):
 				print(settings.SITE_URL)
 				redirect(reverse('home'))
@@ -60,7 +65,10 @@ class CMain(CustomerView):
 			request.session['django_timezone'] = cust_obj.timezone
 			timezone.activate(pytz.timezone(request.session['django_timezone']))
 			request.session['pid'] = id
+
+
 			prop_obj = self.getPropertyObj(request)
+			request.session['uuid'] = prop_obj.uuid
 
 			properties = Property.objects.filter(properties__email=cust_obj.email)
 
@@ -70,6 +78,7 @@ class CMain(CustomerView):
 					'p_row': prop_obj,
 					'pname': prop_obj.pname,
 					'pid': request.session['pid'],
+					'uuid': request.session['uuid'],
 				})
 			# if not prop_obj:
 			# 	request.session['pid'] = 0
