@@ -106,7 +106,7 @@ class PropertySettingsView(View, CMain):
 		self.SITE_DATA['page'] = 'property_settings'
 		self.SITE_DATA['page_menu'] = 'settings'
 		self.SITE_DATA['page_title'] = 'Property Settings'
-		self.SITE_DATA['form_url'] = reverse('pssettings', args=[id])
+		self.SITE_DATA['form_url'] = reverse('pssettings', args=[uuid])
 		return render(request, 'property_settings.html', self.SITE_DATA)
 	def post(self, request, id):
 		try:
@@ -328,8 +328,10 @@ class PropertyDNTrackView(View, CMain):
 		self.SITE_DATA['page'] = 'property_dntrack'
 		self.SITE_DATA['page_menu'] = 'settings'
 		self.SITE_DATA['page_title'] = 'Property Settings'
-		self.SITE_DATA['form_url_ip'] = reverse('psdntrackip', args=[id])
-		self.SITE_DATA['form_url_email'] = reverse('psdntrackemail', args=[id])
+		self.SITE_DATA['form_url_ip'] = reverse('psdntrackip', args=[uuid])
+		self.SITE_DATA['form_url_ip_delete'] = reverse('psdntrackipdelete', args=[1])
+		self.SITE_DATA['form_url_email'] = reverse('psdntrackemail', args=[uuid])
+		self.SITE_DATA['form_url_email_delete'] = reverse('psdntrackemaildelete', args=[1])
 		return render(request, 'property_dntrack.html', self.SITE_DATA)
 
 class PropertyDNTrackIPView(View, CMain):
@@ -338,8 +340,8 @@ class PropertyDNTrackIPView(View, CMain):
 		super(PropertyDNTrackIPView, self).__init__()
 		self.arg = arg
 	#reflects the inserted data on page load
-	def get(self, request, id):
-		self.getBasicDetails(request, id)
+	def get(self, request, uuid):
+		self.getBasicDetails(request, uuid)
 		prop_obj = self.getPropertyObj(request)
 		try:
 			pt_objs = DoNotTrackIP.objects.filter(prop=prop_obj).order_by('created_at').reverse()
@@ -364,9 +366,9 @@ class PropertyDNTrackIPView(View, CMain):
 		return JsonResponse(data)
 		
 
-	def post(self, request, id):
+	def post(self, request, uuid):
 		try:
-			self.getBasicDetails(request, id)
+			self.getBasicDetails(request, uuid)
 			prop_obj = self.getPropertyObj(request)
 			# Form submission code goes here
 			dnt_ip = request.POST['dnt_ip']
@@ -400,10 +402,15 @@ class PropertyDNTrackIPView(View, CMain):
 				'message': 'There was some error.',
 			}
 		return JsonResponse(data)
+class PropertyDNTrackIPDeleteView(View, CMain):
+	""" docstring for PropertyDNTrackIPDeleteView """
+	def __init__(self, **arg):
+		super(PropertyDNTrackIPDeleteView, self).__init__()
+		self.arg = arg
 	def delete(self, request, id):
 		try:
 			ip_obj = DoNotTrackIP.objects.get(id=id)
-			self.getBasicDetails(request, ip_obj.pid)
+			self.getBasicDetails(request, ip_obj.prop_id)
 			DoNotTrackIP.objects.filter(id=id).delete()
 			data = {
 					'status': 'success',
@@ -423,9 +430,9 @@ class PropertyDNTrackEmailView(View, CMain):
 	def __init__(self, **arg):
 		super(PropertyDNTrackEmailView, self).__init__()
 		self.arg = arg
-#reflects the inserted data on page load
-	def get(self, request, id):
-		self.getBasicDetails(request, id)
+	#reflects the inserted data on page load
+	def get(self, request, uuid):
+		self.getBasicDetails(request, uuid)
 		prop_obj = self.getPropertyObj(request)
 		try:
 			pt_objs = DoNotTrackEmail.objects.filter(prop=prop_obj).order_by('created_at').reverse()
@@ -449,9 +456,9 @@ class PropertyDNTrackEmailView(View, CMain):
 			}
 		return JsonResponse(data)
 
-	def post(self, request, id):
+	def post(self, request, uuid):
 		try:
-			self.getBasicDetails(request, id)
+			self.getBasicDetails(request, uuid)
 			prop_obj = self.getPropertyObj(request)
 			# Form submission code goes here
 			email = request.POST['dnt_email']
@@ -486,10 +493,17 @@ class PropertyDNTrackEmailView(View, CMain):
 				'message': 'There was some error.',
 			}
 		return JsonResponse(data)
+
+#class for getting email that should not get track
+class PropertyDNTrackEmailDeleteView(View, CMain):
+	""" docstring for PropertyDNTrackEmailDeleteView """
+	def __init__(self, **arg):
+		super(PropertyDNTrackEmailDeleteView, self).__init__()
+		self.arg = arg
 	def delete(self, request, id):
 		try:
 			email_obj = DoNotTrackEmail.objects.get(id=id)
-			self.getBasicDetails(request, email_obj.pid)
+			self.getBasicDetails(request, email_obj.prop_id)
 			DoNotTrackEmail.objects.filter(id=id).delete()
 			data = {
 					'status': 'success',
@@ -570,12 +584,13 @@ class PropertyCAlertsView(View, CMain):
 		self.SITE_DATA['page'] = 'property_calerts'
 		self.SITE_DATA['page_menu'] = 'settings'
 		self.SITE_DATA['page_title'] = 'Property Settings'
-		self.SITE_DATA['form_url'] = reverse('pscalerts', args=[id])
+		self.SITE_DATA['form_url'] = reverse('pscalerts', args=[uuid])
 		return render(request, 'property_calerts.html', self.SITE_DATA)
 
-	def post(self, request, id):
+	def post(self, request, uuid):
 		
-		self.getBasicDetails(request, id)
+		self.getBasicDetails(request, uuid)
+		#return HttpResponse(str(uuid))
 		prop_obj = self.getPropertyObj(request)
 		# Form submission code goes here
 		risk_threshold = request.POST['risk_threshold']

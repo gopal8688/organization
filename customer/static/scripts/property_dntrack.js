@@ -74,7 +74,7 @@ $(document).ready(function() {
 		if (!ip) {
 			toastr.error('There is some error, please refresh and try again.');
 		} else {
-			var url = replaceLastPartOfURL($("#formIP").attr('action'),ip);
+			var url = replaceLastPartOfURL($("#formIPDelete").attr('action'),ip);
 			$.ajax({
 				url: url,
 				type: 'DELETE',
@@ -102,7 +102,7 @@ $(document).ready(function() {
 		if (!email) {
 			toastr.error('There is some error, please refresh and try again.');
 		} else {
-			var url = replaceLastPartOfURL($("#formEmail").attr('action'),email);
+			var url = replaceLastPartOfURL($("#formEmailDelete").attr('action'),email);
 			$.ajax({
 				url: url,
 				type: 'DELETE',

@@ -25,31 +25,32 @@ class DashboardView(View, CMain):
 
 
 	@method_decorator(login_required)
-	def get(self, request, id=0):
+	def get(self, request, uuid=''):
 
 		#return HttpResponse(str(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-		if((id>0) and (not self.valiDateProperty(request, id))):
-			id=0
+		if((uuid!='') and (not self.valiDateProperty(request, uuid))):
+			uuid=''
 
-		if(id>0):
+		if(uuid!=''):
+			prop_obj = Property.objects.get(uuid=uuid)
 			self.SITE_DATA['page'] = 'dashboard'
 			self.SITE_DATA['page_menu'] = 'home'
 			self.SITE_DATA['page_title'] = 'Dashboard'
 			# pprint(self.SITE_DATA['API_URLS'])
 			self.SITE_DATA['API_URLS'] = json.dumps({
-				'ds':reverse('ds',args=[id]),
-				'hru':reverse('hru',args=[id]),
-				'sa':reverse('sa',args=[id]),
-				'la':reverse('la',args=[id]),
-				'ura':reverse('ura',args=[id]),
-				'rrd':reverse('rrd',args=[id])
+				'ds':reverse('ds',args=[prop_obj.id]),
+				'hru':reverse('hru',args=[prop_obj.id]),
+				'sa':reverse('sa',args=[prop_obj.id]),
+				'la':reverse('la',args=[prop_obj.id]),
+				'ura':reverse('ura',args=[prop_obj.id]),
+				'rrd':reverse('rrd',args=[prop_obj.id])
 			})
 			# return redirect('propertyCreate')
 
 			# pprint.pprint(self.SITE_DATA['API_URLS'])
 			# return HttpResponse('')
 
-			self.getBasicDetails(request, id)
+			self.getBasicDetails(request, uuid)
 
 			return render(request, 'home.html', self.SITE_DATA)
 		else:
@@ -57,4 +58,4 @@ class DashboardView(View, CMain):
 			if (request.session['pid']==0):
 				return redirect('propertyCreate')
 			else:
-				return redirect('pr-home',request.session['pid'])
+				return redirect('pr-home',request.session['uuid'])
