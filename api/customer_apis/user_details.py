@@ -1,25 +1,26 @@
 from api.customer_apis.config import Config
-from datetime import timedelta, datetime
 
 class UserDetails(Config):
 
-    def getBasicUserDetails(self, pid, user):
+    def getBasicDetails(self, pid, user):
         try:
             user = user.strip('/').strip()
             logs = Config.db[pid]
             
-            recent_datetime = logs.find({'uid_key': user}).sort([('datetime', -1)]).limit(1)
+            recent_logintime = logs.find({'uid_key': user}).sort([('lgt', -1)]).limit(1)
             
             uuid = ''
-            for log in recent_datetime:
+            for log in recent_logintime:
                 uuid = log['uuid']
             
             if uuid:
-                recent_log = logs.find({'uid_key': user,'uuid': uuid }).sort([('datetime', 1)])
+                #recent_log = logs.find({'uid_key': user,'uuid': uuid }).sort([('datetime', 1)])
+                recent_log = logs.find({'uid_key': user,'uuid': uuid })
+                recent_log = self.aggregateLogs(recent_log) # Newly added
             else:
                 recent_log = []
             
-            data = {'uid':user}
+            data = {}
             score = 0
             for rec_data in recent_log:
                 mscore = rec_data['final_score']
@@ -28,13 +29,13 @@ class UserDetails(Config):
                 else:
                     continue
 
-                data['rec_dt'] = rec_data['datetime']
+                data['rec_dt'] = rec_data['lgt']
 
                 if rec_data.get('leaf_key'):
                     leaf_key = dict(map(lambda x:x.split(':'), rec_data['leaf_key'].split(';')[1:]))
                     loc = "%s, %s, %s"%(leaf_key['ci'], leaf_key['st'], leaf_key['co'])
                 else:
-                    loc = "Unknown"#"%s, %s, %s"%(rec_data.get('ci',''), rec_data.get('st',''), rec_data.get('co',''))
+                    loc = "%s, %s, %s"%(rec_data.get('ci',''), rec_data.get('st',''), rec_data.get('co',''))
                 
                 data['rec_loc'] = loc
                 
@@ -51,16 +52,15 @@ class UserDetails(Config):
                 
         except:
             return {
-                'status': 'error',
-                'message': 'There was some error'
-            }
+                'status': 'error'
+                }
 
         return {
                'status': 'success',
                'data': data
             }
     
-    def getLinkedUsers(self, pid, user, limit):
+    def getLinkedList(self, pid, user, limit):
         try:
             limit = int(limit)
 
@@ -68,26 +68,14 @@ class UserDetails(Config):
             
             linked_users = []
             ## Get ip associated with recent log and find all the logs having that ip.
-            recent_log = logs.find({'uid_key': user}).sort([('datetime', -1)]).limit(1)
+            recent_log = logs.find({'uid_key': user}).sort([('lgt', -1)]).limit(1)
             for ulog in recent_log:
                 if not ulog.get('ip'):
                     break
                 ip = ulog['ip']
                 for log in logs.find({'ip':ip}):
-                    linked_user = {}
-                    linked_user['uid'] = log['uid_key']
-                    mscore = log['final_score']
-                    if mscore > self.high:
-                        linked_user['flag'] = 'R'
-                        linked_user['obs'] = 'unsafe'
-                    elif mscore > self.safe:
-                        linked_user['flag'] = 'Y'
-                        linked_user['obs'] = 'safe'
-                    else:
-                        linked_user['flag'] = 'G'
-                        linked_user['obs'] = 'safe'
-                    linked_user['score'] = mscore
-                    if linked_user not in linked_users and linked_user['uid'] != user:
+                    linked_user = log['uid_key']
+                    if linked_user not in linked_users and linked_user != user:
                         linked_users.append(linked_user)
 
             return {
@@ -97,8 +85,7 @@ class UserDetails(Config):
         
         except:
             return {
-                'status': 'error',
-                'message': 'There was some error'
+                'status': 'error'
             }
 
     def __aggregateLogs(self, recent_log):
@@ -111,39 +98,34 @@ class UserDetails(Config):
         return agg
         
     def getRecentActivities(self, pid, user, limit):
+        
         try:
+        #if 1:
             limit = int(limit)
             #from_score, to_score = list(map(lambda x: datetime.strptime(x, '%d-%m-%Y'), request.args.get('score_range').split(';')))        
 
             logs = Config.db[pid]
             
-            recent_log = logs.find({'uid_key': user}).sort([('datetime', -1)])
-            recent_log = self.__aggregateLogs(recent_log)
+            recent_log = logs.find({'uid_key': user}).sort([('lgt', -1)])
+            recent_logs = self.aggregateLogs(recent_log)
             data = []
-            for uuid, logs in recent_log.items():
+            for log in recent_logs:
                 curr_log = {}     
-                score = 0
-                for log in logs:
-                    mscore = log['final_score']
-                    if mscore >= score:
-                        score = mscore
-                    else:
-                        continue
-
+                if 1:
                     if log.get('leaf_key'):
                         leaf_key = dict(map(lambda x:x.split(':'), log['leaf_key'].split(';')[1:]))
                         os, device = leaf_key['os'], leaf_key['d'] 
                         loc = "%s, %s, %s"%(leaf_key['ci'], leaf_key['st'], leaf_key['co'])
                     else:
                         os, device = log['os'], log['d']
-                        loc = "Unknown"#"%s, %s, %s"%(log.get('ci',''), log.get('st',''), log.get('co',''))
+                        loc = "%s, %s, %s"%(log.get('ci',''), log.get('st',''), log.get('co',''))
                     
                     curr_log = {
                         'os': os,
                         'loc': loc,
                         'dvc': device
                     }
-
+                    mscore = log['final_score']
                     if mscore > self.high:
                         curr_log['flag'] = 'R'
                         curr_log['obs'] = 'unsafe'
@@ -155,15 +137,16 @@ class UserDetails(Config):
                         curr_log['obs'] = 'safe'
 
                     curr_log['final_score'] = mscore
-                    curr_log['datetime'] = log['datetime']
-                    curr_log['ip'] = log.get('ip', 'Unknown')
+                    curr_log['datetime'] = log['lgt']
 
                 data.append(curr_log)
         except:
+        #else:
             return {
-                'status': 'error',
-                'message': 'There was some error'
-            }
+                'status': 'failed',
+                'data': []
+                }
+        #print ('-----------------------',data)
         return {
              'status': 'success', 
              'data': data[:limit]
@@ -174,46 +157,41 @@ class UserDetails(Config):
             logs = Config.db[pid]
             
             recent_log = logs.find({'uid_key': user})
-            recent_log = self.__aggregateLogs(recent_log)
+            recent_logs = self.aggregateLogs(recent_log)
 
             data = {}
 
-            for uuid, logs in recent_log.items():
-                score = 0
-                highest_score_log = {}
-                loc = ('','','')
-                for log in logs:
-                    if log.get('leaf_key'):
-                        leaf_key = dict(map(lambda x:x.split(':'), log['leaf_key'].split(';')[1:]))
-                        loc = (leaf_key['ci'], leaf_key['st'], leaf_key['co'])
-                    elif log.get('ci'):
-                        loc = (log.get('ci',''), log.get('st',''), log.get('co',''))
-                    else:
-                        continue
+            max_score = 0
+            highest_score_log = {}
+            for log in recent_logs:
+                if log.get('leaf_key'):
+                    leaf_key = dict(map(lambda x:x.split(':'), log['leaf_key'].split(';')[1:]))
+                    loc = (leaf_key['ci'], leaf_key['st'], leaf_key['co'])
+                elif log.get('ci'):
+                    loc = (log.get('ci',''), log.get('st',''), log.get('co',''))
+                else:
+                    continue
                 
-                    mscore = log['final_score']
-                    if mscore >= score:
-                        score = mscore
-                        highest_score_log = log
+                mscore = log['final_score']
+                if mscore >= max_score:
+                    max_score = mscore
+                    highest_score_log = log
+                
                 if not data.get(loc):
                     data[loc] = highest_score_log
                 elif data[loc]['final_score'] < score:
                     data[loc] = highest_score_log
 
-            loc_data = []
-            # loc_data = {
-            #     'co': [],
-            #     'st': [],
-            #     'ci': [],
-            #     'la': [],
-            #     'lo': [],
-            #     'pd': [],
-            # }
+            loc_data = {
+                'co': [],
+                'st': [],
+                'ci': [],
+                'la': [],
+                'lo': [],
+                'pd': [],
+            }
             for loc, log in data.items():
                 city, state, country = loc
-                loc_item = {}
-                if city == '' and state == '' and country == '':
-                    continue
                 la, lo = log.get('la', ''), log.get('lo', '')
 
                 mscore = log['final_score']
@@ -227,32 +205,20 @@ class UserDetails(Config):
                     flag = 'G'
                     obs = 'safe'
 
-                # loc_item['ci'].append(city)
-                # loc_item['co'].append(country)
-                # loc_item['st'].append(state)
-                # loc_item['la'].append(la)
-                # loc_item['lo'].append(lo)
-                # loc_item['pd'].append({
-                #     'flg': flag,
-                #     'obs': obs,
-                #     'score': mscore
-                # })
-                loc_item['ci'] = city
-                loc_item['co'] = country
-                loc_item['st'] = state
-                loc_item['la'] = la
-                loc_item['lo'] = lo
-                loc_item['pd'] = ({
+                loc_data['ci'].append(city)
+                loc_data['co'].append(country)
+                loc_data['st'].append(state)
+                loc_data['la'].append(la)
+                loc_data['lo'].append(lo)
+                loc_data['pd'].append({
                     'flg': flag,
                     'obs': obs,
                     'score': mscore
                 })
-                loc_data.append(loc_item)
 
         except:
             return {
-                'status': 'error',
-                'message': 'There was some error'
+                'status': 'error'
             }
         return {
             'status': 'success',
@@ -260,7 +226,9 @@ class UserDetails(Config):
         }
             
 if __name__ == "__main__":
-    obj = UserDetails()
-    pid, email = '14', 'aningole16@gmail.com'
+    obj = UsersDetails()
+    pid, email = '14', 'deepakr.kotphode@gmail.com'
 
-    print (obj.getBasicUserDetails(pid, email))
+    print (obj.getBasicDetails(pid, email))
+    print (obj.getRecentActivities(pid, email, 100))
+    print (obj.getUserLocations(pid, email))
