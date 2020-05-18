@@ -195,19 +195,18 @@ class PropertyAPIKeysView(View, CMain):
 	def __init__(self, **arg):
 		super(PropertyAPIKeysView, self).__init__()
 		self.arg = arg
+	#function to load the table
 	def get(self, request, id):
-		# if(not self.valiDateProperty(request, id)):
-		# 	redirect('home')
+		
 		self.getBasicDetails(request, id)
-		#pt = PropertyTokens.objects.filter(pid=id)
 		self.SITE_DATA['page'] = 'property_apikeys'
 		self.SITE_DATA['page_menu'] = 'settings'
 		self.SITE_DATA['page_title'] = 'Property API Keys'
 		self.SITE_DATA['form_url'] = reverse('psapikeys', args=[id])
 		self.SITE_DATA['api_url_logs'] = reverse('psapikeylogs', args=[id])
-		#self.SITE_DATA['password'] = make_password("kN0Hugme46cfRVfl","z8Mnhff89sE0")
-		#self.SITE_DATA['token_logs'] = pt;
+		
 		return render(request, 'property_apikeys.html', self.SITE_DATA)
+
 	def post(self, request, id):
 		#data = {}
 		# pid= id
@@ -220,6 +219,7 @@ class PropertyAPIKeysView(View, CMain):
 		secret_key_hashed = make_password(secret_key)
 		generated_by = cust_obj.id
 
+		#block to fetch details to display in table on UI
 		try:
 			pt_obj = PropertyTokens.objects.get(pid=pid, deleted_at__isnull=True)
 			pt_obj.deleted_at=datetime.now()
@@ -238,6 +238,7 @@ class PropertyAPIKeysView(View, CMain):
 				generated_by=generated_by,
 			)
 		pt.save()
+		#block to choose the user role
 		try:
 			if pt.id:
 				cp = CPRelationship.objects.filter(cust=cust_obj, prop=p)
@@ -267,6 +268,7 @@ class PropertyAPIKeyLogsView(View, CMain):
 	def __init__(self, **arg):
 		super(PropertyAPIKeyLogsView, self).__init__()
 		self.arg = arg
+	#function to fetch the user role, api key generetaed time and the one who created it to display in table on UI
 	def get(self, request, id):
 		# if(not self.valiDateProperty(request, id)):
 		# 	redirect('home')

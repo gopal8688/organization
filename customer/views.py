@@ -36,7 +36,7 @@ class CustomerView():
         'ML_SERVER_API': 'http://demo.authsafe.ai:5000/api/',
         'time_zones': json.dumps(getAllTimeZones.__func__())
     }
-
+    #get customer detail against the email stored in session
     def getCustomerObj(self, request):
         
         email = request.session['email'] #.request.session['email']        

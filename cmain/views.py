@@ -27,7 +27,7 @@ class CMain(CustomerView):
 			full_url = "http://%s/"%full_url
 
 		return full_url
-
+	#validate user against id and email
 	def valiDateProperty(self, request, id):
 		cust_obj = self.getCustomerObj(request)
 		prop_obj = Property.objects.filter(properties__email=cust_obj.email, id=id)
@@ -40,20 +40,23 @@ class CMain(CustomerView):
 	def getBasicDetails(self, request, id):
 
 		try:
+			#check the id is uuid or property id
+			#if id is uuid then fetch property id against it 
 			if(type(id) == str):
 				prop_id = Property.objects.get(uuid=id)
 				id = prop_id.id
 			else:
 				id = id
+			#validate user against property id
 			if(not self.valiDateProperty(request, id)):
 				print(settings.SITE_URL)
 				redirect(reverse('home'))
-
+			#if user successfully validated then fetch his details
 			cust_obj = self.getCustomerObj(request)
 
 			cust_full_name = "%s %s"%(cust_obj.fname, cust_obj.lname)
-			#print ('JSONss', self.SITE_DATA['API_URLS'])
 
+			#set the customer details in json format			
 			context = {
 				'cid': cust_obj.id,
 				'cust_email': cust_obj.email,
@@ -66,12 +69,13 @@ class CMain(CustomerView):
 			timezone.activate(pytz.timezone(request.session['django_timezone']))
 			request.session['pid'] = id
 
-
+			#uuid to append in url
 			prop_obj = self.getPropertyObj(request)
 			request.session['uuid'] = prop_obj.uuid
 
 			properties = Property.objects.filter(properties__email=cust_obj.email)
 
+			#set property details in json
 			if properties:
 				context.update({
 					'rows': properties,
