@@ -62,7 +62,7 @@
               {% comment %}
               <li {% ifequal page_menu 'env' %}class="active"{% endifequal %}><a href="javascript:void"><i class="as-menu-icon as-icon-env"></i><span class="as-menu-text">Environment</span></a></li>
               {% endcomment %}
-              <li {% ifequal page_menu 'settings' %}class="active"{% endifequal %}><a href="{% url 'pssettings' pid %}"><i class="as-menu-icon as-icon-settings"></i><span class="as-menu-text">Settings</span></a></li>
+              <li {% ifequal page_menu 'settings' %}class="active"{% endifequal %}><a href="{% url 'pssettings' uuid %}"><i class="as-menu-icon as-icon-settings"></i><span class="as-menu-text">Settings</span></a></li>
             </ul>
           </div>
         </div>
