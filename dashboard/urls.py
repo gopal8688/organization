@@ -4,7 +4,7 @@ from .views import DashboardView as DV#,HighRiskUsersView#, PropertySelection as
 
 extra_patterns = [
 	path('', login_required(DV.as_view()), name='home'),
-	path('<int:id>/', login_required(DV.as_view()), name='pr-home'),
+	path('<str:uuid>/', login_required(DV.as_view()), name='pr-home'),
 	#path('high-risk-users/<int:id>/', HighRiskUsersView.as_view(), name='hru'),
 ]
 

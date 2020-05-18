@@ -57,12 +57,12 @@
         <div class="as-aside-menu-wrap">
           <div class="as-aside-menu">
             <ul class="as-aside-menu-nav">
-              <li {% ifequal page_menu 'home' %}class="active"{% endifequal %}><a href="{% url 'pr-home' pid %}"><i class="as-menu-icon as-icon-home"></i><span class="as-menu-text">Home</span></a></li>
+              <li {% ifequal page_menu 'home' %}class="active"{% endifequal %}><a href="{% url 'pr-home' uuid %}"><i class="as-menu-icon as-icon-home"></i><span class="as-menu-text">Home</span></a></li>
               <li {% ifequal page_menu 'users' %}class="active"{% endifequal %}><a href="{% url 'userindex' pid %}"><i class="as-menu-icon as-icon-user"></i><span class="as-menu-text">Users</span></a></li>
               {% comment %}
               <li {% ifequal page_menu 'env' %}class="active"{% endifequal %}><a href="javascript:void"><i class="as-menu-icon as-icon-env"></i><span class="as-menu-text">Environment</span></a></li>
               {% endcomment %}
-              <li {% ifequal page_menu 'settings' %}class="active"{% endifequal %}><a href="{% url 'pssettings' pid %}"><i class="as-menu-icon as-icon-settings"></i><span class="as-menu-text">Settings</span></a></li>
+              <li {% ifequal page_menu 'settings' %}class="active"{% endifequal %}><a href="{% url 'pssettings' uuid %}"><i class="as-menu-icon as-icon-settings"></i><span class="as-menu-text">Settings</span></a></li>
             </ul>
           </div>
         </div>

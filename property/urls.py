@@ -1,6 +1,6 @@
 from django.urls import include, path
 from django.contrib.auth.decorators import login_required
-from .views import PropertyCreateView as PV, PropertySDKView, PropertySettingsView, PropertyPlatformsView, PropertyPlatformWebView, PropertyTrackingCodeView, PropertyAPIKeysView, PropertyAPIKeyLogsView, PropertyDNTrackView, PropertyWebhooksView, PropertyCAlertsView, PropertyDNTrackIPView, PropertyDNTrackEmailView
+from .views import PropertyCreateView as PV, PropertySDKView, PropertySettingsView, PropertyPlatformsView, PropertyPlatformWebView, PropertyTrackingCodeView, PropertyAPIKeysView, PropertyAPIKeyLogsView, PropertyDNTrackView, PropertyWebhooksView, PropertyCAlertsView, PropertyDNTrackIPView, PropertyDNTrackIPDeleteView, PropertyDNTrackEmailView, PropertyDNTrackEmailDeleteView
 
 urlpatterns = [
 	path('create', login_required(PV.as_view()), name="propertyCreate"),
@@ -14,6 +14,8 @@ urlpatterns = [
 	path('settings/do-not-track/<str:uuid>', login_required(PropertyDNTrackView.as_view()), name="psdntrack"),
 	path('settings/do-not-track-ip/<str:uuid>', login_required(PropertyDNTrackIPView.as_view()), name="psdntrackip"),
 	path('settings/do-not-track-email/<str:uuid>', login_required(PropertyDNTrackEmailView.as_view()), name="psdntrackemail"),
+	path('settings/do-not-track-ip-delete/<int:id>', login_required(PropertyDNTrackIPDeleteView.as_view()), name="psdntrackipdelete"),
+	path('settings/do-not-track-email-delete/<int:id>', login_required(PropertyDNTrackEmailDeleteView.as_view()), name="psdntrackemaildelete"),
 	path('settings/webhooks/<str:uuid>', login_required(PropertyWebhooksView.as_view()), name="pswebhooks"),
 	path('settings/customized-alerts/<str:uuid>', login_required(PropertyCAlertsView.as_view()), name="pscalerts"),
 
