@@ -22,8 +22,12 @@ class Config():
 	#     remote_bind_address=('127.0.0.1', 27017)
 	# )   
 	# server.start()
+	if(type(MONGO_PORT) == None):
+		MONGO_PORT = int(MONGO_PORT)
+	else:
+		MONGO_PORT = 27017
 
-	client = MongoClient(MONGO_HOST,int(MONGO_PORT),username=MONGO_USER,password=MONGO_PASS)
+	client = MongoClient(MONGO_HOST,MONGO_PORT,username=MONGO_USER,password=MONGO_PASS)
 	db = client[MONGO_DB]
 	high = 90
 	mid = 77
