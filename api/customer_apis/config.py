@@ -2,15 +2,18 @@ from pymongo import MongoClient
 from elasticsearch import Elasticsearch
 
 import functools
+import os, dotenv
+dotenv.load_dotenv()
 
 from sshtunnel import SSHTunnelForwarder
 
 class Config():
-	MONGO_HOST = "10.10.10.4"
-	MONGO_PORT = 27017
-	MONGO_DB = 'ml_logs' #"DATABASE_NAME"
-	MONGO_USER = ''
-	MONGO_PASS = ''
+	MONGO_HOST = os.getenv('MONGO_HOST')
+	MONGO_PORT = os.getenv('MONGO_PORT')
+	MONGO_DB = os.getenv('MONGO_DB') #"DATABASE_NAME"
+	MONGO_USER = os.getenv('')
+	MONGO_PASS = os.getenv('')
+
 
 	# server = SSHTunnelForwarder(
 	#     MONGO_HOST,
@@ -20,12 +23,13 @@ class Config():
 	# )   
 	# server.start()
 
-	client = MongoClient(MONGO_HOST,MONGO_PORT,username=MONGO_USER,password=MONGO_PASS)
+	client = MongoClient(MONGO_HOST,int(MONGO_PORT),username=MONGO_USER,password=MONGO_PASS)
 	db = client[MONGO_DB]
 	high = 90
 	mid = 77
 	safe = 20
 	extract_size = 30
+
 
 	# Generalized criterias.
 	def __init__(self):
@@ -43,8 +47,8 @@ class Config():
 
 	def getElasticConn(self):
 		conn = Elasticsearch([{
-					'host':  '10.10.10.4', 
-					'port':  '9200'
+					'host':  os.getenv('host'),
+					'port':  os.getenv('port')
 				}], 
 				# http_auth=(
 				# 	'elastic', 
