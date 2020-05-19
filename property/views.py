@@ -139,16 +139,24 @@ class PropertyPlatformsView(View, CMain):
 	def __init__(self, **arg):
 		super(PropertyPlatformsView, self).__init__()
 		self.arg = arg
-	def get(self, request, id):
+	def get(self, request, uuid):
 		# if(not self.valiDateProperty(request, id)):
 		# 	redirect('home')
 		#return HttpResponse(str(request.GET['firstime']))
-		self.getBasicDetails(request, id)
+		self.getBasicDetails(request, uuid)
+		
+		#if appended id is uuid then get pid against it otherwise use it as it is
+		# if(type(uuid) == str):
+		# 	prop_id = Property.objects.get(uuid=uuid)
+		# 	id = prop_id.id
+		# else:
+		# 	id = id
+		prop_id = Property.objects.get(uuid=uuid)
 		self.SITE_DATA['page'] = 'property_platforms'
 		self.SITE_DATA['page_menu'] = 'settings'
 		self.SITE_DATA['page_title'] = 'Property Platforms'
-		self.SITE_DATA['form_url'] = reverse('psplatformweb', args=[id])
-		pw = self.getPropertyWebDetails(request, id)
+		self.SITE_DATA['form_url'] = reverse('psplatformweb', args=[uuid])
+		pw = self.getPropertyWebDetails(request, prop_id.id)
 		if pw:
 			self.SITE_DATA['website'] = pw
 		return render(request, 'property_platforms.html', self.SITE_DATA)
@@ -157,11 +165,11 @@ class PropertyPlatformWebView(View, CMain):
 	def __init__(self, **arg):
 		super(PropertyPlatformWebView, self).__init__()
 		self.arg = arg
-	def post(self, request, id):
+	def post(self, request, uuid):
 		#data = {}
-		pid= id
+		#pid= id
 		pu = request.POST['pu']
-		p = Property.objects.get(id=pid)
+		p = Property.objects.get(uuid=uuid)
 		if p:
 			w = WebPlatform(properties=p, domain=pu, verify_code=get_random_string(length=6, allowed_chars='123456789abcdefghijklmnopqrstuvwxyz'))
 			w.save()
@@ -196,9 +204,15 @@ class PropertyAPIKeysView(View, CMain):
 		super(PropertyAPIKeysView, self).__init__()
 		self.arg = arg
 	#function to load the table
-	def get(self, request, id):
+	def get(self, request, uuid):
 		
-		self.getBasicDetails(request, id)
+		self.getBasicDetails(request, uuid)
+		#if appended id is uuid then get pid against it otherwise use it as it is
+		if(type(uuid) == str):
+			prop_id = Property.objects.get(uuid=uuid)
+			id = prop_id.id
+		else:
+			id = id
 		self.SITE_DATA['page'] = 'property_apikeys'
 		self.SITE_DATA['page_menu'] = 'settings'
 		self.SITE_DATA['page_title'] = 'Property API Keys'
@@ -372,6 +386,7 @@ class PropertyDNTrackIPView(View, CMain):
 			prop_obj = self.getPropertyObj(request)
 			# Form submission code goes here
 			dnt_ip = request.POST['dnt_ip']
+			print(dnt_ip)
 			ipRegex = '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
 			ipRangeRegex = '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\/([0-9]|[1-2][0-9]|3[0-2])$'
 			# Comma separated entries will be broken and added separately
