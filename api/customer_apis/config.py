@@ -3,17 +3,23 @@ from elasticsearch import Elasticsearch
 
 import functools
 import os, dotenv
+import logging
 dotenv.load_dotenv()
 
 from sshtunnel import SSHTunnelForwarder
 
 class Config():
+	logger = logging.getLogger('custom')
+	
 	MONGO_HOST = os.getenv('MONGO_HOST')
 	MONGO_PORT = os.getenv('MONGO_PORT')
 	MONGO_DB = os.getenv('MONGO_DB') #"DATABASE_NAME"
 	MONGO_USER = os.getenv('')
 	MONGO_PASS = os.getenv('')
 
+	print(MONGO_HOST)
+	print(MONGO_PORT)
+	print(MONGO_DB)
 
 	# server = SSHTunnelForwarder(
 	#     MONGO_HOST,
